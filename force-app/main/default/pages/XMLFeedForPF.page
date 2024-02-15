@@ -1,0 +1,5 @@
+<apex:page controller="XMLFeedGeneratorForPF" contentType="text/xml;charset=UTF-8" standardStylesheets="false" showHeader="false">
+<root>
+   	<exampleNode>Hello, World!</exampleNode>
+</root>
+</apex:page>

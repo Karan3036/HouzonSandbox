@@ -1,0 +1,35 @@
+<aura:component implements="force:appHostable,force:hasSObjectName,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="selectionCategory" type="Object"/>
+    <aura:attribute name="recordLoadError" type="String"/>
+    <force:recordData aura:id="forceRecord" recordId="{!v.recordId}" fields="Id, Name" targetFields="{!v.selectionCategory}" targetError="{!v.recordLoadError}" />
+    <aura:attribute name="xmlFeedURL" type="String"/>
+    
+    <div class="container" style="display: flex;flex-direction: column;gap: 10px;">
+        <div class="copy-text" aura:id="copyText">
+            <div>
+            	<p style="font-size: larger;font-weight: 500;">Property Finder</p>
+            </div>    
+            <div style="display: flex;flex-direction: row;">
+            	<input value="{!'https://houzonrealestatellc--mvcsandbox.sandbox.my.salesforce-sites.com/XMLFeedForPF?Id=' + v.selectionCategory.Id}" aura:id="inputF1" disabled="true" class="output-holder1"/>
+            	<lightning:button iconName="utility:copy_to_clipboard"
+                                onclick="{!c.copyInputFieldValue}"
+                                label="Copy"
+                                aura:id="btn1"/>
+            </div>    
+        </div>
+        <div class="copy-text" aura:id="copyText">
+            <div>
+            	<p style="font-size: larger;font-weight: 500;">Bayut and Dubizzle</p>
+            </div>
+            <div style="display: flex;flex-direction: row;">
+                <input value="{!'https://houzonrealestatellc--mvcsandbox.sandbox.my.salesforce-sites.com/XMLFeed?Id=' + v.selectionCategory.Id}" aura:id="inputF2" disabled="true" class="output-holder2"/>
+                <lightning:button iconName="utility:copy_to_clipboard"
+                                onclick="{!c.copyInputFieldValue}"
+                                label="Copy"
+                                aura:id="btn2"/>
+            </div>    
+        </div>                  
+    </div>
+
+</aura:component>
