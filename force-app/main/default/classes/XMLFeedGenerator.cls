@@ -29,7 +29,7 @@ public class XMLFeedGenerator {
                     // Check for null before adding text node
                     if (fieldValue != null) {
                         dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
-                        fieldNode.addTextNode('<![' + String.valueOf(fieldValue) + ']>');
+                        fieldNode.addTextNode(String.valueOf(fieldValue));
                     }
                 }
             }
@@ -48,27 +48,27 @@ public class XMLFeedGenerator {
                     // Check for null before adding text node
                     if (fieldValue != null) {
                         dom.XmlNode fieldNode = feature.addChildElement(fieldName, null, null);
-                        fieldNode.addTextNode('<![' + String.valueOf(fieldValue) + ']>');
+                        fieldNode.addTextNode(String.valueOf(fieldValue));
                     }
                 }
             }
             
             dom.XmlNode lastupdate = propertyNode.addChildElement('Last_Updated', null, null);
-            lastupdate.addTextNode('<![2024-02-14 14:30:19]>');
+            lastupdate.addTextNode('2024-02-14 14:30:19');
             
             dom.XmlNode ImageNode = propertyNode.addChildElement('Images', null, null);
             dom.XmlNode fieldNodeImage = ImageNode.addChildElement('Image', null, null);
-            fieldNodeImage.addTextNode('<![https://s3.amazonaws.com/propertybase-clients/00D4J000000GqeCUAS/a0O8d000005rSnj/r5jnm6cba/01.jpeg]>');
+            fieldNodeImage.addTextNode('https://s3.amazonaws.com/propertybase-clients/00D4J000000GqeCUAS/a0O8d000005rSnj/r5jnm6cba/01.jpeg');
             
             dom.XmlNode VideoNode = propertyNode.addChildElement('Videos', null, null);
             dom.XmlNode fieldNodeVideo = VideoNode.addChildElement('Video', null, null);
-            fieldNodeVideo.addTextNode('<![http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4]>');
+            fieldNodeVideo.addTextNode('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
             
             dom.XmlNode Portal = propertyNode.addChildElement('Portals', null, null);
             dom.XmlNode PortalValue1 = Portal.addChildElement('Portal', null, null);
-            PortalValue1.addTextNode('<![Bayut]>');
+            PortalValue1.addTextNode('Bayut');
             dom.XmlNode PortalValue2 = Portal.addChildElement('Portal', null, null);
-            PortalValue2.addTextNode('<![Dubizzle]>');
+            PortalValue2.addTextNode('Dubizzle');
             
         }
 
@@ -147,6 +147,7 @@ public class XMLFeedGenerator {
         input = input.replace('Feature_5__c', 'Feature');
         input = input.replace('Feature_6__c', 'Feature');
         input = input.replace('RERA_Permit_Number__c', 'Permit_Number');
+        input = input.replace('Off_plan__c', 'Off_Plan');
         input = input.replace('Rent_Frequency__c', 'Rent_Frequency');
         input = input.replace('Furnished__c', 'Furnished');
         return input;

@@ -107,7 +107,7 @@ public class XMLFeedGeneratorForPF {
     
     // Function to escape special characters
     private String escapeXml(String input) {
-        // input = input.replace('&', '&amp;');
+        // input = input.replace('<?xml version="1.0" encoding="UTF-8"?>', '');
         input = input.replace('&lt;', '<');
         input = input.replace('&gt;', '>');
         input = input.replace('OwnerId', 'id');
@@ -118,6 +118,7 @@ public class XMLFeedGeneratorForPF {
         input = input.replace('City_Propertyfinder__c', 'city');
         input = input.replace('Community_Propertyfinder__c', 'community');
         input = input.replace('Sub_community', 'sub_community');
+        input = input.replace('Property_Propertyfinder__c', 'property_name');
         input = input.replace('Offer_Type__c', 'offering_type');
         input = input.replace('Name', 'title_en');
         input = input.replace('Description_hz__c', 'description_en');
