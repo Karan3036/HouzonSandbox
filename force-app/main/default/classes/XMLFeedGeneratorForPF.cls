@@ -5,7 +5,7 @@ public class XMLFeedGeneratorForPF {
     public XMLFeedGeneratorForPF() {
         recordID = ApexPages.currentPage().getParameters().get('Id').escapeHtml4();
         Set<Id> ListingIds = new Set<Id>();
-        List<PortalListing__c> PortalListings = [Select Id, Listing_hz__c, Portal__c from PortalListing__c Where Portal__c =: recordID AND SystemIsActive__c = True];
+        List<PortalListing__c> PortalListings = [Select Id, Listing_hz__c, Portal__c, Portal__r.LastModifiedDate from PortalListing__c Where Portal__c =: recordID AND SystemIsActive__c = True];
         for (PortalListing__c PortalList : PortalListings) {
             if (PortalList.Listing_hz__c != null) {
                 ListingIds.add(PortalList.Listing_hz__c);
@@ -17,15 +17,36 @@ public class XMLFeedGeneratorForPF {
 
         List<SObject> records = Database.query(query);
 
+        Set<Id> PropertyIds = new Set<Id>();
+        for (SObject record : records) {
+            Id propertyId = (Id)record.get('Property_hz__c');
+            if (propertyId != null) {
+                PropertyIds.add(propertyId);
+            }
+        }
+
+        // Map to store PropertyMedia__c records related to each Property_hz__c
+        Map<Id, List<PropertyMedia__c>> propertyMediaUrlsMap = new Map<Id, List<PropertyMedia__c>>();
+        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, Property_hz__c, LastModifiedDate FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds]) {
+            if (!propertyMediaUrlsMap.containsKey(media.Property_hz__c)) {
+                propertyMediaUrlsMap.put(media.Property_hz__c, new List<PropertyMedia__c>());
+            }
+            propertyMediaUrlsMap.get(media.Property_hz__c).add(media);
+        }
+
         DOM.Document doc = new DOM.Document();
         dom.XmlNode rootNode = doc.createRootElement('list', null, null);
-        rootNode.setAttribute('last_update', '2024-02-09 17:05:00');
+        rootNode.setAttribute('last_update', PortalListings[0].Portal__r.LastModifiedDate.format('yyyy-MM-dd HH:mm:ss'));
         rootNode.setAttribute('listing_count', String.valueOf(records.size()));
-
 
         for (SObject record : records) {
             dom.XmlNode propertyNode = rootNode.addChildElement('property', null, null);
-            propertyNode.setAttribute('last_update', '2024-02-09 17:05:00');
+            String lastModifiedDate = '';
+            if (record.get('LastModifiedDate') != null) {
+                Datetime lastModifiedDatetime = (Datetime)record.get('LastModifiedDate');
+                lastModifiedDate = lastModifiedDatetime.format('yyyy-MM-dd HH:mm:ss');
+            }
+            propertyNode.setAttribute('last_update', lastModifiedDate);
             
             for (String fieldName : fieldNames) {
                 if(fieldName != 'Listing_Agent_Full_Name__c' && 
@@ -59,12 +80,16 @@ public class XMLFeedGeneratorForPF {
                 }
             }
             
-            dom.XmlNode ImageNode = propertyNode.addChildElement('photo', null, null);
-            dom.XmlNode fieldNodeImage = ImageNode.addChildElement('url', null, null);
-            fieldNodeImage.setAttribute('last_update', '2024-02-09 17:05:00');
-            fieldNodeImage.setAttribute('watermark', 'yes');
-            fieldNodeImage.addTextNode('https://s3.amazonaws.com/propertybase-clients/00D4J000000GqeCUAS/a0O8d000005rSnj/r5jnm6cba/01.jpeg');
-            
+            // Include image URLs from map
+            if (propertyMediaUrlsMap.containsKey((Id)record.get('Property_hz__c'))) {
+                dom.XmlNode ImageNode = propertyNode.addChildElement('photo', null, null);
+                for (PropertyMedia__c media : propertyMediaUrlsMap.get((Id)record.get('Property_hz__c'))) {
+                    dom.XmlNode fieldNodeImage = ImageNode.addChildElement('url', null, null);
+                    fieldNodeImage.setAttribute('last_update', media.LastModifiedDate.format('yyyy-MM-dd HH:mm:ss'));
+                    fieldNodeImage.setAttribute('watermark', 'yes');
+                    fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                }
+            }
         }
 
         xmlstring = escapeXml(doc.toXmlString());
@@ -101,7 +126,7 @@ public class XMLFeedGeneratorForPF {
     }
 
     public String generateDynamicQuery(List<String> fieldNames, Set<Id> ListingIds) {
-        String query = 'SELECT Id, Property_hz__c';
+        String query = 'SELECT Id, Property_hz__c, LastModifiedDate';
 
         for (String fieldName : fieldNames) {
             query += ', ' + fieldName;
