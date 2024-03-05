@@ -4,9 +4,16 @@ public class XMLFeedGeneratorForPF {
 
     public XMLFeedGeneratorForPF() {
         recordID = ApexPages.currentPage().getParameters().get('Id').escapeHtml4();
+        Set<Id> ListingIds = new Set<Id>();
+        List<PortalListing__c> PortalListings = [Select Id, Listing_hz__c, Portal__c from PortalListing__c Where Portal__c =: recordID AND SystemIsActive__c = True];
+        for (PortalListing__c PortalList : PortalListings) {
+            if (PortalList.Listing_hz__c != null) {
+                ListingIds.add(PortalList.Listing_hz__c);
+            }
+        }
         List<String> fieldNames = getFieldNamesFromFieldSet('Listing_hz__c', 'FieldsForPF');
         System.debug('Field Names: ' + fieldNames);
-        String query = generateDynamicQuery(fieldNames);
+        String query = generateDynamicQuery(fieldNames, ListingIds);
 
         List<SObject> records = Database.query(query);
 
@@ -93,23 +100,20 @@ public class XMLFeedGeneratorForPF {
         return fieldNames;
     }
 
-    public String generateDynamicQuery(List<String> fieldNames) {
-        String query = 'SELECT Id';
+    public String generateDynamicQuery(List<String> fieldNames, Set<Id> ListingIds) {
+        String query = 'SELECT Id, Property_hz__c';
 
         for (String fieldName : fieldNames) {
             query += ', ' + fieldName;
         }
 
-        query += ' FROM Listing_hz__c WHERE Id = :recordID LIMIT 1';
+        query += ' FROM Listing_hz__c WHERE Id IN :ListingIds';
 
         return query;
     }
     
     // Function to escape special characters
     private String escapeXml(String input) {
-        // input = input.replace('<?xml version="1.0" encoding="UTF-8"?>', '');
-        input = input.replace('&lt;', '<');
-        input = input.replace('&gt;', '>');
         input = input.replace('OwnerId', 'id');
         input = input.replace('Broker_s_Listing_ID__c', 'reference_number');
         input = input.replace('RERA_Permit_Number__c', 'permit_number');
