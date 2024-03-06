@@ -4,15 +4,38 @@ public class XMLFeedGenerator {
 
     public XMLFeedGenerator() {
         recordID = ApexPages.currentPage().getParameters().get('Id').escapeHtml4();
+        Set<Id> ListingIds = new Set<Id>();
+        List<PortalListing__c> PortalListings = [Select Id, Listing_hz__c, Portal__c, Portal__r.LastModifiedDate from PortalListing__c Where Portal__c =: recordID AND SystemIsActive__c = True];
+        for (PortalListing__c PortalList : PortalListings) {
+            if (PortalList.Listing_hz__c != null) {
+                ListingIds.add(PortalList.Listing_hz__c);
+            }
+        }
         List<String> fieldNames = getFieldNamesFromFieldSet('Listing_hz__c', 'FieldsForBayut');
         System.debug('Field Names: ' + fieldNames);
+        String query = generateDynamicQuery(fieldNames, ListingIds);
+
+        List<SObject> records = Database.query(query);
+
+        Set<Id> PropertyIds = new Set<Id>();
+        for (SObject record : records) {
+            Id propertyId = (Id)record.get('Property_hz__c');
+            if (propertyId != null) {
+                PropertyIds.add(propertyId);
+            }
+        }
+
+        // Map to store PropertyMedia__c records related to each Property_hz__c
+        Map<Id, List<PropertyMedia__c>> propertyMediaUrlsMap = new Map<Id, List<PropertyMedia__c>>();
+        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, Property_hz__c, LastModifiedDate FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds]) {
+            if (!propertyMediaUrlsMap.containsKey(media.Property_hz__c)) {
+                propertyMediaUrlsMap.put(media.Property_hz__c, new List<PropertyMedia__c>());
+            }
+            propertyMediaUrlsMap.get(media.Property_hz__c).add(media);
+        }
 
         DOM.Document doc = new DOM.Document();
         dom.XmlNode rootNode = doc.createRootElement('Properties', null, null);
-
-        String query = generateDynamicQuery(fieldNames);
-
-        List<SObject> records = Database.query(query);
 
         for (SObject record : records) {
             dom.XmlNode propertyNode = rootNode.addChildElement('Property', null, null);
@@ -52,17 +75,23 @@ public class XMLFeedGenerator {
                     }
                 }
             }
+
+            String lastModifiedDate = '';
+            if (record.get('LastModifiedDate') != null) {
+                Datetime lastModifiedDatetime = (Datetime)record.get('LastModifiedDate');
+                lastModifiedDate = lastModifiedDatetime.format('yyyy-MM-dd HH:mm:ss');
+            }
             
             dom.XmlNode lastupdate = propertyNode.addChildElement('Last_Updated', null, null);
-            lastupdate.addTextNode('2024-02-14 14:30:19');
-            
-            dom.XmlNode ImageNode = propertyNode.addChildElement('Images', null, null);
-            dom.XmlNode fieldNodeImage = ImageNode.addChildElement('Image', null, null);
-            fieldNodeImage.addTextNode('https://s3.amazonaws.com/propertybase-clients/00D4J000000GqeCUAS/a0O8d000005rSnj/r5jnm6cba/01.jpeg');
-            
-            dom.XmlNode VideoNode = propertyNode.addChildElement('Videos', null, null);
-            dom.XmlNode fieldNodeVideo = VideoNode.addChildElement('Video', null, null);
-            fieldNodeVideo.addTextNode('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
+            lastupdate.addTextNode(lastModifiedDate);
+
+            if (propertyMediaUrlsMap.containsKey((Id)record.get('Property_hz__c'))) {
+                dom.XmlNode ImageNode = propertyNode.addChildElement('Images', null, null);
+                for (PropertyMedia__c media : propertyMediaUrlsMap.get((Id)record.get('Property_hz__c'))) {
+                    dom.XmlNode fieldNodeImage = ImageNode.addChildElement('Image', null, null);
+                    fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                }
+            }
             
             dom.XmlNode Portal = propertyNode.addChildElement('Portals', null, null);
             dom.XmlNode PortalValue1 = Portal.addChildElement('Portal', null, null);
@@ -105,14 +134,14 @@ public class XMLFeedGenerator {
         return fieldNames;
     }
 
-    public String generateDynamicQuery(List<String> fieldNames) {
-        String query = 'SELECT Id';
+    public String generateDynamicQuery(List<String> fieldNames, Set<Id> ListingIds) {
+        String query = 'SELECT Id, Property_hz__c, LastModifiedDate';
 
         for (String fieldName : fieldNames) {
             query += ', ' + fieldName;
         }
 
-        query += ' FROM Listing_hz__c WHERE Id = :recordID LIMIT 1';
+        query += ' FROM Listing_hz__c WHERE Id IN :ListingIds';
 
         return query;
     }
