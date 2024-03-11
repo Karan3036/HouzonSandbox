@@ -38,6 +38,18 @@ public class XMLFeedGenerator {
         dom.XmlNode rootNode = doc.createRootElement('Properties', null, null);
 
         for (SObject record : records) {
+
+            boolean hasFeatureValues = false;
+            for (String fieldName : fieldNames) {
+                if (fieldName.startsWith('Feature_')) {
+                    Object fieldValue = record.get(fieldName);
+                    if (fieldValue != null) {
+                        hasFeatureValues = true;
+                        break;
+                    }
+                }
+            }
+
             dom.XmlNode propertyNode = rootNode.addChildElement('Property', null, null);
             
             for (String fieldName : fieldNames) {
@@ -49,29 +61,30 @@ public class XMLFeedGenerator {
                    fieldName != 'Feature_6__c'){
                     Object fieldValue = record.get(fieldName);
     
-                    // Check for null before adding text node
                     if (fieldValue != null) {
                         dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
                         fieldNode.addTextNode(String.valueOf(fieldValue));
                     }
                 }
             }
-            
-            dom.XmlNode feature = propertyNode.addChildElement('Features', null, null);
-            
-            for (String fieldName : fieldNames) {
-                if(fieldName == 'Feature_1__c' || 
-                   fieldName == 'Feature_2__c' || 
-                   fieldName == 'Feature_3__c' || 
-                   fieldName == 'Feature_4__c' || 
-                   fieldName == 'Feature_5__c' || 
-                   fieldName == 'Feature_6__c'){
-                    Object fieldValue = record.get(fieldName);
-    
-                    // Check for null before adding text node
-                    if (fieldValue != null) {
-                        dom.XmlNode fieldNode = feature.addChildElement(fieldName, null, null);
-                        fieldNode.addTextNode(String.valueOf(fieldValue));
+
+            if (hasFeatureValues) {
+                dom.XmlNode feature = propertyNode.addChildElement('Features', null, null);
+                
+                for (String fieldName : fieldNames) {
+                    if(fieldName == 'Feature_1__c' || 
+                    fieldName == 'Feature_2__c' || 
+                    fieldName == 'Feature_3__c' || 
+                    fieldName == 'Feature_4__c' || 
+                    fieldName == 'Feature_5__c' || 
+                    fieldName == 'Feature_6__c'){
+                        Object fieldValue = record.get(fieldName);
+        
+                        // Check for null before adding text node
+                        if (fieldValue != null) {
+                            dom.XmlNode fieldNode = feature.addChildElement(fieldName, null, null);
+                            fieldNode.addTextNode(String.valueOf(fieldValue));
+                        }
                     }
                 }
             }
@@ -148,9 +161,6 @@ public class XMLFeedGenerator {
     
     // Function to escape special characters
     private String escapeXml(String input) {
-        // input = input.replace('&', '&amp;');
-        input = input.replace('&lt;', '<');
-        input = input.replace('&gt;', '>');
         input = input.replace('Broker_s_Listing_ID__c', 'Property_Ref_No');
         input = input.replace('ListingType__c', 'Property_purpose');
         input = input.replace('PropertyType__c', 'Property_Type');
