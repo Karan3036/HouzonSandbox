@@ -138,30 +138,80 @@ public class XMLFeedGeneratorForPF {
     }
     
     // Function to escape special characters
+
+    // private String escapeXml(String input) {
+    //     input = input.replace('OwnerId', 'id');
+    //     input = input.replace('Broker_s_Listing_ID__c', 'reference_number');
+    //     input = input.replace('RERA_Permit_Number__c', 'permit_number');
+    //     input = input.replace('ListingPrice_hz__c', 'price');
+    //     input = input.replace('ShortformOfPropertyType__c', 'property_type');
+    //     input = input.replace('City_Propertyfinder__c', 'city');
+    //     input = input.replace('Community_Propertyfinder__c', 'community');
+    //     input = input.replace('Sub_community', 'sub_community');
+    //     input = input.replace('Property_Propertyfinder__c', 'property_name');
+    //     input = input.replace('Offer_Type__c', 'offering_type');
+    //     input = input.replace('Name', 'title_en');
+    //     input = input.replace('Description_hz__c', 'description_en');
+    //     input = input.replace('ShortformOfPrivateAmenities__c', 'private_amenities');
+    //     input = input.replace('View_hz__c', 'view');
+    //     input = input.replace('TotalArea_hz__c', 'size');
+    //     input = input.replace('Bedrooms_hz__c', 'bedroom');
+    //     input = input.replace('FullBathrooms_hz__c', 'bathroom');
+    //     input = input.replace('Completion_Status__c', 'completion_status');
+    //     input = input.replace('Listing_Agent_Full_title_en__c', 'name');
+    //     input = input.replace('Listing_Agent_Email__c', 'email');
+    //     input = input.replace('Listing_Agent_Phone__c', 'phone');
+    //     input = input.replace('Floor__c', 'floor');
+    //     input = input.replace('Furnished__c', 'furnished');
+    //     return input;
+    // }
+        
     private String escapeXml(String input) {
-        input = input.replace('OwnerId', 'id');
-        input = input.replace('Broker_s_Listing_ID__c', 'reference_number');
-        input = input.replace('RERA_Permit_Number__c', 'permit_number');
-        input = input.replace('ListingPrice_hz__c', 'price');
-        input = input.replace('ShortformOfPropertyType__c', 'property_type');
-        input = input.replace('City_Propertyfinder__c', 'city');
-        input = input.replace('Community_Propertyfinder__c', 'community');
-        input = input.replace('Sub_community', 'sub_community');
-        input = input.replace('Property_Propertyfinder__c', 'property_name');
-        input = input.replace('Offer_Type__c', 'offering_type');
-        input = input.replace('Name', 'title_en');
-        input = input.replace('Description_hz__c', 'description_en');
-        input = input.replace('ShortformOfPrivateAmenities__c', 'private_amenities');
-        input = input.replace('View_hz__c', 'view');
-        input = input.replace('TotalArea_hz__c', 'size');
-        input = input.replace('Bedrooms_hz__c', 'bedroom');
-        input = input.replace('FullBathrooms_hz__c', 'bathroom');
-        input = input.replace('Completion_Status__c', 'completion_status');
-        input = input.replace('Listing_Agent_Full_title_en__c', 'name');
-        input = input.replace('Listing_Agent_Email__c', 'email');
-        input = input.replace('Listing_Agent_Phone__c', 'phone');
-        input = input.replace('Floor__c', 'floor');
-        input = input.replace('Furnished__c', 'furnished');
+        Map<String, String> replacements = new Map<String, String>{
+            'OwnerId' => 'id',
+            'Broker_s_Listing_ID__c' => 'reference_number',
+            'RERA_Permit_Number__c' => 'permit_number',
+            'ListingPrice_hz__c' => 'price',
+            'ShortformOfPropertyType__c' => 'property_type',
+            'City_Propertyfinder__c' => 'city',
+            'Community_Propertyfinder__c' => 'community',
+            'Sub_community' => 'sub_community',
+            'Property_Propertyfinder__c' => 'property_name',
+            'Offer_Type__c' => 'offering_type',
+            'Name' => 'title_en',
+            'Description_hz__c' => 'description_en',
+            'ShortformOfPrivateAmenities__c' => 'private_amenities',
+            'View_hz__c' => 'view',
+            'TotalArea_hz__c' => 'size',
+            'Bedrooms_hz__c' => 'bedroom',
+            'FullBathrooms_hz__c' => 'bathroom',
+            'Completion_Status__c' => 'completion_status',
+            'Listing_Agent_Full_title_en__c' => 'name',
+            'Listing_Agent_Email__c' => 'email',
+            'Listing_Agent_Phone__c' => 'phone',
+            'Floor__c' => 'floor',
+            'Furnished__c' => 'furnished',
+            'DTCM_Permit_hz__c' => 'dtcm_permit',
+            'Service_Charge__c' => 'service_charge',
+            'Number_Of_Cheques__c' => 'cheques',
+            'Title_Arabic__c' => 'title_ar',
+            'Description_Arabic__c' => 'description_ar',
+            'Commercial_Amenities__c' => 'commercial_amenities',
+            'LotSize_hz__c' => 'plot_size',
+            'YearBuilt_hz__c' => 'year_built',
+            'Floor_Level__c' => 'floor',
+            'Stories__c' => 'stories',
+            'NumberOfParkingSpaces__c' => 'parking',
+            'Title_Deed__c' => 'title_deed',
+            'Availability_Date__c' => 'availability_date',
+            'Developer_Name__c' => 'Developer',
+            'CompletionStatus_hz__c' => 'completion_status'
+        };
+        
+        for (String key : replacements.keySet()) {
+            input = input.replace(key, replacements.get(key));
+        }
+
         return input;
     }
 }
