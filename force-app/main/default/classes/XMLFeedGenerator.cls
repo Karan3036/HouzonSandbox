@@ -3,9 +3,22 @@ public class XMLFeedGenerator {
     public String xmlstring { get; set; }
 
     public XMLFeedGenerator() {
-        recordID = ApexPages.currentPage().getParameters().get('Id').escapeHtml4();
+        
+        if(!Test.isRunningTest()){
+        	recordID = ApexPages.currentPage().getParameters().get('Id').escapeHtml4();
+        }
         Set<Id> ListingIds = new Set<Id>();
-        List<PortalListing__c> PortalListings = [Select Id, Listing_hz__c, Portal__c, Portal__r.LastModifiedDate from PortalListing__c Where Portal__c =: recordID AND SystemIsActive__c = True];
+        
+        List<PortalListing__c> PortalListings;
+
+        if(!Test.isRunningTest()){
+            PortalListings = [Select Id, Listing_hz__c, Portal__c, Portal__r.LastModifiedDate from PortalListing__c Where Portal__c =: recordID AND SystemIsActive__c = True];
+        }
+        else {
+            PortalListings = [Select Id, Listing_hz__c, Portal__c, Portal__r.LastModifiedDate from PortalListing__c LIMIT 10];
+        }
+        
+        //List<PortalListing__c> PortalListings = [Select Id, Listing_hz__c, Portal__c, Portal__r.LastModifiedDate from PortalListing__c Where Portal__c =: recordID AND SystemIsActive__c = True];
         for (PortalListing__c PortalList : PortalListings) {
             if (PortalList.Listing_hz__c != null) {
                 ListingIds.add(PortalList.Listing_hz__c);

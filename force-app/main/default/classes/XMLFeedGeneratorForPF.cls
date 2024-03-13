@@ -67,12 +67,25 @@ public class XMLFeedGeneratorForPF {
                    fieldName != 'Listing_Agent_Email__c' && 
                    fieldName != 'Listing_Agent_Phone__c' && 
                    fieldName != 'OwnerId'){
-                    Object fieldValue = record.get(fieldName);
+                    
+                    if (fieldName == 'ShortformOfPrivateAmenities__c') {
+                        Object fieldValue = record.get(fieldName);
+            
+                        // Check for null before adding text node
+                        if (fieldValue != null) {
+                            String amenities = (String) fieldValue;
+                            amenities = amenities.replaceAll(' ', ','); // Replace spaces with commas
+                            dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
+                            fieldNode.addTextNode(amenities);
+                        }
+                    } else {
+                        Object fieldValue = record.get(fieldName);
     
-                    // Check for null before adding text node
-                    if (fieldValue != null) {
-                        dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
-                        fieldNode.addTextNode(String.valueOf(fieldValue));
+                        // Check for null before adding text node
+                        if (fieldValue != null) {
+                            dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
+                            fieldNode.addTextNode(String.valueOf(fieldValue));
+                        }
                     }
                 }
             }
@@ -150,35 +163,6 @@ public class XMLFeedGeneratorForPF {
 
         return query;
     }
-    
-    // Function to escape special characters
-
-    // private String escapeXml(String input) {
-    //     input = input.replace('OwnerId', 'id');
-    //     input = input.replace('Broker_s_Listing_ID__c', 'reference_number');
-    //     input = input.replace('RERA_Permit_Number__c', 'permit_number');
-    //     input = input.replace('ListingPrice_hz__c', 'price');
-    //     input = input.replace('ShortformOfPropertyType__c', 'property_type');
-    //     input = input.replace('City_Propertyfinder__c', 'city');
-    //     input = input.replace('Community_Propertyfinder__c', 'community');
-    //     input = input.replace('Sub_community', 'sub_community');
-    //     input = input.replace('Property_Propertyfinder__c', 'property_name');
-    //     input = input.replace('Offer_Type__c', 'offering_type');
-    //     input = input.replace('Name', 'title_en');
-    //     input = input.replace('Description_hz__c', 'description_en');
-    //     input = input.replace('ShortformOfPrivateAmenities__c', 'private_amenities');
-    //     input = input.replace('View_hz__c', 'view');
-    //     input = input.replace('TotalArea_hz__c', 'size');
-    //     input = input.replace('Bedrooms_hz__c', 'bedroom');
-    //     input = input.replace('FullBathrooms_hz__c', 'bathroom');
-    //     input = input.replace('Completion_Status__c', 'completion_status');
-    //     input = input.replace('Listing_Agent_Full_title_en__c', 'name');
-    //     input = input.replace('Listing_Agent_Email__c', 'email');
-    //     input = input.replace('Listing_Agent_Phone__c', 'phone');
-    //     input = input.replace('Floor__c', 'floor');
-    //     input = input.replace('Furnished__c', 'furnished');
-    //     return input;
-    // }
         
     private String escapeXml(String input) {
         Map<String, String> replacements = new Map<String, String>{
