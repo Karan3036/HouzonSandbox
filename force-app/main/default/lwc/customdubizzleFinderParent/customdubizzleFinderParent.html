@@ -1,0 +1,24 @@
+<template>
+    <div>
+
+        <c-customdubizzle-finder icon-name="standard:account"
+                         s-object-api-name="SearchProperties__c"
+                         label="Buiilding Name"
+                         onlookupupdate={lookupRecord}
+                         onlookupdubbizle={setdubizzletext}
+                         default-record-id={recordId}
+                         placeholder="Search Building Name"></c-customdubizzle-finder>
+
+    </div>
+
+    <div>
+        <lightning-input label="Dubizzle Locationtext" placeholder="Enter Dubizzle Locationtext" value={dubizzleLocationtext} onchange={handleDubizzleLocationtextChange}></lightning-input>
+    </div>
+
+
+    <div class="slds-m-top_medium">
+        <!-- <lightning-button label="Update" variant="Neutral" onclick={updateValue} disabled={disBtn}></lightning-button> -->
+        <lightning-button label="Update" variant="Neutral" onclick={updateValue} ></lightning-button>
+    </div>
+
+</template>

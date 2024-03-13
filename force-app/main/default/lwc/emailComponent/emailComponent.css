@@ -1,0 +1,22 @@
+.box{
+    padding: 2%;
+    border: 1px solid grey;
+    border-radius: 8px;
+}
+.box1{
+    padding: 4%;
+}
+.box2{
+    padding: 2%;
+    border: 1px solid grey;
+    border-radius: 8px;
+}
+.text1{
+    text-align: center;
+}
+.text2{
+    margin-left: 4%;
+}
+.Emailbtn{
+    margin-left: 4.5%;
+}

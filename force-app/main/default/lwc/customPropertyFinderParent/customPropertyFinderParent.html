@@ -1,0 +1,27 @@
+<template>
+    <!-- <c-custom-property-finder icon-name="standard:account"
+    s-object-api-name="SearchProperties__c"
+    onlookupupdate={lookupRecord}
+    value={addressName}
+    addressval={addressName}
+    ></c-custom-property-finder> -->
+
+    <div>
+        <!-- <template if:true={isLoading}>
+            <div class="exampleHolder">
+                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+            </div>
+        </template> -->
+        <c-custom-property-finder icon-name="standard:account"
+                         s-object-api-name="SearchProperties__c"
+                         label="Propertyfinder Locationtext"    
+                         record-id={recordId}
+                         value={addressName}                 
+                         onlookupupdate={lookupRecord}                         
+                         placeholder="Search Properties here...">
+        </c-custom-property-finder>
+        <!-- <div class="slds-m-top_medium">
+            <lightning-button label="Update1" variant="Neutral" onclick={updateValue} disabled={disBtn}></lightning-button>
+        </div> -->
+    </div>
+</template>

@@ -1,0 +1,95 @@
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 70%;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.cmp-name{
+    font-weight: 700;
+    font-size: larger;
+}
+
+.noimage{
+    padding-block: 30%;
+    font-weight: 600;
+    font-size: larger;
+    background-color: rgb(216, 215, 215);
+}
+
+.button-bar{
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-container p{
+    margin: 10px 0px 0px 10px;
+    display: flex;
+}
+
+.right-container{
+    display: flex;
+    justify-content: end;
+}
+
+.reload-button{
+    display: flex;
+    width: fit-content;
+    padding: 10px;
+    margin: 10px 10px 10px 0px;
+    border-radius: 10%;
+} 
+
+
+.preview-button{
+    display: flex;
+    width: fit-content;
+    padding: 10px;
+    margin: 10px 10px 10px 0px;
+    border-radius: 10%;
+}
+
+img {
+    display: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+}
+
+.arrow-container {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.arrow {
+    color: white;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8%;
+    padding: 0.4rem;
+    margin: 0.1rem;
+    cursor: pointer;
+}
+
+.left-arrow {
+    margin-right: 1rem;
+}
+
+.right-arrow {
+    margin-left: 1rem;
+}

@@ -1,0 +1,185 @@
+<apex:page standardController="Listing_hz__c" extensions="PdfGenerator" renderAs="pdf">
+
+<head>
+
+    <style type="text/css">
+        @page { 
+            size: a3;
+        }   
+    </style>
+    
+    <apex:stylesheet value="{!URLFOR($Resource.CmaPage)}"/>
+</head>
+<!-- <div class="header">
+    <img class="header-logo" src="{!URLFOR($Resource.test_logo)}" width="50" height="50" alt="Image"/>
+</div>
+<br/>
+<br/> -->
+<div>
+<body>
+    <h2>Comparable Market Analysis</h2>
+
+    <apex:outputPanel rendered="{!Listing_hz__c.Status__c == 'Withdrawn'}">
+        <p class="bg-red">
+            Listing status Withdrawn not supported! Please remove the listing {!Listing_hz__c.Name}
+        </p>
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!Listing_hz__c.Status__c != 'Withdrawn'}">
+        <div class="heading"><b>Active listings (1)</b></div>
+
+        <div class="maindiv">
+            <table style="width: 100%; ">
+                <tr>
+                    <td style="width:25%;border-left:1px solid #939393;" class="Image">
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(link1))}">
+                            <img class="theImage" src="{!link1}" width="150" height="150" alt="Image" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!ISBLANK(link1)}">
+                            <img class="theImage" src="{!$Resource.NoImage}" width="150" height="150" alt="Default Image" />
+                        </apex:outputPanel>
+                    </td>
+                    
+                    <td style="width: 15%;color:#939393;">
+                            <p>Name:</p>
+                            <p>Address:</p>
+                            <p>City:</p>
+                            <p>Bedrooms:</p>
+                            <p>Bathrooms:</p>
+                            <p>Type:</p>
+                    </td>
+                    <td style="width: 35%;color:rgb(32, 31, 31);">
+                            <p>{!IF(ISBLANK(Listing_hz__c.Name), '-', Listing_hz__c.Name)}</p>
+                            <p>{!IF(ISBLANK(Listing_hz__c.Address_hz__c), '-', Listing_hz__c.Address_hz__c)}</p>
+                            <p>{!IF(ISBLANK(Listing_hz__c.City_hz__c), '-', Listing_hz__c.City_hz__c)}</p>
+                            <p>{!IF(ISBLANK(Listing_hz__c.Bedrooms_hz__c), '-', Listing_hz__c.Bedrooms_hz__c)}</p>
+                            <p>{!IF(ISBLANK(Listing_hz__c.FullBathrooms_hz__c), '-', Listing_hz__c.FullBathrooms_hz__c)}</p>
+                            <p>{!IF(ISBLANK(Listing_hz__c.ListingType__c), '-', Listing_hz__c.ListingType__c)}</p>
+                    </td>
+                    
+                    <td style="width: 15%;color:#939393;">
+                        <p>Listing Price:</p>
+                        <p>Property:</p>
+                        <p>Total Area:</p>
+                        <p>Size</p>
+                        <p>Year Built:</p>
+                        <p>Status</p>
+                    </td>
+                    <td style="width:10%;border-right:1px solid #939393;color:rgb(32, 31, 31);">
+                        <p class="text">
+                            <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.ListingPrice_hz__c))}">
+                                AED {!Listing_hz__c.ListingPrice_hz__c}
+                            </apex:outputText>
+                            <apex:outputText rendered="{!ISBLANK(Listing_hz__c.ListingPrice_hz__c)}">
+                                -
+                            </apex:outputText>
+                        </p>
+                        <p>{!IF(ISBLANK(Listing_hz__c.PropertyType__c), '-', Listing_hz__c.PropertyType__c)}</p>
+                        <p class="text">
+                            <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.TotalArea_hz__c))}">
+                                {!Listing_hz__c.TotalArea_hz__c} sqft
+                            </apex:outputText>
+                            <apex:outputText rendered="{!ISBLANK(Listing_hz__c.TotalArea_hz__c)}">
+                                -
+                            </apex:outputText>
+                        </p>
+                        <p>{!IF(ISBLANK(Listing_hz__c.TotalArea_hz__c), '-', Listing_hz__c.TotalArea_hz__c)}</p>
+                        <p>{!IF(ISBLANK(Listing_hz__c.YearBuilt_hz__c), '-', Listing_hz__c.YearBuilt_hz__c)}</p>
+                        <p>{!IF(ISBLANK(Listing_hz__c.Status__c), '-', Listing_hz__c.Status__c)}</p>
+                    </td>
+                    
+                </tr>
+            </table>
+    
+        </div>
+
+    </apex:outputPanel>
+    <apex:outputPanel >
+        <div class="heading"><b>Cumulative Analysis</b></div>
+        <div class="maindiv2">
+            <table>
+                <tr>
+                    <td style="border-left:1px solid #939393;color:#939393;width:60px;" ></td>
+                    <td style="color:#939393;">Number of Listings</td>
+                    <td style="color:#939393;">Average Bedrooms</td>
+                    <td style="color:#939393;">Average Bathrooms</td>
+                    <td style="color:#939393;">Average Listing Price</td>
+                    <td style="color:#939393;">Average Sale Price</td>
+                    <!-- <td style="color:#939393;">Average Price ROC</td> -->
+                    <td style="color:#939393;">Lowest Price Listing</td>
+                    <td style="border-right:1px solid #939393;color:#939393;">Highest Price Listing</td>
+                </tr>
+                <tr>
+                    <td style="width:25%;border-left:1px solid #939393;color:#939393;width:60px;"> Active Listing
+                    </td>
+
+                    <td style="color:rgb(32, 31, 31);">
+                        1
+                    </td>
+
+                    <td style="color:rgb(32, 31, 31);">
+                        <apex:outputText value="{!IF(ISBLANK(Listing_hz__c.Bedrooms_hz__c), '-', Listing_hz__c.Bedrooms_hz__c)}"/>
+                    </td>
+
+                    <td style="color:rgb(32, 31, 31);">
+                        <apex:outputText value="{!IF(ISBLANK(Listing_hz__c.FullBathrooms_hz__c), '-', Listing_hz__c.FullBathrooms_hz__c)}"/>
+                    </td>
+                    <td>
+                    <p class="text">
+                        <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.ListingPrice_hz__c))}">
+                            AED {!Listing_hz__c.ListingPrice_hz__c}
+                        </apex:outputText>
+                        <apex:outputText rendered="{!ISBLANK(Listing_hz__c.ListingPrice_hz__c)}">
+                            -
+                        </apex:outputText>
+                    </p>
+                    </td>
+                    
+                    <td>
+                    <p class="text">
+                        <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.Ave_Sale_Esti__c))}">
+                            AED {!Listing_hz__c.Ave_Sale_Esti__c}
+                        </apex:outputText>
+                        <apex:outputText rendered="{!ISBLANK(Listing_hz__c.Ave_Sale_Esti__c)}">
+                            -
+                        </apex:outputText>
+                    </p>
+                    </td>
+                    
+
+                    <!-- <td style="color:rgb(32, 31, 31);">
+                        <apex:outputText>-</apex:outputText>
+                    </td> -->
+
+                    <td style="color:rgb(32, 31, 31);">
+                        <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.ListingPrice_hz__c))}">
+                            AED {!Listing_hz__c.ListingPrice_hz__c}
+                        </apex:outputText>
+                        <apex:outputText rendered="{!ISBLANK(Listing_hz__c.ListingPrice_hz__c)}">
+                            -
+                        </apex:outputText>
+                    </td>
+                    
+                    <td style="border-right:1px solid #939393;color:rgb(32, 31, 31);">
+                        <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.ListingPrice_hz__c))}">
+                            AED {!Listing_hz__c.ListingPrice_hz__c}
+                        </apex:outputText>
+                        <apex:outputText rendered="{!ISBLANK(Listing_hz__c.ListingPrice_hz__c)}">
+                            -
+                        </apex:outputText>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+
+    </apex:outputPanel>
+
+</body>
+</div>
+<div class="footer">
+    <div class="date"><p>{!Today}</p></div>
+    <div class="user-info"><p>{!$User.FirstName } {!$User.LastName },{!$User.Email},{!$User.MobilePhone}</p></div>
+    <div class="page-number"><p>Page 1 of 1</p></div>
+</div>
+</apex:page>

@@ -1,0 +1,62 @@
+<template>
+    <div class="slds-box slds-theme_default">
+        <div class="cmp-name">
+            Listing Media Gallery
+        </div>
+        <template if:true={isdata}>
+            <div class="button-bar">
+                <div class="left-container">
+                    <p>{currentImageName}</p>
+                </div>
+                <div class="right-container">
+                    <button onclick={reloadComponent} class="reload-button">
+                        <lightning-icon icon-name="utility:refresh" size="x-small"></lightning-icon>
+                    </button>
+                    <button onclick={openImagePreview} class="preview-button">
+                        <lightning-icon icon-name="utility:internal_share" size="x-small"></lightning-icon>
+                    </button>
+                    <br>
+                </div>
+            </div>
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <template if:true={showSpinner}>
+                        <lightning-spinner size="medium"> </lightning-spinner>
+                    </template>
+                    <img key={reloadComponentVar} src={currentImageUrl} alt="Current Image" />
+                </div>
+                <div class="arrow-container">
+                    <lightning-button-icon
+                        icon-name="utility:left"
+                        variant="bare"
+                        onclick={showPreviousImage}
+                        class="arrow left-arrow"
+                    ></lightning-button-icon>
+                    <lightning-button-icon
+                        icon-name="utility:right"
+                        variant="bare"
+                        onclick={showNextImage}
+                        class="arrow right-arrow"
+                    ></lightning-button-icon>
+                </div>
+            </div>
+        </template>
+        <template if:false={isdata}>
+            <div class="button-bar">
+                <div class="left-container">
+                </div>
+                <div class="right-container">
+                    <button onclick={reloadComponent} class="reload-button">
+                        <lightning-icon icon-name="utility:refresh" size="x-small"></lightning-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <p class="noimage">No Image Found</p>
+                </div>
+            </div>
+            <div></div>
+        </template>
+    </div>
+</template>

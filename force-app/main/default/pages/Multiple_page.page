@@ -1,0 +1,206 @@
+<apex:page standardController="Listing_hz__c" extensions="PdfGenerator" renderAs="pdf">
+
+<head>
+    <apex:stylesheet value="{!URLFOR($Resource.MultiplePdf)}" />
+</head>
+<!-- <div class="header">
+    <img class="header-logo" src="{!URLFOR($Resource.test_logo)}" width="50" height="50" alt="Image"/>
+</div>
+<br/><br/> -->
+<div>
+<div class="Container">
+    <h1>{!Listing_hz__c.Name}</h1>
+    <!-- <table>
+        <tr style="height:100%;width:100%;border:1px solid black;">
+            <td colspan="2"> -->
+                <div class="img-container1" style="height:100%;width:100%;border:1px solid black;margin-left:0.5%;">
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(link1))}">
+                        <img class="" src="{!link1}" height="200"  alt="Image" />
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!ISBLANK(link1)}">
+                        <img class="" src="{!$Resource.NoImage}" height="300" alt="Default Image" />
+                    </apex:outputPanel>
+                </div>
+            <!-- </td>
+        </tr>
+    </table> -->
+    <div class="img-container2">
+        <table class="img-container1">
+            <tr>
+                <td>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(link2))}">
+                        <img src="{!link2}" height="250" width="100%" alt="Image 1" />
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!ISBLANK(link2)}">
+                        <img src="{!$Resource.NoImage}" height="250" width="100%" alt="Default Image 1" />
+                    </apex:outputPanel>
+                </td>
+                <td>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(link3))}">
+                        <img src="{!link3}" height="250" width="100%" alt="Image 2" />
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!ISBLANK(link3)}">
+                        <img src="{!$Resource.NoImage}" height="250" width="100%" alt="Default Image 2" />
+                    </apex:outputPanel>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <table style="width:100%;">
+        <tr>
+            <td colspan="2">
+                <p class="text-heading">Contact Agent for Information:</p>
+            </td>
+            <td colspan="2">
+                <p> {!IF(ISBLANK(Listing_hz__c.PropertyType__c) || ISBLANK(Listing_hz__c.ListingType__c), '-', Listing_hz__c.PropertyType__c & ' To ' & Listing_hz__c.ListingType__c)}</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p><b>Phone Number:</b> {!IF(ISBLANK(Listing_hz__c.Listing_Agent_Phone__c), '-', Listing_hz__c.Listing_Agent_Phone__c)}</p>
+            </td>
+            <td colspan="2">
+                <p class="text">
+                    <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.SqFt_hz__c))}">
+                        <b>Sqft:</b> {!Listing_hz__c.SqFt_hz__c} sqft
+                    </apex:outputText>
+                    <apex:outputText rendered="{!ISBLANK(Listing_hz__c.SqFt_hz__c)}">
+                        <b>Sqft:</b> -
+                    </apex:outputText>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p><b>MobilePhone:</b> {!IF(ISBLANK(Listing_hz__c.Listing_Agent_Mobil_Phone__c), '-', Listing_hz__c.Listing_Agent_Mobil_Phone__c)}</p>
+            </td>
+            <td colspan="2">
+                <p><b>Price:</b>
+                    <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.ListingPrice_hz__c))}">
+                       AED {!Listing_hz__c.ListingPrice_hz__c}
+                    </apex:outputText>
+                    <apex:outputText rendered="{!ISBLANK(Listing_hz__c.ListingPrice_hz__c)}">
+                        -
+                    </apex:outputText>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p><b>Email:</b> {!IF(ISBLANK(Listing_hz__c.Listing_Agent_Email__c), '-', Listing_hz__c.Listing_Agent_Email__c)}</p>
+            </td>
+            <td colspan="2">
+                <p><b>Broker Listing Id :</b> {!IF(ISBLANK(Listing_hz__c.Broker_s_Listing_ID__c), '-', Listing_hz__c.Broker_s_Listing_ID__c)}</p>
+            </td>
+        </tr>
+    </table>
+    <div style="margin-top:55px;"></div>
+</div>
+
+<!-- <div class="description">
+    <div class="des-text">Description</div>
+    <div style="white-space: pre-line;" class="text">{!Listing_hz__c.Description_hz__c}</div>
+</div> -->
+    <div class="description">
+        <div class="des-text">Description</div>
+        <apex:outputPanel rendered="{!NOT(ISNULL(Listing_hz__c.Description_hz__c))}">
+            <div style="white-space: pre-line;" class="text">{!Listing_hz__c.Description_hz__c}</div>
+        </apex:outputPanel>
+    </div>
+
+<div class="gallery" style="width: 100% !important"> 
+    <h2 style="text-align: center;">Image Gallery</h2>
+    <table class="gallery-table" style="width: 100% !important;">
+        <tr style="width: 100% !important;">
+            <td class="image-cell">
+                <apex:outputPanel rendered="{!NOT(ISBLANK(link4))}">
+                    <img src="{!link4}" height="200" alt="Gallery Image 1" />
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ISBLANK(link4)}">
+                    <img src="{!$Resource.NoImage}" height="200" alt="Default Image 1" />
+                </apex:outputPanel>
+            </td>
+            <td class="image-cell">
+                <apex:outputPanel rendered="{!NOT(ISBLANK(link5))}">
+                    <img src="{!link5}" height="200" alt="Gallery Image 2" />
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ISBLANK(link5)}">
+                    <img src="{!$Resource.NoImage}" height="200" alt="Default Image 2" />
+                </apex:outputPanel>
+            </td>
+        </tr>
+        <tr style="width: 100% !important;">
+            <td class="image-cell">
+                <apex:outputPanel rendered="{!NOT(ISBLANK(link6))}">
+                    <img src="{!link6}" height="200" alt="Gallery Image 3" />
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ISBLANK(link6)}">
+                    <img src="{!$Resource.NoImage}" height="200" alt="Default Image 3" />
+                </apex:outputPanel>
+            </td>
+            <td class="image-cell">
+                <apex:outputPanel rendered="{!NOT(ISBLANK(link7))}">
+                    <img src="{!link7}" height="200" alt="Gallery Image 4" />
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ISBLANK(link7)}">
+                    <img src="{!$Resource.NoImage}" height="200" alt="Default Image 4" />
+                </apex:outputPanel>
+            </td>
+        </tr>
+        <tr style="width: 100% !important;">
+            <td class="image-cell">
+                <apex:outputPanel rendered="{!NOT(ISBLANK(link8))}">
+                    <img src="{!link8}" height="200" alt="Gallery Image 5" />
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ISBLANK(link8)}">
+                    <img src="{!$Resource.NoImage}" height="200" alt="Default Image 5" />
+                </apex:outputPanel>
+            </td>
+            <td class="">
+                <apex:outputPanel rendered="{!NOT(ISBLANK(link9))}">
+                    <img src="{!link9}" height="200" width="300" alt="Gallery Image 6" />
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ISBLANK(link9)}">
+                    <img src="{!$Resource.NoImage}" height="200" alt="Default Image 6" />
+                </apex:outputPanel>
+            </td>
+        </tr>
+        <tr style="width: 100% !important;">
+            <td class="image-cell">
+                <apex:outputPanel rendered="{!NOT(ISBLANK(link10))}">
+                    <img src="{!link10}" height="200" alt="Gallery Image 7" />
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ISBLANK(link10)}">
+                    <img src="{!$Resource.NoImage}" height="200" alt="Default Image 7" />
+                </apex:outputPanel>
+            </td>
+            <td class="image-cell">
+                <apex:outputPanel rendered="{!NOT(ISBLANK(link11))}">
+                    <img src="{!link11}" height="200" alt="Gallery Image 8" />
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ISBLANK(link11)}">
+                    <img src="{!$Resource.NoImage}" height="200" alt="Default Image 8" />
+                </apex:outputPanel>
+            </td>
+        </tr>
+    </table>    
+</div>
+
+<div class="featueres">
+    <div class="Feature-text">Main features</div>
+    <div class="featueres-content">
+        <ul>
+            <p class="featueres-text"><span class="span-text" style="margin-right: 46px !important;">Balcony or Terrace</span> <span> Pool view</span></p>
+            <p class="featueres-text"><span class="span-text" style="margin-right: 69px !important;">Central Heating</span>  <span>Gym or Health Club</span></p>
+            <p class="featueres-text"><span class="span-text" style="margin-right: 69px !important;">Swimming Pool</span>  <span>Centrally Air-Conditioned</span></p>
+        </ul>   
+    </div>
+
+</div>
+
+</div>
+
+
+
+</apex:page>

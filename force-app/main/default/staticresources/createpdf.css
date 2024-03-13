@@ -1,0 +1,62 @@
+table {
+    border-collapse: collapse !important;
+    /* border: 1px solid green; */
+    width: 100%;
+}
+th{
+    border-top: 1px solid rgb(72, 68, 68);
+    border-bottom: 1px solid rgb(72, 68, 68);
+    /* border: 1px solid black; */
+    padding: 8px;
+    text-align: left;
+    border-collapse: collapse !important;
+    text-align: center;
+}
+
+td{
+    border-bottom: 1px solid rgb(72, 68, 68);
+    padding: 6px;
+    width: 20%;
+    border-collapse: collapse !important;
+    text-align: center;
+}
+
+tr{
+    /* border: 1px solid black; */
+    border-bottom: 1px solid rgb(72, 68, 68);
+    border-collapse: collapse !important;
+    text-align: center;
+}
+
+.btn{
+    margin-right: 1rem !important;
+}
+
+.heading{
+    margin-bottom: 20px !important;
+}
+.header{
+    position: fixed;
+    top: 0;
+    text-align: left;
+}
+.footer{
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+}
+.footer div{
+    display: inline-block;
+}
+.footer .date{
+    width: 24%;
+    text-align: left;
+}
+.footer .user-info{
+    width: 48%;
+    text-align: center;
+}
+.footer .page-number{
+    width: 24%;
+    text-align: right;
+}

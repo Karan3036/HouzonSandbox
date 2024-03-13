@@ -1,0 +1,15 @@
+<template>
+    <div class="container">
+        <h2>Propertyfinder Locationtext</h2>
+        <div class="search-container">
+            <input type="text" placeholder="Search..." onclick={toggleDropdown} onblur={hideDropdown} oninput={handleSearch} />
+            <div class={dropdownClass}>
+                <ul>
+                    <template for:each={filteredOptions} for:item="option">
+                        <li key={option} onclick={handleOptionClick}>{option}</li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>

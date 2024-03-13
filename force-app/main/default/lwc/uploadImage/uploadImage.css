@@ -1,0 +1,144 @@
+.progress{
+    width: 100%;
+}
+
+.content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-content{
+    display: flex;
+    justify-content: start;
+}
+
+.right-content{
+    justify-content: end;
+}
+progress{
+    width: 100%;
+}
+
+.slds-modal__container {
+    max-width: 60rem;
+    /* Adjust the max-width as needed */
+    width: auto;
+    margin: 1.75rem auto;
+    /* Adjust the margin as needed */
+}
+.title_delete{
+    background-color:#DD3333;
+    color: white;
+}
+.title{
+    background-color:#6699CC;
+    color: white;
+}
+.title_text{
+    font-size: 30px;
+}
+.popup_modal{
+    width: 45%;
+}
+.img_popup{
+    width: 60%;
+}
+.main_content{
+    text-align: center;
+    font-size: 30px;
+    height: 100px;
+}
+.label{
+    margin-bottom: 5px;
+}
+
+.customimg{
+    width: 40%;
+    max-width: 100%;
+    height: auto;
+    padding: 0.5em;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    display: block;
+    margin: 2px;
+}
+.buttons{
+    background-color:#6699CC;
+    color: white;
+}
+.buttons_delete{
+    border:2px solid #DD3333 ;
+    background-color:#DD3333;
+    color: white;
+}
+.slds-backdrop_open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Adjust the opacity as needed */
+    z-index: 9000;
+    /* Ensure it has a higher z-index than the modal */
+}
+.buttons{
+    margin-inline: 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 2% 0 0 0;
+    font-size: smaller;
+    font-weight: lighter
+}
+
+.custom-card {
+    font-size: smaller;
+    font-weight: lighter;
+}
+
+.dragable-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 120px; /* Set the maximum height as needed */
+    overflow-y: auto; /* Add vertical scrollbar when needed */
+}
+
+.dragable-container img{
+    height: 4rem;
+    width: 4rem;
+    margin: 5px;
+    transition: background-color 0.3s ease; /* Add transition for smooth effect */
+}
+
+.dragable-container img:hover{
+    border: 1px solid black;
+    background-color: #e0e0e0; /* Change to the desired highlight color */
+}
+
+.sort-container {
+    display: flex;
+    margin-inline: 10px;
+}
+
+
+hr{
+    margin-block: 5px;
+}
+
+.large-text{
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.highlight:hover{
+    border: 1px solid black;
+    background-color: #cdcbcb; /* Change to the desired highlight color */
+}
+
+.highlight {
+    transition: background-color 0.5s ease; /* Adjust timing here */
+    background-color: #cdcbcb; /* Change to the desired highlight color */
+}

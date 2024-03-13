@@ -1,0 +1,36 @@
+<template>
+    <div class="box">
+
+    <lightning-card title="New Message">
+        <div class="box1">
+        <h1 class="slds-text-heading_medium text1">Please complete required configuration steps before using Quicksend.</h1>
+        <br/>
+        <div class="box2">
+        <lightning-card  variant="Narrow">
+            <div class="content" style="display: flex;">
+            <lightning-icon icon-name="standard:custom" alternative-text="Approved" title="Approved"></lightning-icon>
+            <p class="slds-p-horizontal_small">Your account is not connected to Propertybase Mailservices. To send email, please establish connection to Propertybase Mailservices in the Email section of the Control Center.</p>
+            </div>
+            <br/>
+             <p class="slds-p-horizontal_small text2">Instructions for connecting to Propertybase Mailservices can be found here:</p>
+             <br/>
+             <lightning-button label="Help Center" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small Emailbtn"></lightning-button>
+        </lightning-card>
+        </div>
+        <br/>
+        <div class="box2">
+            <lightning-card  variant="Narrow">
+                <div class="content" style="display: flex;">
+                    <lightning-icon icon-name="standard:template" alternative-text="Approved" title="Approved"></lightning-icon>
+                    <p class="slds-p-horizontal_small">In order to work correctly, Quicksend requires at least one of the following template types: (email_template, pdf_template, listing_template).</p>
+                </div>
+                <br/>
+                <p class="slds-p-horizontal_small text2">You are missing at least one required template type: (listing_template). Templates can be downloaded in the Update Center:</p>
+                <br/>
+                <lightning-button label="Update Center" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small Emailbtn"></lightning-button>
+            </lightning-card>
+        </div>
+        </div>
+    </lightning-card>
+</div>
+</template>

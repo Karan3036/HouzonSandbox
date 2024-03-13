@@ -40,7 +40,7 @@ public class XMLFeedGenerator {
 
         // Map to store PropertyMedia__c records related to each Property_hz__c
         Map<Id, List<PropertyMedia__c>> propertyMediaUrlsMap = new Map<Id, List<PropertyMedia__c>>();
-        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, Property_hz__c, LastModifiedDate FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds]) {
+        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds Order BY SortOnPortalFeed__c ASC NULLS LAST]) {
             if (!propertyMediaUrlsMap.containsKey(media.Property_hz__c)) {
                 propertyMediaUrlsMap.put(media.Property_hz__c, new List<PropertyMedia__c>());
             }
@@ -174,34 +174,41 @@ public class XMLFeedGenerator {
     
     // Function to escape special characters
     private String escapeXml(String input) {
-        input = input.replace('Broker_s_Listing_ID__c', 'Property_Ref_No');
-        input = input.replace('ListingType__c', 'Property_purpose');
-        input = input.replace('PropertyType__c', 'Property_Type');
-        input = input.replace('City_for_Bayut__c', 'City');
-        input = input.replace('Locality_for_Bayut__c', 'Locality');
-        input = input.replace('Sub_Locality_for_Bayut__c', 'Sub_Locality');
-        input = input.replace('Tower_name_for_bayut__c', 'Tower_name');
-        input = input.replace('Name', 'Property_Title');
-        input = input.replace('Title_Arabic__c', 'Property_Title_AR');
-        input = input.replace('Description_hz__c', 'Property_Description');
-        input = input.replace('Description_Arabic__c', 'Property_Description_AR');
-        input = input.replace('TotalArea_hz__c', 'Property_Size');
-        input = input.replace('Bedrooms_hz__c', 'Bedrooms');
-        input = input.replace('FullBathrooms_hz__c', 'Bathroom');
-        input = input.replace('ListingPrice_hz__c', 'Price');
-        input = input.replace('Listing_Agent_Full_Property_Title__c', 'Listing_Agent');
-        input = input.replace('Listing_Agent_Phone__c', 'Listing_Agent_Phone');
-        input = input.replace('Listing_Agent_Email__c', 'Listing_Agent_Email');
-        input = input.replace('Feature_1__c', 'Feature');
-        input = input.replace('Feature_2__c', 'Feature');
-        input = input.replace('Feature_3__c', 'Feature');
-        input = input.replace('Feature_4__c', 'Feature');
-        input = input.replace('Feature_5__c', 'Feature');
-        input = input.replace('Feature_6__c', 'Feature');
-        input = input.replace('RERA_Permit_Number__c', 'Permit_Number');
-        input = input.replace('Off_plan__c', 'Off_Plan');
-        input = input.replace('Rent_Frequency__c', 'Rent_Frequency');
-        input = input.replace('Furnished__c', 'Furnished');
+        Map<String, String> replacements = new Map<String, String>{
+            'Broker_s_Listing_ID__c' => 'Property_Ref_No',
+            'ListingType__c' => 'Property_purpose',
+            'PropertyType__c' => 'Property_Type',
+            'City_for_Bayut__c' => 'City',
+            'Locality_for_Bayut__c' => 'Locality',
+            'Sub_Locality_for_Bayut__c' => 'Sub_Locality',
+            'Tower_name_for_bayut__c' => 'Tower_name',
+            'Name' => 'Property_Title',
+            'Title_Arabic__c' => 'Property_Title_AR',
+            'Description_hz__c' => 'Property_Description',
+            'Description_Arabic__c' => 'Property_Description_AR',
+            'TotalArea_hz__c' => 'Property_Size',
+            'Bedrooms_hz__c' => 'Bedrooms',
+            'FullBathrooms_hz__c' => 'Bathroom',
+            'ListingPrice_hz__c' => 'Price',
+            'Listing_Agent_Full_Property_Title__c' => 'Listing_Agent',
+            'Listing_Agent_Phone__c' => 'Listing_Agent_Phone',
+            'Listing_Agent_Email__c' => 'Listing_Agent_Email',
+            'Feature_1__c' => 'Feature',
+            'Feature_2__c' => 'Feature',
+            'Feature_3__c' => 'Feature',
+            'Feature_4__c' => 'Feature',
+            'Feature_5__c' => 'Feature',
+            'Feature_6__c' => 'Feature',
+            'RERA_Permit_Number__c' => 'Permit_Number',
+            'Off_plan__c' => 'Off_Plan',
+            'Rent_Frequency__c' => 'Rent_Frequency',
+            'Furnished__c' => 'Furnished'
+        };
+        
+        for (String key : replacements.keySet()) {
+            input = input.replace(key, replacements.get(key));
+        }
+
         return input;
     }
 }

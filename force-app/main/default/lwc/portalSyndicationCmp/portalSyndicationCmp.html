@@ -1,0 +1,22 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-card title="Portal Syndication" style="padding: 15px">
+    <div style="height: 200px; padding: 0 15px">
+      <c-my-custom-type-datatable
+      key-field="id"
+      hide-checkbox-column="true"
+      data={data}
+      resize-column-disabled="true"
+      columns={columns}
+      onrowaction={handleRowAction}
+      >
+    </c-my-custom-type-datatable>
+    <div if:true={showSpinner}>
+      <lightning-spinner variant="brand"
+                         alternative-text="Loading Portals"
+                         size="medium">
+      </lightning-spinner>
+    </div>
+  </div>
+  </lightning-card>
+</template>

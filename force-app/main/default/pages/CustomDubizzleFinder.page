@@ -1,0 +1,20 @@
+<apex:page standardStylesheets="true" sidebar="false" applyBodyTag="false" showHeader="false" standardController="Listing_hz__c">
+    <header>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </header>
+    <!-- Load the LWC component using lightning out -->
+    <apex:includeLightning />
+        <div id="lwcContainer"></div>
+        <script type="text/javascript">
+            document.addEventListener("callvf", function(event){         
+                window.top.location = "/"+"{!$CurrentPage.parameters.id}";
+
+        });
+            // Render the component after the Lightning runtime has loaded
+            $Lightning.use("c:DubizzleFinderApp", function() {
+                $Lightning.createComponent("c:customdubizzleFinderParent", {
+                    recordId : "{!$CurrentPage.parameters.id}"
+                },"lwcContainer");
+            });
+        </script>
+</apex:page>

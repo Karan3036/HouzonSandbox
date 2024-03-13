@@ -1,0 +1,194 @@
+<template>
+  <template if:true={showSpinner}>
+    <lightning-spinner size="medium"> </lightning-spinner>
+  </template>
+  <lightning-card
+    variant="Narrow"
+    title="AWS S3 File Uploader"
+    style="width: 30rem"
+    icon-name="action:upload">
+    
+    <lightning-button-group >
+      <lightning-button label="Save chnages" onclick={save_changes} variant="brand" disabled={disabled_save}></lightning-button>
+      <lightning-button label="Cancel" onclick={cancel_changes} variant="brand-outline" disabled={disabled_cancel}></lightning-button>
+  </lightning-button-group>
+  <lightning-button label="Add Link" title="Non-primary action" onclick={modalpopup} class="slds-m-left_x-small"></lightning-button>
+  <lightning-button label="Delete All" title="Non-primary action" onclick={to_deleteAllMedia} class="slds-m-left_x-small"></lightning-button>
+
+    <div class="slds-form-element">
+      <span class="slds-form-element__label" id="file-selector-primary-label-105">Attachment</span>
+      <div class="slds-form-element__control">
+        <div class="slds-file-selector slds-file-selector_images" ondrop={handleDrop} ondragover={allowDrop}>
+          <div class="slds-file-selector__dropzone">
+            <input type="file" class="slds-file-selector__input slds-assistive-text"  onchange={handleSelectedFiles} accept="image/png, image/jpeg, image/jpg" id="file-upload-input-107" aria-labelledby="file-selector-primary-label-105 file-selector-secondary-label106" multiple/>
+            <label class="slds-file-selector__body" for="file-upload-input-107" id="file-selector-secondary-label106">
+              <span class="slds-file-selector__button slds-button slds-button_brand">
+              Click to select files</span>
+              <span class="slds-file-selector__text slds-medium-show">Drop files to upload</span>
+            </label>
+          </div>
+        </div>
+        <template if:false={isfileuploading}>
+          {fileName}
+          </template>
+		<template if:true={isfileuploading}>
+        	<div class="slds-p-around_medium lgc-bg progress slds-box">
+				<div class="content">
+					<div class="left-content">{fileName}</div>
+					<div class="right-content">{uploadProgress}% , {fileSize} kb</div>
+				</div>
+        	  <progress value={uploadProgress} max="100"></progress>
+        	    	<b><lightning-icon icon-name="utility:upload" size="x-small"></lightning-icon> Uploading</b>
+        	</div>
+		</template>
+      </div>
+    </div>
+    <div class="slds-p-around_medium lgc-bg">
+        <lightning-button
+          class="slds-m-top--medium buttons"
+          label="Upload to AWS S3 bucket"
+          onclick={handleclick}
+          variant="brand"
+          disabled={isnull}
+        >
+        </lightning-button>
+        <lightning-button
+          class="slds-m-top--medium buttons"
+          label="Cancel"
+          onclick={removefile}
+          variant="brand"
+          disabled={isnull}
+        >
+        </lightning-button>
+    </div>
+  </lightning-card>
+  <template if:true={isdata}>
+  <lightning-card title="Property Media">
+        <c-custom-data-table
+            key-field="id"
+            data={data}
+            columns={columns}
+            onrowaction={handleRowAction}
+            hide-checkbox-column="true"
+            resize-column-disabled
+        ></c-custom-data-table>
+    </lightning-card>
+    </template>
+
+    <div lwc:dom="manual" class="download-container" ></div>
+
+    <template if:true={isModalOpen}>
+        <div class="modal-backdrop slds-modal-backdrop slds-fade-in-open slds-backdrop_open"></div>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Image Viewer</h2>
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close" alternative-text="Close" variant="inverse" size="small"></lightning-icon>
+                </button>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <img src={modalImageUrl} alt="Image Preview" class="slds-align_absolute-center" />
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_brand" onclick={closeModal}>Close</button>
+                </footer>
+            </div>
+        </section>
+    </template>
+
+    <template if:true={isedit}>
+      <div class="modal-backdrop slds-modal-backdrop slds-fade-in-open slds-backdrop_open"></div>
+      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+          <div class="slds-modal__container">
+              <header class="slds-modal__header">
+              <h2 id="modal-heading-02" class="slds-modal__title slds-hyphenate ">Edit Name</h2>
+              <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closepopup}>
+                  <lightning-icon icon-name="utility:close" alternative-text="Close" variant="inverse" size="small"></lightning-icon>
+              </button>
+              </header>
+              <div class="slds-modal__content slds-p-around_medium">
+                  <lightning-input onchange={store_img_name} value={img_old_name} label="Name"></lightning-input>
+              </div>
+              <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_brand" onclick={confirm_edit}>Save</button>
+                  <button class="slds-button slds-button_brand" onclick={closepopup}>Close</button>
+              </footer>
+          </div>
+      </section>
+  </template>
+
+    <template if:true={ispopup}>
+      <div class="modal-backdrop slds-modal-backdrop slds-fade-in-open slds-backdrop_open"></div>
+      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+          <div class="slds-modal__container">
+              <header class="slds-modal__header">
+              <h2 id="modal-heading-03" class="slds-modal__title slds-hyphenate">Add Link</h2>
+              <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closepopup}>
+                  <lightning-icon icon-name="utility:close" alternative-text="Close" variant="inverse" size="small"></lightning-icon>
+              </button>
+              </header>
+              <div class="slds-modal__content slds-p-around_medium">
+                  <lightning-input onchange={store_url} label="Title"></lightning-input>
+                  <br/>
+                  <lightning-input onchange={store_url} label="External Link (URL)"></lightning-input>
+                  <br/>
+                  <label for="link-type">Type:</label>
+                  <select name="propertyType" class="slds-input slds-select"
+                      onchange={handleLinkType}>
+                      <option class="slds-input" value={Image}>Image</option>
+                      <option class="slds-input" value={Video}>Video</option>
+                      <!-- <option class="slds-input" value={Document}>Document</option> -->
+                  </select>
+              </div>
+          
+              <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_brand" onclick={upload_image}>Upload</button>
+                  <button class="slds-button slds-button_brand" onclick={closepopup}>Close</button>
+              </footer>
+          </div>
+      </section>
+  </template>
+  
+  <template if:true={isdelete}>
+    <div class="modal-backdrop slds-modal-backdrop slds-fade-in-open slds-backdrop_open"></div>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header title">
+            <h2 id="modal-heading-04" class="slds-modal__title slds-hyphenate title_text">Delete Media</h2>
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closepopup}>
+                <lightning-icon icon-name="utility:close" alternative-text="Close" variant="inverse" size="small"></lightning-icon>
+            </button>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium main_content">
+                <h2>Are you sure to delete Media?</h2>
+            </div>
+            <footer class="slds-modal__footer">
+              <button class="slds-button slds-button_brand buttons" onclick={handleDelete}>Yes</button>
+                <button class="slds-button slds-button_brand buttons" onclick={closepopup}>No</button>
+            </footer>
+        </div>
+    </section>
+</template> 
+
+<template if:true={isdeleteAll}>
+  <div class="modal-backdrop slds-modal-backdrop slds-fade-in-open slds-backdrop_open"></div>
+  <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+          <header class="slds-modal__header title">
+          <h2 id="modal-heading-05" class="slds-modal__title slds-hyphenate title_text">Delete All Media</h2>
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closepopup}>
+              <lightning-icon icon-name="utility:close" alternative-text="Close" variant="inverse" size="small"></lightning-icon>
+          </button>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium main_content">
+              <h2>Are you sure to delete all Media?</h2>
+          </div>
+          <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_brand buttons" onclick={deleteAllMedia}>Yes</button>
+              <button class="slds-button slds-button_brand buttons" onclick={closepopup}>No</button>
+          </footer>
+      </div>
+  </section>
+</template> 
+</template>
