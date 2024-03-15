@@ -41,7 +41,7 @@ public class XMLFeedGeneratorForPF {
 
         // Map to store PropertyMedia__c records related to each Property_hz__c
         Map<Id, List<PropertyMedia__c>> propertyMediaUrlsMap = new Map<Id, List<PropertyMedia__c>>();
-        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds Order BY SortOnPortalFeed__c ASC NULLS LAST]) {
+        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate, Tags__c FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds Order BY SortOnPortalFeed__c ASC NULLS LAST]) {
             if (!propertyMediaUrlsMap.containsKey(media.Property_hz__c)) {
                 propertyMediaUrlsMap.put(media.Property_hz__c, new List<PropertyMedia__c>());
             }
@@ -56,10 +56,14 @@ public class XMLFeedGeneratorForPF {
         for (SObject record : records) {
             dom.XmlNode propertyNode = rootNode.addChildElement('property', null, null);
             String lastModifiedDate = '';
+            String listingType = (String)record.get('ListingType__c');
+            String rentFrequency = (String)record.get('Rent_Frequency__c');
+
             if (record.get('LastModifiedDate') != null) {
                 Datetime lastModifiedDatetime = (Datetime)record.get('LastModifiedDate');
                 lastModifiedDate = lastModifiedDatetime.format('yyyy-MM-dd HH:mm:ss');
             }
+            
             propertyNode.setAttribute('last_update', lastModifiedDate);
             
             for (String fieldName : fieldNames) {
@@ -78,7 +82,21 @@ public class XMLFeedGeneratorForPF {
                             dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
                             fieldNode.addTextNode(amenities);
                         }
-                    } else {
+                    }   else if (fieldName == 'ListingPrice_hz__c') {
+                        Object fieldValue = record.get(fieldName);
+            
+                        // Check for null before adding text node
+                        if (fieldValue != null) {
+                            if (listingType == 'Rent' && rentFrequency != null) {
+                                dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
+                                dom.XmlNode rentFre = fieldNode.addChildElement(rentFrequency, null, null);
+                                rentFre.addTextNode(String.valueOf(fieldValue));
+                            } else {
+                                dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
+                                fieldNode.addTextNode(String.valueOf(fieldValue));
+                            }
+                        }
+                    }   else {
                         Object fieldValue = record.get(fieldName);
     
                         // Check for null before adding text node
@@ -110,13 +128,43 @@ public class XMLFeedGeneratorForPF {
             // Include image URLs from map
             if (propertyMediaUrlsMap.containsKey((Id)record.get('Property_hz__c'))) {
                 dom.XmlNode ImageNode = propertyNode.addChildElement('photo', null, null);
+                dom.XmlNode AllNode = null;
+                dom.XmlNode FloorNode = null;
+                dom.XmlNode VideoNode = null;
                 for (PropertyMedia__c media : propertyMediaUrlsMap.get((Id)record.get('Property_hz__c'))) {
-                    dom.XmlNode fieldNodeImage = ImageNode.addChildElement('url', null, null);
-                    fieldNodeImage.setAttribute('last_update', media.LastModifiedDate.format('yyyy-MM-dd HH:mm:ss'));
-                    fieldNodeImage.setAttribute('watermark', 'yes');
-                    fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                    if (media.Tags__c != null) {
+                        List<String> tagsList = media.Tags__c.split(';');
+                        for (String tag : tagsList) {
+                            if (tag == 'Floorplan') {
+                                if (FloorNode == null) {
+                                    FloorNode = propertyNode.addChildElement('floor_plan', null, null);
+                                }
+                                dom.XmlNode fieldNodeImage = FloorNode.addChildElement('url', null, null);
+                                fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                            } else if (tag == 'Virtual Tour') {
+                                if (VideoNode == null) {
+                                    VideoNode = propertyNode.addChildElement('video_tour_url', null, null);
+                                }
+                                dom.XmlNode fieldNodeImage = VideoNode.addChildElement('url', null, null);
+                                fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                            } else if (tag == '360tour') {
+                                if (AllNode == null) {
+                                    AllNode = propertyNode.addChildElement('view360', null, null);
+                                }
+                                dom.XmlNode fieldNodeImage = AllNode.addChildElement('url', null, null);
+                                fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                            }
+                        }
+                    }   else {
+                        dom.XmlNode fieldNodeImage = ImageNode.addChildElement('url', null, null);
+                        fieldNodeImage.setAttribute('last_update', media.LastModifiedDate.format('yyyy-MM-dd HH:mm:ss'));
+                        fieldNodeImage.setAttribute('watermark', 'yes');
+                        fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                    }
                 }
             }
+
+
         }
 
         xmlstring = escapeXml(doc.toXmlString());
@@ -153,7 +201,7 @@ public class XMLFeedGeneratorForPF {
     }
 
     public String generateDynamicQuery(List<String> fieldNames, Set<Id> ListingIds) {
-        String query = 'SELECT Id, Property_hz__c, LastModifiedDate';
+        String query = 'SELECT Id, Property_hz__c, LastModifiedDate, ListingType__c, Rent_Frequency__c';
 
         for (String fieldName : fieldNames) {
             query += ', ' + fieldName;
