@@ -1,0 +1,33 @@
+<apex:page standardController="Contact">
+    <apex:includeLightning />
+    <div id="lwcContainer"></div>
+
+    <script type="text/javascript">
+        document.addEventListener("callvf", function(event){
+            console.log('vf event data window listener => ', event.detail);
+            var ContactId = event.detail.Id;
+            console.log('Contact Id ==>', ContactId);
+            window.top.location = "/"+ ContactId;
+        });
+
+        document.addEventListener("callvfback", function(event){
+            console.log('vf event data window listener => ', event.detail);
+            var Url = event.detail.url;
+            console.log('Url ==>', Url);
+            window.top.location = Url + "lightning/o/Contact/list/";
+            // console.log( this.a_Record_URL , "lightning/o/Contact/list");
+        });
+
+
+        $Lightning.use("c:NewContactPageApp", function() {
+            $Lightning.createComponent(
+                "c:NewContactPage",
+                {},
+                "lwcContainer",
+                function(cmp) {
+                    // Component is created
+                }
+            );
+        });
+    </script>
+</apex:page>

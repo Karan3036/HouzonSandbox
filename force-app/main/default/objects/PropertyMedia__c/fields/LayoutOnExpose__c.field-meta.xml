@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LayoutOnExpose__c</fullName>
+    <externalId>false</externalId>
+    <label>LayoutOnExpose</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Header</fullName>
+                <default>false</default>
+                <label>Header</label>
+            </value>
+            <value>
+                <fullName>Main</fullName>
+                <default>false</default>
+                <label>Main</label>
+            </value>
+            <value>
+                <fullName>Footer</fullName>
+                <default>false</default>
+                <label>Footer</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

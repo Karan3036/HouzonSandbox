@@ -10,11 +10,10 @@
     
     <apex:stylesheet value="{!URLFOR($Resource.CmaPage)}"/>
 </head>
-<!-- <div class="header">
-    <img class="header-logo" src="{!URLFOR($Resource.test_logo)}" width="50" height="50" alt="Image"/>
+<div class="logo" style="margin-bottom:10px !important">
+    <img class="header-logo" src="{!URLFOR($Resource.LogoHouzon)}" width="230" height="60" alt="Image"/>
 </div>
-<br/>
-<br/> -->
+
 <div>
 <body>
     <h2>Comparable Market Analysis</h2>
@@ -127,7 +126,7 @@
                     <td>
                     <p class="text">
                         <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.ListingPrice_hz__c))}">
-                            AED {!Listing_hz__c.ListingPrice_hz__c}
+                            AED <br/> {!Listing_hz__c.ListingPrice_hz__c}
                         </apex:outputText>
                         <apex:outputText rendered="{!ISBLANK(Listing_hz__c.ListingPrice_hz__c)}">
                             -
@@ -138,7 +137,7 @@
                     <td>
                     <p class="text">
                         <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.Ave_Sale_Esti__c))}">
-                            AED {!Listing_hz__c.Ave_Sale_Esti__c}
+                            AED <br/> {!Listing_hz__c.Ave_Sale_Esti__c}
                         </apex:outputText>
                         <apex:outputText rendered="{!ISBLANK(Listing_hz__c.Ave_Sale_Esti__c)}">
                             -
@@ -153,7 +152,7 @@
 
                     <td style="color:rgb(32, 31, 31);">
                         <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.ListingPrice_hz__c))}">
-                            AED {!Listing_hz__c.ListingPrice_hz__c}
+                            AED <br/>{!Listing_hz__c.ListingPrice_hz__c}
                         </apex:outputText>
                         <apex:outputText rendered="{!ISBLANK(Listing_hz__c.ListingPrice_hz__c)}">
                             -
@@ -162,7 +161,7 @@
                     
                     <td style="border-right:1px solid #939393;color:rgb(32, 31, 31);">
                         <apex:outputText rendered="{!NOT(ISBLANK(Listing_hz__c.ListingPrice_hz__c))}">
-                            AED {!Listing_hz__c.ListingPrice_hz__c}
+                            AED<br/>{!Listing_hz__c.ListingPrice_hz__c}
                         </apex:outputText>
                         <apex:outputText rendered="{!ISBLANK(Listing_hz__c.ListingPrice_hz__c)}">
                             -

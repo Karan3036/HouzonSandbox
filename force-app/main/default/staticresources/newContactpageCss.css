@@ -1,0 +1,10 @@
+.slds-scope .slds-dropdown-trigger_click .slds-dropdown,
+.slds-scope .slds-dropdown-trigger_click:hover .slds-dropdown {
+    max-height: 9rem !important;
+    overflow-y: scroll !important;
+}
+
+.slds-scope .slds-dropdown_length-with-icon-7,
+.slds-scope .slds-dropdown_length-with-icon-10 {
+    max-height: calc((1.5rem + 1rem) * 4) !important;
+}

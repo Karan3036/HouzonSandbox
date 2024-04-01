@@ -3,7 +3,8 @@ table {
     /* border: 1px solid green; */
     width: 100%;
 }
-th{
+
+.tabel_createpdf th{
     border-top: 1px solid rgb(72, 68, 68);
     border-bottom: 1px solid rgb(72, 68, 68);
     /* border: 1px solid black; */
@@ -13,15 +14,16 @@ th{
     text-align: center;
 }
 
-td{
+.tabel_createpdf td{
     border-bottom: 1px solid rgb(72, 68, 68);
     padding: 6px;
     width: 20%;
+    font-size: 14px;
     border-collapse: collapse !important;
     text-align: center;
 }
 
-tr{
+.tabel_createpdf tr{
     /* border: 1px solid black; */
     border-bottom: 1px solid rgb(72, 68, 68);
     border-collapse: collapse !important;
@@ -39,6 +41,7 @@ tr{
     position: fixed;
     top: 0;
     text-align: left;
+    margin-bottom: 20px;
 }
 .footer{
     position: fixed;

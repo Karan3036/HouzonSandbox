@@ -27,15 +27,20 @@ progress{
     /* Adjust the margin as needed */
 }
 .title_delete{
-    background-color:#DD3333;
-    color: white;
+    background-color:#FFE8E8;
+    color: #DD3333;
+    height:52px;
 }
 .title{
-    background-color:#6699CC;
-    color: white;
+    background-color:#E1F1FE;
+    color: #016DC3;
 }
 .title_text{
-    font-size: 30px;
+    font-size: 20px;
+}
+.bottom_footer{
+    background-color: white;
+    height:52px;
 }
 .popup_modal{
     width: 45%;
@@ -45,7 +50,7 @@ progress{
 }
 .main_content{
     text-align: center;
-    font-size: 30px;
+    font-size: 26px;
     height: 100px;
 }
 .label{
@@ -53,7 +58,7 @@ progress{
 }
 
 .customimg{
-    width: 40%;
+    width: 65px;
     max-width: 100%;
     height: auto;
     padding: 0.5em;
@@ -62,14 +67,28 @@ progress{
     display: block;
     margin: 2px;
 }
-.buttons{
-    background-color:#6699CC;
+.buttons_upload{
+    background-color:#016DC3;
     color: white;
 }
-.buttons_delete{
+.buttons_close{
+    border: 1px solid #747474;
+    background-color:#FFFFFF;
+    color: #016DC3;
+}
+.buttons_delete_yes{
+    height: 32px;
+    width: 70px;
     border:2px solid #DD3333 ;
     background-color:#DD3333;
     color: white;
+}
+.buttons_delete_no{
+    height: 32px;
+    width: 70px;
+    border:1px solid #747474 ;
+    background-color:#FFFFFF;
+    color:#DD3333 ;
 }
 .slds-backdrop_open {
     position: fixed;
@@ -141,4 +160,8 @@ hr{
 .highlight {
     transition: background-color 0.5s ease; /* Adjust timing here */
     background-color: #cdcbcb; /* Change to the desired highlight color */
+}
+
+.statusbox{
+    line-height: 1.5;
 }

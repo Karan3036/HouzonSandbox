@@ -7,6 +7,9 @@
             <div class="button-bar">
                 <div class="left-container">
                     <p>{currentImageName}</p>
+                    <!-- <template for:each={currentImageTag} for:item="tag">
+                    <lightning-badge label={tag} key={tag} style="margin-bottom: 4px;" ></lightning-badge>
+                    </template> -->
                 </div>
                 <div class="right-container">
                     <button onclick={reloadComponent} class="reload-button">
@@ -15,8 +18,12 @@
                     <button onclick={openImagePreview} class="preview-button">
                         <lightning-icon icon-name="utility:internal_share" size="x-small"></lightning-icon>
                     </button>
-                    <br>
                 </div>
+            </div>
+            <div style="min-height: 30px;">
+            <template for:each={currentImageTag} for:item="tag">
+                <lightning-badge label={tag} key={tag} style="margin-bottom: 2px;" ></lightning-badge>
+                </template>
             </div>
             <div class="image-container">
                 <div class="image-wrapper">

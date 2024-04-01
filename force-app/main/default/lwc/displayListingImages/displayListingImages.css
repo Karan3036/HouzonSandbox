@@ -24,10 +24,12 @@
 .button-bar{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
 }
 
 .left-container p{
-    margin: 10px 0px 0px 10px;
+    margin: 0px 0px 0px 00px;
     display: flex;
 }
 
@@ -40,7 +42,7 @@
     display: flex;
     width: fit-content;
     padding: 10px;
-    margin: 10px 10px 10px 0px;
+    margin: 0px 10px 10px 0px;
     border-radius: 10%;
 } 
 
@@ -49,7 +51,7 @@
     display: flex;
     width: fit-content;
     padding: 10px;
-    margin: 10px 10px 10px 0px;
+    margin: 0px 10px 10px 0px;
     border-radius: 10%;
 }
 

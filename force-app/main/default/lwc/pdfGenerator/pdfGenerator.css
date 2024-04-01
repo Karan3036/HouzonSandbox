@@ -6,3 +6,7 @@
     font-size: 15px; /* Adjust the font size as needed */
     margin-top: 1rem; /* Increase the margin-bottom for more spacing */
 }
+
+.lisname{
+    font-weight: bold;
+}

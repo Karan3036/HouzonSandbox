@@ -9,12 +9,23 @@ public with sharing class ListingMatchingController {
         public String inputValue;
     }
 
+    @AuraEnabled(cacheable =true)
+    public static List<Contact> getAllContacts(){
+        try {
+            List<Contact> conList = new List<Contact>();
+
+            conList = [SELECT Id, Name, FirstName, LastName, Phone, Email, LeadSource FROM Contact];
+            return conList;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
     @AuraEnabled(cacheable=true)
     public static PaginationWrapper getContacts(Integer pageNumber, Integer pageSize, List<FilterCriteria> filters) {
         PaginationWrapper result = new PaginationWrapper();
         try {
             Integer offset = (pageNumber - 1) * pageSize;
-            String query = 'SELECT Id, Name, Phone, Email, LeadSource FROM Contact';
+            String query = 'SELECT Id, Name, FirstName, LastName, Phone, Email, LeadSource FROM Contact';
             
             if (filters != null && !filters.isEmpty()) {
                 query += ' WHERE ';
@@ -55,14 +66,18 @@ public with sharing class ListingMatchingController {
         // Extract field API names and types and add them to the list
         for (String fieldName : fieldsMap.keySet()) {
             Schema.SObjectField field = fieldsMap.get(fieldName);
-            String fieldType = String.valueOf(field.getDescribe().getType());
-            String fieldWithAPIName = field.getDescribe().getName();
-            fieldListWithAPIName.add(fieldWithAPIName);
+            Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
+            
+            // Check if the field is not a formula field
+            if (!fieldDescribe.isCalculated()) {
+                String fieldType = String.valueOf(fieldDescribe.getType());
+                String fieldWithAPIName = fieldDescribe.getName();
+                fieldListWithAPIName.add(fieldWithAPIName);
+            }
         }
     
         return fieldListWithAPIName;
-    }
-    
+    }        
 
     // Method to create linked listing records
     @AuraEnabled
@@ -78,7 +93,8 @@ public with sharing class ListingMatchingController {
                 Listing_Agent_Firstname__c = 'test agent',
                 Listing_Agent_Lastname__c = 'agent last',
                 Listing_Agent_Phone__c = '1236534',
-                Listing_Agent_Email__c = 'test@gmail.com'
+                Listing_Agent_Email__c = 'test@gmail.com',
+                property_category__c='Commercial'
             );
             listingsToInsert.add(listing);
             
@@ -102,11 +118,6 @@ public with sharing class ListingMatchingController {
             }
             insert linkedListingsToInsert;
 
-            // Insert all records in a single transaction
-            System.debug('listing record' + listingsToInsert);
-            System.debug('inquiry record' + inquiriesToInsert);
-
-            System.debug('Linked Listings created successfully: ' + linkedListingsToInsert);
         } catch(Exception e) {
             System.debug('Error creating Linked Listing: ' + e.getMessage());
             throw new AuraHandledException('Error creating Linked Listing: ' + e.getMessage());

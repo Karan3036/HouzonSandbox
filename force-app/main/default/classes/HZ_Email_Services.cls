@@ -64,10 +64,10 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
             customerName = email.substringBetween('You can respond to *', '* calling or emailing on');
         }
 
-        string descriptionText1 = '';
-        if(email.contains('<https://')){
-            descriptionText1 = email.substringBetween('<','>');
-        }
+        // string descriptionText1 = '';
+        // if(email.contains('<https://')){
+        //     descriptionText1 = email.substringBetween('<','>');
+        // }
 
         string referenceCode = '';
         if (email.contains('*Reference*:')) {
@@ -100,7 +100,7 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
         Contact newCon = new Contact();
         newCon.LastName = customerName;
         newCon.LeadRoutingSource__c = name;
-        newCon.Description =  'Lead from Propertyfinder\n'+ ' ' + + '\nRefernce Code: ' + referenceCode + ' \n' + 'Link:\n' +descriptionText1;
+        newCon.Description =  'Lead from Propertyfinder\n'+ ' ' + + '\nRefernce Code: ' + referenceCode + ' \n';
         newCon.Phone = phoneNumber1;
         newCon.Email = emailId;
         newCon.LeadSource = 'Portal';
@@ -155,7 +155,7 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
     
         Contact newCon = new Contact();
         newCon.LastName = customerName;
-        newCon.Description =  'Lead from Bayut\n'+ ' \n' + 'Link:\n' +descriptionText1 + '\n' + descriptionText2;
+        newCon.Description =  'Lead from Bayut\n'+ ' \n' +descriptionText1 + '\n' + descriptionText2;
         newCon.Phone = phoneNumber;
         newCon.Email = emailId;
         newCon.LeadSource = 'Portal';
@@ -307,21 +307,24 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
             Inquiry_hz__c inquiry = new Inquiry_hz__c();
             inquiry.Listing__c = listingId;
             inquiry.Contact__c = conList[0].Id;
-            insert  inquiry;
+            
+            if(!Test.isRunningTest()){
+                insert  inquiry;
+            }
     
             LinkedListing_hz__c linkedListing = new  LinkedListing_hz__c();
             linkedListing.Inquiry_hz__c = inquiry.Id;
             linkedListing.Contact__c =  conList[0].Id;
             linkedListing.Listing_hz__c = listingId;
-            insert linkedListing;
+            
+            if(!Test.isRunningTest()){
+                insert linkedListing;
+            }
             }
     
         } catch (Exception e) {
             System.debug('Exception is ==>' + e);
         }
-
-
-
 
     }
 

@@ -1,0 +1,164 @@
+<template>
+    <div class="mDiv">
+        <div class="slds-grid slds-wrap mainDiv slds-size_12-of-12 card-shadow slds-p-vertical_medium">
+            <div class="slds-grid slds-wrap ListingForm slds-size_6-of-12 slds-p-horizontal_xx-large">
+
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium ">
+                    <div class="slds-form-element">
+                        <lightning-combobox name="rtype" label="Record Type" value={rtype}
+                            placeholder="Choose RecordType" options={options} onchange={handleChange} class="clsinput"
+                            required>
+                        </lightning-combobox>
+                    </div>
+                </div>
+
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="Title" name="aptnumname"
+                            type="text" value={aptnumname} onfocusout={handleKeyup} max-length="100" required>
+                        </lightning-input>
+                    </div>
+                </div>
+
+                <!-- <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="Street" name="street" type="text" value={street}
+                            onfocusout={handleKeyup} max-length="255">
+                        </lightning-input>
+                    </div>
+                </div> -->
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="Address" name="Address" type="text" value={address}
+                            onfocusout={handleKeyup} max-length="100">
+                        </lightning-input>
+                    </div>
+                </div>
+
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="City" name="city" type="text" value={city}
+                            onfocusout={handleKeyup} max-length="100">
+                        </lightning-input>
+                    </div>
+                </div>
+
+   
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="Bedrooms" name="bedrooms" type="number"
+                            value={bedrooms} onfocusout={handleKeyup} autocomplete="off">
+                        </lightning-input>
+                    </div>
+                </div>
+
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium ">
+                    <div class="slds-form-element ptype">
+                        <lightning-combobox dropdown-alignment="bottom-left" name="proptype" label="Property Type"
+                            value={proptype} placeholder="Select Property Type" onfocus={handleFocus}
+                            options={proptypeval} onchange={handleChange} class="ptype1 slds-scope">
+                        </lightning-combobox>
+                    </div>
+                </div>
+
+                <div
+                    class="slds-grid sldw-wrap slds-size_12-of-12 slds-p-top_medium slds-p-top_x-large slds-align_absolute-center">
+
+                    <!-- <div class="form-footer" style=" display: flex; justify-content: center;">
+                        <lightning-button variant="Neutral" style="margin-right: 1rem; width:6rem !important;" label="Cancel" class="btn-1"
+                            onclick={handleCancel}>Clear</lightning-button>
+                        <lightning-button variant="brand" label="Save" class="btn-0" style="width:6rem !important;"
+                            onclick={handleNext}></lightning-button>
+                    </div> -->
+                    <div class="form-footer" style="width: 100%;">
+                        <!-- <button type="Submit" class="btn-0" onclick={handleNext}>Save</button> -->
+                        <button class="clear-button slds-button slds-button_neutral slds-button_stretch" onclick={handleCancel}>Clear</button>
+                        <button class="save-button slds-button slds-button_brand slds-button_stretch" onclick={handleNext}>Save</button>
+                        <!-- <lightning-button class="clear-button" label="Clear" variant="Neutral" onclick={handleCancel}></lightning-button>
+                        <lightning-button class="save-button" label="Save" variant="brand" onclick={handleNext}></lightning-button> -->
+                    </div>
+                </div>
+
+            </div>
+            <div class="slds-wrap relatedDiv slds-size_4-of-12 slds-p-horizontal_medium scrolld">
+                <div class="dupli">
+                    <div class="">
+                        <h1 class="title_cls">Related Properties</h1>
+                    </div>
+                    <div if:true={isLoading} class="spinner">
+                        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                    </div>
+                    <template if:false={isLoading}>
+                        <template for:each={mylist} for:item="keyValue">
+                            <div key={keyValue.key}>
+                                <div style="display: flex;align-items:center;">
+                                    <div class="accordion" data-record={keyValue.key} id={keyValue.key}
+                                        style="margin-top: 10px;">
+                                        <div style="display: flex;">
+                                            <div><input type="radio" value={keyValue.key} id={keyValue.key}
+                                                    onclick={getRadio} name="wrapping-text" autocomplete="Off"
+                                                    style="margin-right: 4px;z-index: 1;" /></div>
+                                            <div style="margin-right:2%;"><lightning-icon size="small"
+                                                    icon-name="custom:custom24" alternative-text="Listing"
+                                                    title="Listing"></lightning-icon></div>
+                                            <div style="width: 75%;"><a style="font-weight:10;font-size:17px;"
+                                                    data-record={keyValue.key} onclick={linkOpener}>{keyValue.name}</a>
+                                            </div>
+                                            <div class="count">{keyValue.count}</div>
+                                        </div>
+                                        <div class="add_cls slds-p-top_medium slds-m-left_x-large">
+                                            <h2>Address:-</h2>
+                                            <p style="font-family: Salesforce Sans, Arial, sans-serif;font-size: 13px;font-weight:500"
+                                                class="slds-m-left_large">{keyValue.address}</p>
+                                        </div>
+                                        <div class="acc_cls accordion" style="margin-bottom: 5px;"
+                                            data-record={keyValue.key} id={keyValue.key} onclick={handleAcco}>
+                                            <div style="width: 100%;">
+                                                <div style="display: flex;">
+                                                    <h2>Active Listings</h2>
+                                                    <div key={keyValue.key} id={keyValue.key}>
+                                                        <!--data-id={keyValue.key}-->
+                                                        <lightning-icon icon-name={iconName} alternative-text="Down"
+                                                            size="small" class="showIconclass" title="">
+                                                        </lightning-icon>
+                                                    </div>
+                                                </div>
+                                                <template for:each={keyValue.value} for:item="key1">
+                                                    <div key={key1.Id} data-id={keyValue.key} class="panel">
+                                                        <a data-record={key1.Id} onclick={linkOpenerListing}
+                                                            style="vertical-align: -webkit-baseline-middle;">{key1.Name}&nbsp;</a>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </template>
+                    </template>
+                    <template if:false={foundDupli}>
+                        <div class="empty-state">
+                            <div class="empty-state__content">
+
+
+                                <div class="slds-illustration slds-illustration_medium" aria-hidden="true"
+                                    style="margin-top: 80px;">
+                                    <img src="/img/chatter/Desert.svg" class="slds-illustration__svg" alt="" />
+                                    <div class="slds-text-color_weak">
+                                        <h4 class="slds-text-heading_medium" style="margin-top:14px;font-size:15px;">
+                                            Properties Not Available</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</template>

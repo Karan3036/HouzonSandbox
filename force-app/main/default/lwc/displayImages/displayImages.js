@@ -45,10 +45,13 @@ import {refreshApex} from '@salesforce/apex';
         }
   
         fetchingdata(){
+        this.showSpinner = true;
+
         fetchdata({ recordId: this.recordId })
                 .then(result => {
                     this.data = result;
                     this.isdata = result && result.length > 0;
+                    this.showSpinner = false;
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);

@@ -15,7 +15,7 @@ img{
 
 .heading{
     margin-top: 30px !important;
-    margin-bottom: 50px !important;
+    margin-bottom: 30px !important;
     font-size: 20px !important;
 }
 
@@ -31,7 +31,7 @@ p{
     /* border: 1px solid black; */
     border-top:1px solid #939393;
     border-bottom:1px solid #939393;
-
+    font-size: 14px;
     text-align: center;
 }
 

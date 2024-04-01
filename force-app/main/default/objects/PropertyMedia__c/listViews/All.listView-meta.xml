@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Title__c</columns>
+    <columns>BaseUrl__c</columns>
+    <columns>Category__c</columns>
+    <columns>ExternalLink__c</columns>
+    <columns>IsExternalLink__c</columns>
+    <columns>IsOnWebsite__c</columns>
+    <columns>OriginalFilename__c</columns>
+    <columns>SortOnWebsite__c</columns>
+    <columns>Tags__c</columns>
+    <columns>URL__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

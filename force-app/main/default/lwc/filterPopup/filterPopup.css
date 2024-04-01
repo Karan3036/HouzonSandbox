@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+/* Adjust margin as needed */
+.icon-container {
+    margin-right: 5px;
+}
+
+.combobox-container {
+    width: 200px; /* Adjust width as needed */
+    margin-left: 1%; /* Adjust margin as needed */
+    margin-bottom: 2%;
+}
+
+.combo-box {
+    width: 100%;
+}
+
+.maincontact{
+    margin-top: 1%;
+    margin-bottom: 0.5%;
+    margin-left: 5%;
+}
+
+.icon{
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 0.5%;
+}

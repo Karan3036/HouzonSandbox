@@ -4,6 +4,9 @@
     width: 100% !important;
 }
 
+/* .img-container{
+    width:100%;
+} */
 .theImage{
     width: 100% !important;
 }
@@ -18,11 +21,15 @@
 }
 
 .description{
-    margin-top: 80px !important;
+    margin-top: 50px !important;
     border: 1px solid black;
     padding: 10px;
-    height: 900px;
+    height: 870px;
     margin-bottom: 40px !important;
+}
+#image{
+    width: 100%;
+    /* CSS styles for the first image */
 }
 
 .text{
@@ -32,7 +39,11 @@
 
 .des-text{
     margin-bottom: 30px !important;
-    font-size: medium;
+    font-size:larger;
+    font-weight: bold;
+}
+.heading{
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -62,25 +73,15 @@
 }
 
 .Feature-text{
-    font-size: 26px !important;
-    margin-bottom: 30px !important;
+    font-size: 20px !important;
+    margin-bottom: 20px !important;
     display: inline-block;
     /* text-align: center; */
 }
-.featueres-content li{
-    display: inline-block;
-}
+
 .Container{
     height: 100%;
     border: 1px solid black;
     padding: 10px;
 }
 
-.featueres-text{
-    font-size:medium;
-}
-.header{
-    position: fixed;
-    top: 0;
-    text-align: left;
-}

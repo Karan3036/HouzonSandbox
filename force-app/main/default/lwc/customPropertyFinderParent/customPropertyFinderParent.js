@@ -2,6 +2,9 @@ import { LightningElement,api,track,wire } from 'lwc';
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import updateListingsValue from '@salesforce/apex/SearchPropertyController.updateListingsValue';
 
+import {loadStyle} from 'lightning/platformResourceLoader';
+import customCss from '@salesforce/resourceUrl/PropertyfinderCss';
+
 export default class CustomPropertyFinderParent extends LightningElement {
     @track addressName;
     @api selectedRecord = {}; 
@@ -18,6 +21,16 @@ export default class CustomPropertyFinderParent extends LightningElement {
         console.log('recordId>>',this.recordId);
     }
 
+
+    renderedCallback() {
+        Promise.all([
+                loadStyle(this, customCss)
+            ]).then(() => {})
+            .catch(() => {
+                this.message = 'Something Went Wrong In New Form Detail Page';
+                this.showerror();
+            });
+    }
     lookupRecord(event){
         try{
         console.log('Event');

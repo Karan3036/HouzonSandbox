@@ -1,5 +1,9 @@
 <template>
-    <lightning-map
+
+    <div >
+        <!-- <div>Hi</div> -->
+
+        <lightning-map class="print-preview-div"
         map-markers={mapMarkers}
         onmarkerselect={handleMarkerSelect}
         selected-marker-value={selectedMarkerValue}
@@ -7,5 +11,24 @@
         zoom-level=18
     >
     </lightning-map>
+
+    <!-- <iframe src={vfPageUrl} width="100%" height="600px" frameborder="0"></iframe> -->
+
+
+    </div>
+
     
+
+    
+
+    <!-- <div id="screenshotcanvas" class="screenshotcanvas">
+        <canvas class="my_canvas_id slds-hide">
+        
+        </canvas>
+        </div>
+
+    <img src={imgsrc} class="lightense"/>
+
+    <button label="Take Screenshot" onclick={printDiv}> Take Screenshot</button> -->
+
 </template>

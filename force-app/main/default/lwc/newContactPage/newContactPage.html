@@ -1,0 +1,148 @@
+<template>
+
+    <div class="maindiv">
+
+        <div class="slds-grid slds-wrap slds-size_12-of-12 slds-p-horizontal_medium slds-p-vertical_medium height_cls card-shadow">
+            <div class="slds-grid slds-wrap slds-size_6-of-12 slds-p-horizontal_medium slds-m-vertical_medium border_cls">
+
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium salutationDiv">
+                    <div class="slds-form-element">
+                        <lightning-combobox class="cls_input" name="salutation" label="Salutation" value={salutation}
+                            placeholder="Select Salutation" options={salutationVal} onchange={handlechange}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium fnameDiv">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="First Name" name="fname" type="text" value={fname}
+                            autocomplete="off" onfocusout={onblurvalue} max-length = "40" required>
+                        </lightning-input>
+                    </div>
+                </div>
+
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium lnameDiv">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="Last Name" name="lname" type="text" value={lname}
+                            autocomplete="off" onfocusout={onblurvalue} max-length = "80" required>
+                        </lightning-input>
+                    </div>
+                </div>
+
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium companydiv">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="Company" name="company" type="text" value={company}
+                        autocomplete="off" onchange={onblurvalue}>
+                        </lightning-input>
+                        <!-- <lightning-input class="cls_input" label="Email" type="email" name="email" value={email}
+                            autocomplete="off" onfocusout={onblurvalue} max-length = "80" required>
+                        </lightning-input> -->
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium emailDiv">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="Email" type="email"
+                        pattern="([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$"
+                        message-when-pattern-mismatch="Please enter a valid email" name="email" value={email}
+                        autocomplete="off" onfocusout={onblurvalue} max-length = "80" required>
+                        </lightning-input>
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium mobileDiv">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="Mobile Phone" type="tel" name="mobile"
+                            autocomplete="off" pattern="^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$"
+                            message-when-pattern-mismatch="Please enter a valid number" value={mobilephn}
+                            onfocusout={onblurvalue}>
+                        </lightning-input>
+                        <!-- pattern="^((\+)?(\d{2}[-]))?(\d{10,14}){1}?$" -->
+                        <!-- onchange={onblurvalue} -->
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium phoneDiv">
+                    <div class="slds-form-element">
+                        <lightning-input class="cls_input" label="Business Phone" name="phone" type="tel" value={phone}
+                            autocomplete="off" pattern="^((\+)?(\d{2}[-]))?(\d{10,14}){1}?$"
+                            message-when-pattern-mismatch="Please enter a valid number" onchange={onblurvalue}>
+                        </lightning-input>
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium leadSourceDiv">
+                    <div class="slds-form-element">
+                        <lightning-combobox dropdown-alignment="bottom-left" class="cls_input slds-scope" name="leadSource" label="LeadSource" value={leadsource}
+                            placeholder="Select LeadSource" options={leadsourceVal} onchange={handlechange}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+                <div class="slds-grid sldw-wrap slds-size_12-of-12 slds-align_absolute-center slds-p-vertical_x-small">
+
+                    <div class="form-footer" style="width: 100%;">
+                        <!-- <button type="Submit" class="btn-0" onclick={handleNext}>Save</button> -->
+                        <button class="clear-button slds-button slds-button_neutral slds-button_stretch" onclick={handleClear}>Clear</button>
+                        <button class="save-button slds-button slds-button_brand slds-button_stretch" onclick={handleNext}>Save</button>
+                        <!-- <lightning-button class="clear-button" label="Clear" variant="Neutral" onclick={handleClear} style="margin-right: 2rem;"></lightning-button>
+                        <lightning-button class="save-button" label="Save" variant="brand" onclick={handleNext}></lightning-button> -->
+                    </div>
+
+                </div>
+            </div>
+            <!-- Potential Duplicate -->
+
+            <div class="slds-grid slds-wrap slds-size_4-of-12 pd_cls slds-p-horizontal_medium">
+                <div class="cls_dupli">
+                    <div class="dupl_cls">
+                        <!-- <h1 class="title_cls">Potential Duplicate</h1> -->
+                            <lightning-card  variant="Narrow"  title="Potential Duplicate" icon-name="standard:contact">
+                            </lightning-card>
+                        <h3 class="count">{contactcount}</h3>
+                    </div>
+
+                    <div style="height:100%; margin-top: 5%; padding-top: 17%;" tabindex="-1" id="records">
+                        <div if:true={isLoaded} class="spinner_Cls">
+                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                        </div>
+                        <template if:true={duplicaterecord}>
+                            <template for:each={duplicateConName} for:item="con">
+                                <div key={con.id} class="wrapper slds-m-vertical_xx-small">
+                                    <div class="slide">
+                                        <div class="card-list">
+                                            <div class="cards">
+                                                <div class="card -ochre">
+                                                    <input type="radio" id={con.Id}
+                                                            onclick={getRadio} name="wrapping-text" autocomplete="Off"
+                                                            style="margin-right: 4px;z-index: 1;" />
+                                                    <lightning-icon icon-name="standard:contact"
+                                                        alternative-text="Contact" title="Contact"></lightning-icon>
+                                                    <h3><a data-id={con.Id}
+                                                            class="slds-p-horizontal_medium slds-p-top_x-small"
+                                                            onclick={handleClick}>{con.Name}</a></h3>
+                                                    <div class="email_cls">
+                                                        <span>{con.Email}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                        <template if:false={duplicaterecord}>
+                            <div class="empty-state"
+                                style="height: 70%;display: flex;justify-content: center;align-items: center;">
+                                <div class="empty-state__content">
+                                    <!-- <div class="empty-state__message">No Record Found!!!</div> -->
+                                    <div class="slds-illustration slds-illustration_medium" aria-hidden="true" style="margin-top: 40px;">
+                                        <img src="/img/chatter/OpenRoad.svg" class="slds-illustration__svg cimage" alt=""/>
+                                        <div class="slds-text-color_weak">
+                                            <h6 class="slds-text-heading_medium" style="margin-top:14px;font-size:15px;">Contacts Not Available</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

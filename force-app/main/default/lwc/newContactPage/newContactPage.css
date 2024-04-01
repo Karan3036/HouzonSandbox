@@ -1,0 +1,263 @@
+/* --------Main Div class-------- */
+
+.maindiv{
+    max-width: 95vw;
+    margin-left: 3rem;
+}
+
+.height_cls {
+    min-height: 45rem;
+    height: 45rem;
+}
+
+.border_cls {
+    border-right: 1px solid lightgrey;
+    height: 95%;
+    margin-left: 5rem;
+}
+
+.card-shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+}
+
+
+/* --------End Main Div class-------- */
+
+
+/* --------Hide Scrolling-------- */
+
+.pd_cls {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.pd_cls::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* --------End Hide Scrolling-------- */
+
+
+/* --------Duplicate Record-------- */
+
+.cls_dupli {
+    width: 100%;
+    height: 100%;
+}
+
+.slide a {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.count {
+    float: right;
+    background-color: lightgray;
+    padding: 0px 4px;
+    font-size: 13px;
+    font-weight: 1000;
+    border-radius: 0.25rem;
+}
+
+.title_cls {
+    font-family: "Francois One", sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: grey;
+    margin: 0 0 0.8rem 0;
+    text-align: center;
+    display: contents;
+}
+
+
+/* --------End Duplicate Record-------- */
+
+
+/* --------For Card slide-------- */
+
+.wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 20%;
+}
+
+.wrapper:hover {
+    box-shadow: 0px 0px 4px rgb(0 0 0 / 30%);
+}
+
+.card h3 {
+    display: contents;
+}
+
+.salutationDiv,
+.fnameDiv,
+.lnameDiv,
+.companydiv,
+.emailDiv,
+.mobileDiv,
+.phoneDiv,
+.leadSourceDiv{
+    margin-top: -2%;
+}
+
+.dupl_cls {
+    position: absolute;
+    z-index: 3;
+    background: white;
+    width: 30%;
+}
+
+.card-list {
+    border-radius: 4px;
+}
+
+.cards>.card {
+    border-radius: 4px;
+    padding: 7px 14px;
+    border: 1px solid grey;
+    margin-bottom: 16px;
+    background: white;
+}
+
+.cards>.-ochre {
+    border-left: 5px solid #F69A00;
+}
+
+.email_cls {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: sans-serif;
+    color: grey;
+    padding-top: 2%;
+}
+
+.slide {
+    position: absolute;
+    right: -100%;
+    width: 100%;
+    -webkit-animation: slide 0.5s forwards;
+    animation: slide 0.5s forwards;
+}
+
+@-webkit-keyframes slide {
+    100% {
+        right: 0;
+    }
+}
+
+@keyframes slide {
+    100% {
+        right: 0;
+    }
+}
+
+
+/* --------End Card slide-------- */
+
+
+/* --------No Record Found-------- */
+
+.empty-state__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.empty-state__content .empty-state__message {
+    color: grey;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0.85rem;
+}
+
+
+/* --------End No Record Found-------- */
+
+
+/* --------New Button Style-------- */
+
+/* [class^=btn-] {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 40px;
+    max-width: 100px;
+    margin: 1rem auto;
+    text-transform: uppercase;
+    border: 1px solid rgba(3, 45, 96, 1);
+}
+
+.btn-0 {
+    color: white;
+    background-color: rgba(3, 45, 96, 0.8);
+    z-index: 1;
+    line-height: 37px;
+    text-align: center;
+} */
+
+.form-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    font-size: 1rem;
+}
+
+.save-button, .clear-button{
+    width: 30%;
+}
+
+/* .btn-0:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(3, 45, 96, 1);
+    transform: translateX(-100%);
+} */
+/* 
+.btn-0:hover {
+    color: white;
+}
+
+.btn-0:hover:before {
+    transform: translateX(0);
+}
+
+.btn-0:before {
+    transition: 0.3s ease-in-out;
+} */
+
+/* *:before,
+*:after {
+    z-index: -1;
+} */
+
+
+/* --------End New Button-------- */
+
+
+/* --------Spinner-------- */
+
+.spinner_Cls {
+    position: relative;
+    justify-content: center;
+    width: 100%;
+    height: 350px;
+}
+
+
+/* --------Spinner End-------- */
+
+.cimage{
+    height: 150px;
+}

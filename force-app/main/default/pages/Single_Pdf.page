@@ -2,18 +2,11 @@
 
     <head>
         <apex:stylesheet value="{!URLFOR($Resource.singlePdf)}" />
-
-        <style type="text/css">
-            @page { 
-                size: a4;
-            }   
-        </style>
         
     </head>
-    <!-- <div class="header">
-        <img class="header-logo" src="{!URLFOR($Resource.test_logo)}" width="50" height="50" alt="Image"/>
+    <div class="logo" style="margin-bottom:10px !important">
+        <img class="header-logo" style="margin-left:75% !important; margin-bottom:10px !important;" src="{!URLFOR($Resource.LogoHouzon)}" width="230" height="60" alt="Image"/>
     </div>
-    <br/> -->
     <!-- <script src="https://kit.fontawesome.com/94f511b59c.js" crossorigin="anonymous"></script> -->
 
 
@@ -21,7 +14,7 @@
 
         <tr>
             <th>
-                <div class="heading">{!Listing_hz__c.Name}</div>
+                <div class="heading_title heading">{!Listing_hz__c.Name}</div>
             </th>
         </tr>
 
@@ -100,7 +93,7 @@
             </td>
             <td>
                 <div class="featueres">
-                    <div class="Feature-text">Main featueres</div>
+                    <div class="Feature-text heading">Main featueres:</div>
                     <div class="featueres-content">
                         <p class="text"><span class="span-text">Balcony or Terrace</span> <span>Pool view</span></p>
                         <p class="text"><span class="span-text" style="margin-right: 69px !important;">Central Heating</span> <span>Gym or Health Club</span> </p>
@@ -113,7 +106,7 @@
         <tr>
             <td colspan="2">
                 <div>
-                    <h2>Contact  Agent for more information</h2>
+                    <h2 class="heading">Contact  Agent for more information:</h2>
 
                     <div>
                         <p class="text" style="margin-top: 10px;" rendered="{!NOT(ISBLANK(Listing_hz__c.Listing_Agent_Full_Name__c))}">

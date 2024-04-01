@@ -27,7 +27,9 @@ private class HZ_Email_ServicesTest {
 
     @isTest
     static void testPropertyfinderContactCreation() {
-        String testEmailBody = 'Test email body for propertyfinder.ae email';
+        String testEmailBody = 'Dear Vansh Mehra,\ntest has sent you a message regarding your property\n3,500,000 AED -  Apartment - 2 3  -  1,660 sqft\nModern 2BR + Maid | Burj View | Direct Buyers Only\nHOUZON is proud to present this luxurious two apartment for sale in City Walk, Dubai. Multiple units...\nReference: VM-CW-2BR-00013\nAgent: Vansh Mehra';
+
+        
         HZ_Email_Services emailService = new HZ_Email_Services();
 
         Test.startTest();
@@ -37,7 +39,8 @@ private class HZ_Email_ServicesTest {
 
     @isTest
     static void testNewLeadContactCreation() {
-        String testEmailBody = 'Test email body for Bayut New Lead email';
+        String testEmailBody = 'Dear Vansh Mehra,\ntest has sent you a message regarding your property\n3,500,000 AED -  Apartment - 2 3  -  1,660 sqft\nModern 2BR + Maid | Burj View | Direct Buyers Only\nHOUZON is proud to present this luxurious two apartment for sale in City Walk, Dubai. Multiple units...\nReference: VM-CW-2BR-00013\nAgent: Vansh Mehra';
+
 
         HZ_Email_Services emailService = new HZ_Email_Services();
 
@@ -48,7 +51,8 @@ private class HZ_Email_ServicesTest {
 
     @isTest
     static void testMissedCallContactCreation() {
-        String testEmailBody = 'Test email body for Missed Call email';
+        String testEmailBody = 'Dear Vansh Mehra,\ntest has sent you a message regarding your property\n3,500,000 AED -  Apartment - 2 3  -  1,660 sqft\nModern 2BR + Maid | Burj View | Direct Buyers Only\nHOUZON is proud to present this luxurious two apartment for sale in City Walk, Dubai. Multiple units...\nReference: VM-CW-2BR-00013\nAgent: Vansh Mehra';
+
 
         HZ_Email_Services emailService = new HZ_Email_Services();
 
@@ -59,7 +63,7 @@ private class HZ_Email_ServicesTest {
 
     @isTest
     static void testCallSummaryContactCreation() {
-        String testEmailBody = 'Test email body for Call Summary email';
+        String testEmailBody = 'Dear Vansh Mehra,\ntest has sent you a message regarding your property\n3,500,000 AED -  Apartment - 2 3  -  1,660 sqft\nModern 2BR + Maid | Burj View | Direct Buyers Only\nHOUZON is proud to present this luxurious two apartment for sale in City Walk, Dubai. Multiple units...\nReference: VM-CW-2BR-00013\nAgent: Vansh Mehra';
 
         HZ_Email_Services emailService = new HZ_Email_Services();
 
@@ -71,7 +75,7 @@ private class HZ_Email_ServicesTest {
 
     @isTest
     static void testLeadNotificationContactCreation() {
-        String testEmailBody = 'Test email body for Bayut Lead Notification email';
+        String testEmailBody = 'Dear Vansh Mehra,\ntest has sent you a message regarding your property\n3,500,000 AED -  Apartment - 2 3  -  1,660 sqft\nModern 2BR + Maid | Burj View | Direct Buyers Only\nHOUZON is proud to present this luxurious two apartment for sale in City Walk, Dubai. Multiple units...\nReference: VM-CW-2BR-00013\nAgent: Vansh Mehra';
 
         HZ_Email_Services emailService = new HZ_Email_Services();
 
@@ -80,4 +84,21 @@ private class HZ_Email_ServicesTest {
         Test.stopTest();
 
     }
+
+    @isTest
+    static void testCreateInquiryAndLinkListing() {
+        // Create test data
+        Listing_hz__c testListing = new Listing_hz__c(Name = 'Test Listing', Broker_s_Listing_ID__c = 'Test123',property_category__c='Residential');
+        insert testListing;
+
+        Contact testContact = new Contact(FirstName = 'Test', LastName = 'Contact');
+        insert testContact;
+
+        HZ_Email_Services emailService = new HZ_Email_Services();
+        // Call the method
+        Test.startTest();
+        emailService.createInquiryAndLinkListing('Test123', new List<Contact>{testContact});
+        Test.stopTest();
+
+}
 }

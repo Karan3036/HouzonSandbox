@@ -1,12 +1,21 @@
 import { LightningElement, track, wire, api } from 'lwc';
 import fetchDubizzleLocationtext from '@salesforce/apex/DubizzlePropertyFinder.fetchDubizzleLocationtext';
 import updateRecordData from '@salesforce/apex/DubizzlePropertyFinder.updateRecordData';
-
+import {loadStyle} from 'lightning/platformResourceLoader';
+import customCss from '@salesforce/resourceUrl/PropertyfinderCss';
 export default class CustomdubizzleFinderParent extends LightningElement {
     @api recordId;
     @track dubizzleLocationtext;
     @track selectedRecordId;
     @track selectedRecordName;
+    @track disBtn = false;
+
+    connectedCallback(){
+        const currentUrl = window.location.href;
+        console.log('curr url>>',currentUrl);
+
+        console.log('recordId>>',this.recordId);
+    }
 
     connectedCallback() {
         console.log('recordId ==>', this.recordId);
@@ -28,28 +37,18 @@ export default class CustomdubizzleFinderParent extends LightningElement {
     
             if (this.selectedRecordId) {
                 this.fetchDubizzleLocationtext(this.selectedRecordId);
+                this.disBtn = false;
             } else {
-                console.log('In the else here..');
+                console.log('In the else here....');
+                this.disBtn = true;
             }
         } else {
-            // Handle the case where event.detail.selectedRecord is null or undefined
-            console.log('No record selected');
+            console.log('No record selected here');
         }
     }
     
-
-    // handleDubizzleLocationtextChange(event) {
-    //     this.dubizzleLocationtext = event.target.value;
-    // }
-
     updateValue() {
-        console.log('Clicked on update button');
-
-
-        // let listObj = { 'sobjectType': 'Listing_hz__c' };
-        // listObj.Building_Dubizzle__c = this.selectedRecord.Dubizzle_Building_name__c;
-        // listObj.LocationText_Dubizzle__c = this.dubizzleLocationtext;
-        // listObj.SearchPropertyId__c  = this.selectedRecord.Id;          
+        console.log('Clicked on update button');      
 
         updateRecordData({
             recordId: this.recordId,

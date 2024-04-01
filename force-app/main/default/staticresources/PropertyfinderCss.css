@@ -1,0 +1,7 @@
+
+.slds-scope .slds-dropdown-trigger_click .slds-dropdown, .slds-scope .slds-dropdown-trigger_click:hover .slds-dropdown, .slds-scope .slds-dropdown-trigger--click .slds-dropdown, .slds-scope .slds-dropdown-trigger--click:hover .slds-dropdown{
+    /* display: none; */
+    max-height: 8rem !important;
+    display: block;
+
+}

@@ -50,6 +50,7 @@ public with sharing class UploadControllerTest {
         listingRecord1.City_hz__c = 'Test';
         listingRecord1.State_hz__c = 'Test';
         listingRecord1.Broker_s_Listing_ID__c='Test';
+        listingRecord1.Houzon_Broker_s_Listing_ID__c='Test1';
         listingRecord1.Description_hz__c='Testing Area';
         listingRecord1.PropertySubType_hz__c='Industrial';
         listingRecord1.Property_Sub_Type__c='Residential - Apartment';
@@ -68,6 +69,7 @@ public with sharing class UploadControllerTest {
         listingRecord1.CompletionDate_hz__c=date.today()+1;
         listingRecord1.PropertyOwnerContact__c=testContact1.Id;
         listingRecord1.Property_hz__c=pro.Id;
+        listingRecord1.property_category__c='Commercial';
         insert listingRecord1;
 
         
@@ -79,6 +81,9 @@ public with sharing class UploadControllerTest {
             Property_hz__c = pro.Id
         );
         insert propertyMedia;
+
+        uploadController.getListingRecord(listingRecord1.Id);
+
 
         List<PropertyMedia__c> result = uploadController.fetchdataforlisting(listingRecord1.Id);
         Boolean result1 = uploadController.deletelistingmedia(null, listingRecord1.Id);
@@ -93,7 +98,9 @@ public with sharing class UploadControllerTest {
             Property_hz__c = pro.Id
         );
         insert propertyMedia2;
-        Boolean result6 = uploadController.updateOrderState(new List<Id>{propertyMedia2.Id}, new List<Id>(), new List<Id>());
+        propertyMedia2.Name = 'Test Media2';
+        update propertyMedia2;
+        Boolean result6 = uploadController.updateOrderState(new List<Id>{propertyMedia2.Id}, new List<Id>(), new List<Id>(),new List<Id>(),new List<Id>(),new List<Id>());
         PropertyMedia__c propertyMedia1 = new PropertyMedia__c(
             Name = 'Test Media',
             FilenameUrlEncoded__c = 'test_url',
@@ -103,9 +110,6 @@ public with sharing class UploadControllerTest {
         insert propertyMedia1;
 
         Boolean result7 = uploadController.updateOrderState_toFalse(new List<Id>(), new List<Id>{propertyMedia1.Id}, new List<Id>());
-        // PropertyMedia__c updatedMedia = [SELECT Id, IsOnPortalFeed__c, IsOnWebsite__c, IsOnExpose__c FROM PropertyMedia__c WHERE Id = :propertyMedia.Id LIMIT 1];
-
-
 
     }
 
@@ -126,10 +130,13 @@ public with sharing class UploadControllerTest {
         Boolean result = uploadController.createmedia(propertyName, fileSize, pro.Id, url, externalLink);
 
 
+
         System.assertEquals(true, result, 'Expected creation success');
 
         List<PropertyMedia__c> insertedMedia = [SELECT Id FROM PropertyMedia__c WHERE Name = :propertyName AND Property_hz__c = :pro.Id];
         System.assertEquals(1, insertedMedia.size(), 'Expected one record inserted');
+        S3Service.getS3ConfigSettings();
+
     }
     @isTest
     static void deletePromedia() {
@@ -160,6 +167,7 @@ public with sharing class UploadControllerTest {
         listingRecord1.Broker_s_Listing_ID__c='Test';
         listingRecord1.Description_hz__c='Testing Area';
         listingRecord1.PropertySubType_hz__c='Industrial';
+        listingRecord1.Houzon_Broker_s_Listing_ID__c='Test1';
         listingRecord1.Property_Sub_Type__c='Residential - Apartment';
         listingRecord1.RERA_Permit_Number__c='100';
         listingRecord1.TotalArea_hz__c=1000;
@@ -176,21 +184,42 @@ public with sharing class UploadControllerTest {
         listingRecord1.CompletionDate_hz__c=date.today()+1;
         listingRecord1.PropertyOwnerContact__c=testContact1.Id;
         listingRecord1.Property_hz__c=pro.Id;
+        listingRecord1.property_category__c='Commercial';
         insert listingRecord1;
 
         
-
+        Decimal newSize = 200;
         PropertyMedia__c propertyMedia = new PropertyMedia__c(
+            Name = 'Test Media',
+            FilenameUrlEncoded__c = 'test_url',
+            Size__c = 1024,
+            Property_hz__c = pro.Id,
+            Tags__c='tag1;tag2'
+        );
+        insert propertyMedia;
+        
+        Boolean result4 = uploadController.update_media_name(propertyMedia.Id, 'Test Media','test_url',new List<String>{'tag3', 'tag4'},null,propertyMedia.Size__c); 
+        
+        PropertyMedia__c propertyMedia1 = new PropertyMedia__c(
             Name = 'Test Media',
             FilenameUrlEncoded__c = 'test_url',
             Size__c = 1024,
             Property_hz__c = pro.Id
         );
-        insert propertyMedia;
-        delete propertyMedia;
+        insert propertyMedia1;
+        propertyMedia1.name='Test Media1';
+        update propertyMedia1;
 
-        Boolean result = uploadController.undeletemedia(propertyMedia.Id);
-        
-        Boolean result4 = uploadController.update_media_name(propertyMedia.Id, 'Test Media','test_url');        
+        Boolean result5 = uploadController.update_media_name(propertyMedia1.Id, 'Test Media1','test_url',new List<String>{'tag3', 'tag4'},null,propertyMedia1.Size__c);
+    }
+    @isTest
+    static void testGetListingRecord_Exception() {
+        Test.startTest();
+        try {
+            uploadController.getListingRecord('invalidId');
+            System.assert(false, 'Expected exception was not thrown');
+        } catch (AuraHandledException e) {
+        }
+        Test.stopTest();
     }
 }

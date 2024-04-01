@@ -9,13 +9,13 @@
         }   
     </style>
 </head>
-    <!-- <div class="header">
-        <img class="header-logo" src="{!URLFOR($Resource.test_logo)}" width="50" height="50" alt="Image"/>
+    <div class="logo" style="margin-bottom:20px !important">
+        <img class="header-logo" src="{!URLFOR($Resource.LogoHouzon)}" width="230" height="60" alt="Image"/>
     </div>
-    <br/> -->
+    <br/>
     <div>
     <!-- <h2 class="heading">Comparable Small Landscape</h2> -->
-    <table>
+    <table class="tabel_createpdf">
         <tr>
             <th style="border-left:1px solid #939393">Image</th>
             <th>Title</th>

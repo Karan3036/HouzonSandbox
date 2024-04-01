@@ -1,20 +1,23 @@
 import { LightningElement, track, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import getContacts from '@salesforce/apex/ListingMatchingController.getContacts';
 import getContactFields from '@salesforce/apex/ListingMatchingController.getContactFields';
 import createLinkedListing from '@salesforce/apex/ListingMatchingController.createLinkedListing';
+import getAllContactsRecord from '@salesforce/apex/ListingMatchingController.getAllContacts';
+import { refreshApex } from '@salesforce/apex';
+
 
 const columns = [
-    { label: 'Name', fieldName: 'Name' },
-    { label: 'Phone', fieldName: 'Phone' },
-    { label: 'Email', fieldName: 'Email' },
-    { label: 'Lead Source', fieldName: 'LeadSource' }
+    { label: 'Name', fieldName: 'Name', initialWidth: 170 },
+    { label: 'Phone', fieldName: 'Phone', initialWidth: 160 },
+    { label: 'Email', fieldName: 'Email', initialWidth: 250 },
+    { label: 'Lead Source', fieldName: 'LeadSource', initialWidth: 120 }
 ];
 
 export default class ListingMatchingTab extends LightningElement {
+    @track searchedData = [];
     @track selectedFieldApiName;
-    selectedField;
-    fieldOptions = [];
+    @track allContactsRecord = [];
+    @track allContacts = [];
     @track isModalOpen = false;
     @track isMailModalOpen = false;
     @track data = [];
@@ -29,14 +32,16 @@ export default class ListingMatchingTab extends LightningElement {
     @track criteriaSelected;
     @track isSendEmailDisabled = true;
     @track isCreateLinkedListingDisabled = true;
-    selectedField;
+    @track selectedCriteriaValue = '';
+    @track selectedCriteriaList = [];
+    @track criteriaInputValues = [];
+    @track isFilterAdded = true;
+    @track selectedField = '';
+    fieldOptions = [];
     objectName = 'Contact';
     fieldapiName ='LeadSource';
-    @track selectedCriteriaList = [];
-    selectedCriteria;
-    //varaible to store the selected fields
+    @track selectedCriteria = '';
     selectedFieldApiName;
-    //array to store selected fields
     selectedFields = [];
 
     // criteria fields
@@ -44,11 +49,9 @@ export default class ListingMatchingTab extends LightningElement {
         { label: 'Includes', value: 'includes' },
         { label: 'Not Includes', value: 'not include'},
         { label: 'Equals', value: 'equals'},
-        { label: 'Not Equals', value: 'notEquals'},
-        { label: 'True' , value: 'True'},
-        { label: 'False' , value: 'False'},
-        { label: 'Date Maximum' , value: 'Date Maximum'},
-        { label: 'Date Minimun' , value: 'Date Minimun'}
+        { label: 'not equals', value: 'not equals'},
+        { label: 'Maximum' , value: 'Maximum'},
+        { label: 'Minimun' , value: 'Minimum'}
     ];
 
     // open pop up
@@ -73,9 +76,11 @@ export default class ListingMatchingTab extends LightningElement {
     submitDetails() {
         this.isModalOpen = false;
         if (this.selectedField && this.selectedCriteria) {
+            this.isFilterAdded = false;
             const existingField = this.selectedCriteriaList.find(criteria => criteria.field === this.selectedField);
             if (existingField) {
                 console.log('Filter with this field already exists.');
+                this.showToast('Toast Warning', 'The Field is already added in the Filter Criteria', 'warning');
             } else {
                 let filterNumber = 1;
                 if (this.selectedCriteriaList.length > 0) {
@@ -84,11 +89,10 @@ export default class ListingMatchingTab extends LightningElement {
                 }
                 const selectedFieldType = this.fieldOptions.find(option => option.value === this.selectedField).fieldType;
                 const selectedFieldOption = this.fieldOptions.find(option => option.value === this.selectedField);
-                
-                // Push the selected field into the selectedFields array
+    
                 this.selectedFields.push(this.selectedField);
     
-                this.selectedCriteriaList.push({
+                const newCriteria = {
                     apiName: this.selectedField,
                     field: selectedFieldOption.label,
                     criteria: this.selectedCriteria,
@@ -96,22 +100,85 @@ export default class ListingMatchingTab extends LightningElement {
                     inputValue: '',
                     inputVisible: true,
                     fieldType: selectedFieldType,
-                    picklistOptions: selectedFieldType === 'Picklist' ? selectedFieldOption.picklistValues : [],
                     selectedFields: [this.selectedField]
-                });
+                };
+    
+                this.selectedCriteriaList.push(newCriteria);
+    
+                console.log('the fetched data==>',newCriteria);
                 console.log('new criteria list==>', this.selectedCriteriaList);
                 console.log('Selected fields:', this.selectedFields);
             }
         }
     }
-    
-        
-    handleInputChange(event) {
-        const index = event.target.dataset.index;
-        const inputValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        this.selectedCriteriaList[index].inputValue = inputValue;
-    }      
 
+    // tracking field change
+    handleChange(event) {
+        this.selectedField = event.detail.value;
+        this.selectedCriteriaList.forEach(criteria => {
+            criteria.inputVisible = false;
+            criteria.inputValue = '';
+        });    
+        console.log("selected fields==>" , this.selectedField);
+
+        this.selectedFieldApiName = this.selectedField; 
+
+        console.log('field api name==>', this.selectedFieldApiName);
+    }
+
+    // tacking criteria chnage
+    handleCriteriaChange(event) {
+        this.selectedCriteria = event.detail.value;
+        console.log("criteria==>",this.selectedCriteria);
+    }
+        
+    handleSearch() {
+        if (!this.allContactsRecord) {
+            console.warn('Contacts data is not loaded yet.');
+            return;
+        }
+    
+        if (!this.selectedFieldApiName || !this.selectedCriteriaValue || this.selectedCriteriaValue.trim() === '') {
+            this.showToast('Error', 'Please select a field and provide a search value.', 'error');
+            return;
+        }
+
+        console.log('selected criteria in search==>',this.selectedCriteria);
+    
+        const searchValue = this.selectedCriteriaValue.toLowerCase();
+        const filteredContacts = this.allContactsRecord.filter(contact => {
+            const fieldValue = contact[this.selectedFieldApiName] ? String(contact[this.selectedFieldApiName]).toLowerCase() : '';
+            if (this.selectedCriteria === 'not include') {
+                return !fieldValue.includes(searchValue);
+            } else if(this.selectedCriteria === 'includes') {
+                return fieldValue.includes(searchValue);
+            } else if(this.selectedCriteria === 'equals'){
+                return fieldValue === searchValue;
+            } else if (this.selectedCriteria === 'not equals'){
+                return fieldValue !== searchValue;
+            }
+        });
+    
+        this.totalPages = Math.ceil(filteredContacts.length / this.pageSize);
+    
+        this.pageNumber = 1;
+        this.searchedData = filteredContacts;
+    
+        if (filteredContacts.length === 0) {
+            this.showToast('No Matches', `No contacts match the provided search value in the field ${this.selectedFieldApiName}.`, 'warning');
+        }
+    
+        this.fetchContacts();
+        this.refreshData();
+    }
+     
+    handleInputChange(event) {
+        this.selectedCriteriaValue = event.target.value;
+        const index = event.target.dataset.index;
+        this.selectedCriteriaList[index].inputValue = event.target.value;
+        this.criteriaInputValues[index] = event.target.value;
+    }
+    
     // numbers will be assigned to filter
     addFilter(field, criteria) {
         this.selectedCriteriaList.push({ field, criteria, filterNumber: this.selectedCriteriaList.length + 1 });
@@ -120,11 +187,44 @@ export default class ListingMatchingTab extends LightningElement {
     // filter numbers will be updated
     removeFilter(event) {
         const index = event.target.dataset.index;
+        const removedField = this.selectedCriteriaList[index].apiName;
+        this.selectedCriteriaList[index].inputValue = '';
+        
+        if (this.selectedCriteriaList.length === 0) {
+            this.isFilterAdded = true; // Set flag to false
+        }
+
+        const removedFieldIndex = this.selectedFields.indexOf(removedField);
+        if (removedFieldIndex > -1) {
+            this.selectedFields.splice(removedFieldIndex, 1);
+        }
+        
         this.selectedCriteriaList.splice(index, 1);
         this.selectedCriteriaList.forEach((criteria, i) => {
             criteria.filterNumber = i + 1;
         });
+    
         this.selectedCriteriaList = [...this.selectedCriteriaList];
+    
+        const inputFieldContainer = this.template.querySelectorAll('.input-container')[index];
+        if (inputFieldContainer) {
+            inputFieldContainer.innerHTML = '';
+        }
+    }
+
+    @wire(getAllContactsRecord)
+    wiredAllContactRecord({error , data }){
+        if (data) {
+            this.allContactsRecord = data;
+            this.searchedData = data;
+            this.fetchContacts();
+            this.totalPages = Math.ceil(data.length / this.pageSize); 
+            console.log('contact records are==>' , this.allContactsRecord); 
+        }
+        else if (error) {
+            console.error('Error retrieving contact records:', error);
+        }
+        console.log('records length' , this.allContactsRecord.length);
     }
     
     // contact fields are being fetched here
@@ -138,27 +238,6 @@ export default class ListingMatchingTab extends LightningElement {
         } else if (error) {
             console.error('Error retrieving contact fields:', error);
         }
-    }
-
-    // tracking field change
-    handleChange(event) {
-        this.selectedField = event.detail.value;
-        this.selectedCriteriaList.forEach(criteria => {
-            criteria.inputVisible = false;
-            criteria.inputValue = '';
-        });    
-        console.log("selected fields==>" , this.selectedField);
-
-        // Assign selectedFieldApiName with the selected field API name
-        this.selectedFieldApiName = this.selectedField; 
-
-        console.log('field api name==>', this.selectedFieldApiName);
-    }
-
-    // tacking criteria chnage
-    handleCriteriaChange(event) {
-        this.selectedCriteria = event.detail.value;
-        console.log("criteria==>" , this.selectedCriteria);
     }
 
     // advanced check-box functionality
@@ -183,18 +262,27 @@ export default class ListingMatchingTab extends LightningElement {
     }
 
 
-    // contact recods are fetched
-    fetchContacts(allContacts = false) {
+    fetchContacts() {
         const pageSize = 10;
-        // Pass allContacts parameter to getContacts Apex method
-        getContacts({ pageNumber: this.pageNumber, pageSize, allContacts })
-            .then(result => {
-                this.data = result.contacts;
-                this.totalPages = Math.ceil(result.totalRecords / pageSize);
-            })
-            .catch(error => {
-                console.error('Error fetching contacts:', error);
-            });
+        this.data = this.searchedData.slice(this.pageNumber * pageSize - pageSize , this.pageNumber * pageSize);
+        this.totalPages = Math.ceil(this.searchedData.length / pageSize);
+        this.refreshData();
+
+        // getContacts({ pageNumber: this.pageNumber, pageSize, allContacts })
+        //     .then(result => {
+        //         this.data = result.contacts;
+        //         this.allContacts = result.contacts;
+        //         this.totalPages = Math.ceil(result.totalRecords / pageSize);
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching contacts:', error);
+        //     });
+        //     console.log('contact record==>' , this.allContacts.length);
+        //     console.log('contact data' , this.data.length);
+    }
+
+    refreshData(){
+        return refreshApex(this.data);
     }
     
     // pagination start
@@ -210,17 +298,6 @@ export default class ListingMatchingTab extends LightningElement {
             this.pageNumber++;
             this.fetchContacts();
         }
-    }
-    // pagination end
-
-    // views to dipalay record
-    switchToListView() {
-        // Logic to switch to list view
-    }
-
-    // view to display record
-    switchToGridView() {
-        // Logic to switch to grid view
     }
 
     createLinkedListing() {
@@ -252,7 +329,7 @@ export default class ListingMatchingTab extends LightningElement {
     }
 
     // print button functionality
-    printData() {
+    printData(){
         window.print();
     }
 
@@ -267,17 +344,21 @@ export default class ListingMatchingTab extends LightningElement {
     }
     
     handleRefresh() {
+        // this.pageNumber = 1;
+        this.searchedData = this.allContactsRecord;
+        this.fetchContacts();
+    
         this.selectedCriteriaList = [];
         this.selectedField = null;
         this.selectedCriteria = null;
         this.showInputBox = false;
         this.selectedRadioButton = 'allContacts';
+        this.isFilterAdded = true;
+    
         const allContactsRadio = this.template.querySelector('lightning-input[value="allContacts"]');
         if (allContactsRadio) {
             allContactsRadio.checked = true;
             this.handleRadioChange({ target: { value: 'allContacts' } });
         }
-    
-        this.fetchContacts();
-    }    
+    }     
 }

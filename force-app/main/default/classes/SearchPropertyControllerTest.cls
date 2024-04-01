@@ -59,6 +59,7 @@ public with sharing class SearchPropertyControllerTest {
         listingRecord1.Property_Status__c='Vacant on Transfer';
         listingRecord1.Available_from__c=date.today()+1;
         listingRecord1.CompletionDate_hz__c=date.today()+1;
+        listingRecord1.property_category__c='Commercial';
         listingRecord1.PropertyOwnerContact__c=testContact1.Id;
         insert listingRecord1;
 
@@ -106,6 +107,7 @@ public with sharing class SearchPropertyControllerTest {
         listingRecord1.Property_Status__c='Vacant on Transfer';
         listingRecord1.Available_from__c=date.today()+1;
         listingRecord1.CompletionDate_hz__c=date.today()+1;
+        listingRecord1.property_category__c='Commercial';
         listingRecord1.PropertyOwnerContact__c=testContact1.Id;
         insert listingRecord1;
 

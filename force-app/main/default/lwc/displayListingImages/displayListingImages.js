@@ -11,6 +11,7 @@ import {refreshApex} from '@salesforce/apex';
         @api recordId;
         @track reloadComponentVar = false;
         @track data = [];
+        @track taglist = [];
         @track showSpinner = false;
         @track isdata = false;
         @track currentIndex = 0;
@@ -19,18 +20,16 @@ import {refreshApex} from '@salesforce/apex';
         messageContext;
 
         connectedCallback(){
-            this.showSpinner = true;
+            // this.showSpinner = true;
             this.subscription = subscribe(this.messageContext, Refresh_cmp, (message) => {
                 if(message.refresh === true){
-                    this.showSpinner = true;
-                    this.data = this.fetchingdata();
-                    this.showSpinner = false;
+                    this.fetchingdata();
                     message.refresh = false;
                 }
                 });
             this.data = this.fetchingdata();
             refreshApex(this.data);
-            this.showSpinner = false;
+            // this.showSpinner = false;
         }
 
         unsubscribe(){
@@ -43,10 +42,12 @@ import {refreshApex} from '@salesforce/apex';
         }
   
         fetchingdata(){
+        this.showSpinner = true;
         fetchdata({ recordId: this.recordId })
                 .then(result => {
                     this.data = result;
                     this.isdata = result && result.length > 0;
+                    this.showSpinner = false;
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
@@ -59,6 +60,16 @@ import {refreshApex} from '@salesforce/apex';
 
     get currentImageName() {
         return this.data && this.data.length > 0 ? this.data[this.currentIndex].Name : '';
+    }
+
+    get currentImageTag() {
+        var tags = this.data && this.data.length > 0 ? this.data[this.currentIndex].Tags__c : '';
+    if (tags !== '' && tags != undefined) {
+        tags = tags.split(';').map(tag => tag.trim()); // Trim whitespace from tags
+    } else {
+        tags = []; // If tags is empty, return an empty array
+    }
+    return tags;
     }
 
         showPreviousImage() {

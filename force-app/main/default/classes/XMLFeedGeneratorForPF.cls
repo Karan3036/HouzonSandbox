@@ -34,14 +34,13 @@ public class XMLFeedGeneratorForPF {
         Set<Id> PropertyIds = new Set<Id>();
         for (SObject record : records) {
             Id propertyId = (Id)record.get('Property_hz__c');
-            if (propertyId != null) {
-                PropertyIds.add(propertyId);
+            if (propertyId != null) { PropertyIds.add(propertyId);
             }
         }
 
         // Map to store PropertyMedia__c records related to each Property_hz__c
         Map<Id, List<PropertyMedia__c>> propertyMediaUrlsMap = new Map<Id, List<PropertyMedia__c>>();
-        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate, Tags__c FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds Order BY SortOnPortalFeed__c ASC NULLS LAST]) {
+        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate, Tags__c FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds AND IsOnPortalFeed__c = true Order BY SortOnPortalFeed__c ASC NULLS LAST]) {
             if (!propertyMediaUrlsMap.containsKey(media.Property_hz__c)) {
                 propertyMediaUrlsMap.put(media.Property_hz__c, new List<PropertyMedia__c>());
             }

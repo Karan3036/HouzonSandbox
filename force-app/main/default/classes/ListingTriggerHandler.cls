@@ -1,5 +1,26 @@
 public with sharing class ListingTriggerHandler {
     
+    List<Listing_hz__c> recordNewList = new List<Listing_hz__c>();
+    List<Listing_hz__c> recordOldList = new List<Listing_hz__c>();
+    Map<Id, Listing_hz__c> recordNewMap = new Map<Id, Listing_hz__c>();
+    Map<Id, Listing_hz__c> recordOldMap = new Map<Id, Listing_hz__c>();
+    Boolean isInsert ;
+    Boolean isUpdate ;
+    Boolean isDelete = false;
+    Boolean isUndelete = false;
+    private static final string CLASS_NAME = 'ListingTriggerHandler';
+
+    public ListingTriggerHandler(List<Listing_hz__c> newList, List<Listing_hz__c> oldList, Map<Id, Listing_hz__c> newMap, Map<Id, Listing_hz__c> oldMap, Boolean isInsert, Boolean isUpdate, Boolean isDelete, Boolean isUndelete) {
+        this.recordNewList = newList;
+        this.recordOldList = oldList;
+        this.recordNewMap = newMap;
+        this.recordOldMap = oldMap;
+        this.isInsert = isInsert;
+        this.isUpdate = isUpdate;
+        this.isDelete = isDelete;
+        this.isUndelete = isUndelete;
+    }
+
     public void OnBeforeInsert(List<Listing_hz__c> newListings){
         for (Listing_hz__c listing : newListings) {
             if (listing.Status__c == 'Active') {
@@ -28,4 +49,50 @@ public with sharing class ListingTriggerHandler {
             }
         }
     }
+
+    public void beforeInsertEvent(){
+        handleListingBeforeInsert();
+    }
+
+    public void beforeUpdateEvent(){
+        handleListingBeforeupdate();
+    }
+
+    public void handleListingBeforeInsert() {
+        for (Listing_hz__c listing : recordNewList) {
+            if (listing.Description_hz__c != null) {
+                updateSizeOfCharacter(listing);
+            }
+        }
+    }
+    
+    public void handleListingBeforeupdate() {
+        for (Integer i = 0; i < recordNewList.size(); i++) {
+            Listing_hz__c newListing = recordNewList[i];
+            
+            if (newListing.Description_hz__c	 != null) {
+                updateSizeOfCharacter(newListing);
+            }
+        }
+    }
+        
+    public void updateSizeOfCharacter(Listing_hz__c listing) {
+        try {
+            String listingBody = listing.Description_hz__c;
+            Integer characterCount = 0;
+            
+            // String alphaChars = listingBody.replaceAll('[^A-Za-z . \ | - :]','');
+            for(Integer i = 0; i < listingBody.length(); i++) {
+                if (listingBody.substring(i, i+1) != ' ' && listingBody.substring(i, i+1) != '\n') {
+                    characterCount++;
+                }
+            }
+            
+            listing.Description_word_count__c = characterCount;
+    
+        } catch (Exception e) {
+            System.debug('Exception: ' + e);
+        }
+    }
+    
 }

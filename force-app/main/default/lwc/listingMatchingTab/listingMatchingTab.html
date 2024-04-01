@@ -4,27 +4,23 @@
             <h2 class="Matching"><b>Matching</b></h2>
             <div class="container">
                 <!-- Column 1 -->
-                <div class="column">
+                <div class="slds-scrollable column" style="height:30rem;width:40rem">
                     <!-- Display selected filter criteria below -->
                     <div class="selected-criteria-container">
                         <template for:each={selectedCriteriaList} for:item="criteria" for:index="index">
                             <div key={criteria.field} class="selected-criteria">
                                 <div class="filter-space">
                                     <span><b>{criteria.filterNumber}.{criteria.field}</b>&nbsp;&nbsp;{criteria.criteria}</span>
+                                    <!-- Add input box here -->
                                     <lightning-button-icon class="delBtn" icon-name="utility:delete" alternative-text="Delete" title="Delete" onclick={removeFilter} data-index={index}></lightning-button-icon>
                                 </div>
-                                <!-- Add input box here -->
-                                <template if:true={criteria.inputVisible}>
-                                    <div class="input-container">
-                                        <lightning-record-edit-form record-id={recordId} object-api-name={objectName} onsuccess={handleSuccess} onsubmit={validateFields} onerror={handleError}>
-                                            <template for:each={selectedFields} for:item="apiName">
-                                                <div key={apiName} class="slds-col slds-size_1-of-2">
-                                                    <lightning-input-field field-name={apiName}></lightning-input-field>
-                                                </div>
-                                            </template>
-                                        </lightning-record-edit-form>
-                                    </div>
-                                </template>
+                                <div class="input-container">
+                                    <lightning-record-edit-form record-id={recordId} object-api-name={objectName}>
+                                        <div class="slds-col slds-size_1-of-2" key={criteria.field}>
+                                            <lightning-input-field  value={criteria.inputValue} onchange={handleInputChange} data-index={index} field-name={criteria.field}></lightning-input-field>
+                                        </div>
+                                    </lightning-record-edit-form>
+                                </div>
                             </div>
                         </template>
                         <lightning-button class="btn" label="+" onclick={openModal}></lightning-button>
@@ -85,9 +81,9 @@
                         <!-- popup over -->
                     </div>
                     <div class="buttonSection1">
-                        <lightning-input type="checkbox" label="Exact Matching"></lightning-input>
+                        <lightning-input type="checkbox" label="Exact Matching" disabled={isFilterAdded}></lightning-input>
                         <div class="hepltxt">
-                            <lightning-input type="checkbox" label="Advanced" onchange={handleAdvancedChange}></lightning-input>
+                            <lightning-input type="checkbox" label="Advanced" onchange={handleAdvancedChange} disabled={isFilterAdded}></lightning-input>
                             <lightning-helptext content="Use AND and Or Operators to fine-tune your results, e.g '(1 OR 2) AND 3'"></lightning-helptext>
                         </div>
                     </div>
@@ -109,11 +105,11 @@
                     </div>
                 </div>
                 <!-- Column 2 -->
-                <div class="column column2">
+                <div class="slds-scrollable column column2">
                     <div class="button5">
-                        <lightning-button-icon class="list" icon-name="utility:picklist_type" onclick={switchToListView} alternative-text="list" title="list"></lightning-button-icon>
-                        <lightning-button-icon class="grid" icon-name="utility:tile_card_list" onclick={switchToGridView} alternative-text="grid" title="grid"></lightning-button-icon>
-                        <lightning-button-icon class="button_expand" icon-name="utility:expand_alt" alternative-text="expand" title="expand"></lightning-button-icon>
+                        <!-- <lightning-button-icon class="list" icon-name ="utility:picklist_type" onclick={switchToListView} alternative-text="list" title="list"></lightning-button-icon> -->
+                        <!-- <lightning-button-icon class="grid" icon-name="utility:tile_card_list" onclick={switchToGridView} alternative-text="grid" title="grid"></lightning-button-icon>
+                        <lightning-button-icon class="button_expand" icon-name="utility:expand_alt" alternative-text="expand" title="expand"></lightning-button-icon> -->
                         <lightning-button class="btn1" label="Send Email" onclick={mailModalOpen} disabled={isSendEmailDisabled}></lightning-button>
                         <lightning-button class="btn2" label="Create Linked Listing" onclick={createLinkedListing} disabled={isCreateLinkedListingDisabled}></lightning-button>
                         <lightning-button class="btn3" label="Print" onclick={printData}></lightning-button>
@@ -180,12 +176,12 @@
                     <!-- email pop up end -->
                     <template if:true={data}>
                         <lightning-datatable
-                        style="height: 60%;"
-                        key-field="Id"
-                        data={data}
-                        columns={columns}
-                        onrowselection={handleRowSelection}>
-                    </lightning-datatable>
+                            style="height: 60%;table-layout: fixed;"
+                            key-field="Id"
+                            data={data}
+                            columns={columns}
+                            onrowselection={handleRowSelection}>
+                        </lightning-datatable>
                     </template>
                     <div class="pagination">
                         <lightning-button-icon icon-name="utility:chevronleft" onclick={previousPage}></lightning-button-icon>

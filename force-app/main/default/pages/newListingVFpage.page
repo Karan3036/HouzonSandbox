@@ -1,0 +1,24 @@
+<apex:page standardController="Listing_hz__c">
+    <apex:includeLightning />
+    <div id="lwcContainer"></div>
+
+    <script type="text/javascript">
+        document.addEventListener("callvf", function(event){
+            console.log('vf event data window listener => ', event.detail);
+            var listingId = event.detail.Id;
+            console.log('listingId Id ==>', listingId);
+            window.top.location = "/"+ listingId;
+        });
+
+        $Lightning.use("c:newListingPageApp", function() {
+            $Lightning.createComponent(
+                "c:NewListingPage",
+                {},
+                "lwcContainer",
+                function(cmp) {
+                    // Component is created
+                }
+            );
+        });
+    </script>
+</apex:page>

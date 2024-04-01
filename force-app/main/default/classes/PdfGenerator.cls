@@ -20,7 +20,7 @@ public with sharing class PdfGenerator {
     @AuraEnabled(cacheable = true)
     public static List<Template__c> getTemplateRecords() {
 
-        return [SELECT Id, Name, HTML__c, CSS__c, Status__c, Subject__c
+        return [SELECT Id, Name, HTML__c, CSS__c, Status__c, Subject__c,Type__c
                 FROM Template__c
                 WHERE Type__c = 'pdf_template'];
     }
@@ -36,14 +36,13 @@ public with sharing class PdfGenerator {
 
     public PdfGenerator(ApexPages.StandardController stdController){
         urlList = new List<String>();
-        System.debug('In the visualforcepage controller');
         String listingId = ApexPages.currentPage().getParameters().get('id');
         currentListing = [SELECT Id, Name FROM Listing_hz__c WHERE Id = :listingId LIMIT 1];
-        System.debug('currentListing ==>' + currentListing);
 
         List<Property_hz__c> p = [select id,Name,(select FilenameUrlEncoded__c from PropertyMedia__r) from Property_hz__c where id =: [select Property_hz__c from Listing_hz__c where id =: listingId].Property_hz__c];
 
-        String defualtUrl = 'https://jonsnowbucket3421.s3.amazonaws.com/nordwood-themes-r53t-tg6j4c-unsplash.jpg';
+        // String defualtUrl = ' ';
+        String defualtUrl = '/resource/NoImage'; 
 
         if(p.size() > 0){
 
@@ -71,15 +70,10 @@ public with sharing class PdfGenerator {
             link7 = urlList.size() >= 7 ? urlList[6] : defualtUrl;
             link8 = urlList.size() >= 8 ? urlList[7] : defualtUrl;
     
-        
-            System.debug(urlList.size());
-            System.debug(urlList);
-            System.debug(link1);
-
         }
         else{
 
-            link1 = link2 = link3 = link4 = link5 = link6 = link7 = link8 = defualtUrl;
+            link1 = link2 = link3 = link4 = link5 = link6 = link7 = link8 = link9 = link10 = link11 = defualtUrl;
         }
       
 
@@ -88,8 +82,6 @@ public with sharing class PdfGenerator {
     @AuraEnabled
     public static String sendPdf(String listingId, String pageName) {
         Listing_hz__c listing = [SELECT id, name FROM Listing_hz__c WHERE id = :listingId];
-        System.debug(pageName);
-
 
         PageReference pdf = new pagereference('/apex/CreatePdf?id='+listingId);
 
@@ -122,7 +114,7 @@ public with sharing class PdfGenerator {
         CV.PathOnClient = listing.Name + '.pdf';
         CV.VersionData = body;
         CV.FirstPublishLocationId = listingId;
-        // insert CV;
+        insert CV;
     
         return 'Success';
     }

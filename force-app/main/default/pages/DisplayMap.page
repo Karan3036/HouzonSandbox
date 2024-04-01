@@ -1,0 +1,5 @@
+<apex:page standardController="Listing_hz__c">
+    <apex:map width="600px" height="400px" mapType="roadmap" zoomLevel="17"
+    center="{!Listing_hz__c.Address_hz__c}">
+    </apex:map>
+</apex:page>
