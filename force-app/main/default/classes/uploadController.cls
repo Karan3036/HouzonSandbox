@@ -77,7 +77,11 @@ public with sharing class uploadController {
     @AuraEnabled
     public static Boolean update_media_name(String id,String fileName, String url,List<String> picklistValues, String externalUrl, Decimal Size){
         List<PropertyMedia__c> result = [SELECT Id, Name,FilenameUrlEncoded__c,Tags__c, Size__c FROM PropertyMedia__c WHERE Id = :id LIMIT 1];
+        System.debug('external url==>'+externalUrl);
+        System.debug('aws url==>'+url);
+        System.debug('size of the image before==>'+Size);
         result[0].Name = fileName;
+        System.debug('size of image after==>'+Size);
 
         if (Size != null) {
             result[0].FilenameUrlEncoded__c = url;
@@ -87,6 +91,7 @@ public with sharing class uploadController {
             result[0].Tags__c = String.join(picklistValues, ';');
         }
         update result; 
+        System.debug('result of the update media name==>'+result);
         return true;
     }
 
