@@ -76,6 +76,7 @@ export default class UploadImage extends LightningElement {
     @track tour_checked=false;
     @track picklistValues = [];
     @track finalPicklistValues = [];
+    @track save_edit_btn_disabled = true;
     get options() {
         return [
             { label: 'Image', value: 'Image' },
@@ -274,73 +275,151 @@ export default class UploadImage extends LightningElement {
 
     // update image name
     store_img_name(event) {
+        this.save_edit_btn_disabled = false;
         this.event_img_name = event.target.value;
     }
+    edit_image_name_to_store(event) {
+        this.isedit = true;
+        this.rec_id_to_update.push(event.currentTarget.dataset.key);
+        this.current_img_name = event.currentTarget.dataset.name;
+        this.img_old_name.push(event.currentTarget.dataset.name);
+        this.floorplan_checked=false;
+        this.virtual_tour_checked=false;
+        this.tour_checked=false;
+        let list_check =event.currentTarget.dataset.tags.split(",");
+        if(list_check.length>0){
+        for(let tags_name=0 ; tags_name<list_check.length ; tags_name++){
+            if(list_check[tags_name] ==='Floorplan'){
+                this.floorplan_checked=true;
+                this.picklistValues.push(list_check[tags_name]);
+            }
+            if(list_check[tags_name] ==='Virtual Tour'){
+                this.virtual_tour_checked=true;
+                this.picklistValues.push(list_check[tags_name]);
+            }
+            if(list_check[tags_name] ==='360tour'){
+                this.tour_checked=true;
+                this.picklistValues.push(list_check[tags_name]);
+            }
+        }
+        }
+    }
+    confirm_edit() {
+        if(this.event_img_name!=undefined){
+            this.img_name.push(this.event_img_name);
+        }
+        else {
+            this.img_name.push(this.img_old_name[this.img_old_name.length - 1])
+        }
+        console.log('imgnames in confirm edit:===>',this.img_name);
+        // if(this.picklistValues.length>0){
+            this.finalPicklistValues.push(this.picklistValues);
+        // }
+        let rec_id = this.rec_id_to_update[this.rec_id_to_update.length - 1];
+        let index_of_record = this.data.findIndex(item => item.Id === rec_id);
+        this.data[index_of_record].Tags__c = this.picklistValues;
+        if(this.event_img_name!=undefined){
+            this.data[index_of_record].Name = this.event_img_name;
+        }
+        this.event_img_name=undefined;
+        this.picklistValues=[];
+        this.disabled_save = false;
+        this.disabled_cancel = false;
+        this.isedit = false;
+        this.save_edit_btn_disabled = true;
+
+    }
+
     edit_image_name() {
+        console.log('record id to update:=====>',this.rec_id_to_update);
+        console.log('record id to update length:=====>',this.rec_id_to_update.length);
+        console.log('old_img_name:', this.img_old_name);
+        console.log('old_list-----',this.img_old_name.length);
+        console.log('new_list-----',this.img_name.length);
+        console.log('new_list-----value',this.img_name[0]);
+        console.log('finalpicklist values in edit image name:==>',this.finalPicklistValues);
+        console.log('picklist_values-----length',this.finalPicklistValues.length);
+        console.log('picklist_values-----val',this.finalPicklistValues[(0)]);
+        console.log('imgae url in edit name==>', this.imageUrl_to_upload);
         if(this.finalPicklistValues || this.img_name){
-            if (this.img_name.length>0 && this.finalPicklistValues[0][0]===undefined) {
+            console.log('in main condition entered');
+            if (this.img_name.length>0 && this.finalPicklistValues.length>0) {
+                console.log('image true picklist false');
+                console.log('image true picklist false',this.finalPicklistValues.length);
                 for(let img=0;img<this.img_name.length;img++) {
                     let oldKey = this.img_old_name[img].replace(/\s+/g, "_").toLowerCase();
                     this.updateFileNameInS3(oldKey, this.img_name[img]).then(() => {
+                        console.log('rec_id:', this.rec_id_to_update[img]);
+                        console.log('rec_id:', this.img_name[img]);
                         this.isedit = false;
                             return update_media_name({
                                 id: this.rec_id_to_update[img],
                                 fileName: this.img_name[img],
                                 url: `https://${this.confData.S3_Bucket_Name__c}.s3.amazonaws.com/${this.img_name[img]}`,
                                 externalUrl: this.imageUrl_to_upload,
+                                picklistValues:this.finalPicklistValues[img].length>0?this.finalPicklistValues[img] : null
+
                             });
                     }).then(result => {
-                            this.fetchingdata();
                             this.event_img_name=undefined;
                             this.img_name = [];
                             this.img_old_name = [];
                             this.rec_id_to_update = [];
                             this.picklistValues = [];
                             this.finalPicklistValues=[];
+                            this.fetchingdata();
                             this.isnull = true;
                         });
                 }
-            }else if(this.finalPicklistValues.length>0 && this.img_name[0]===undefined){
-                for(let img=0; img<this.finalPicklistValues.length; img++) {
+            }else if(this.finalPicklistValues.length>=0 && this.img_name[0]===undefined){
+                console.log('finalpicklistvalue',this.finalPicklistValues[(0)]);
+                console.log('image false picklist true');
+                console.log('picklist len:',this.finalPicklistValues.length);
+                console.log('external image url in edit media name==>',this.imageUrl_to_upload);
+                for(let img=0; img<this.img_old_name.length; img++) {
                     let oldKey = this.img_old_name[img].replace(/\s+/g, "_").toLowerCase();
                     update_media_name({
                         id: this.rec_id_to_update[img],
                         fileName: this.img_old_name[img],
                         url: `https://${this.confData.S3_Bucket_Name__c}.s3.amazonaws.com/${oldKey}`,
                         externalUrl: this.imageUrl_to_upload,
-                        picklistValues:this.finalPicklistValues[img]
+                        picklistValues:this.finalPicklistValues[img].length>0?this.finalPicklistValues[img] : null
                     }).then(result => {
-                        this.fetchingdata();
                         this.event_img_name=undefined;
                         this.img_name = [];
                         this.img_old_name = [];
                         this.rec_id_to_update = [];
                         this.picklistValues = [];
                         this.finalPicklistValues=[];
+                        this.fetchingdata();
                         this.isnull = true;
                     });
 
                 }
             }else{
+                console.log('image true picklist true');
+                console.log('img_name length:',this.img_name.length);
                 for(let img=0;img<this.img_name.length;img++) {
                     let oldKey = this.img_old_name[img].replace(/\s+/g, "_").toLowerCase();
                     this.updateFileNameInS3(oldKey, this.img_name[img]).then(() => {
+                        console.log('rec_id:', this.rec_id_to_update[img]);
+                        console.log('rec_id:', this.img_name[img]);
                         this.isedit = false;
                         return update_media_name({
                             id: this.rec_id_to_update[img],
                             fileName: this.img_name[img],
                             url: `https://${this.confData.S3_Bucket_Name__c}.s3.amazonaws.com/${this.img_name[img]}`,
                             externalUrl: this.imageUrl_to_upload,
-                            picklistValues:this.finalPicklistValues[img]
+                            picklistValues:this.finalPicklistValues[img].length>0?this.finalPicklistValues[img] : null
                         });
                     }).then(result => {
-                            this.fetchingdata();
                             this.event_img_name=undefined;
                             this.img_name = [];
                             this.img_old_name = [];
                             this.rec_id_to_update = [];
                             this.picklistValues = [];
                             this.finalPicklistValues=[];
+                            this.fetchingdata();
                             this.isnull = true;
                         });
                 }
@@ -360,7 +439,7 @@ export default class UploadImage extends LightningElement {
             this.initializeAwsSdk(this.confData);
             let bucketName = this.confData.S3_Bucket_Name__c;
             await this.s3.copyObject({
-                CopySource: `/${bucketName}/${oldKey}`,
+                CopySource:`/${bucketName}/${oldKey}`,
                 Key: newKey,
                 ACL: 'public-read',
             }).promise();
@@ -389,22 +468,7 @@ export default class UploadImage extends LightningElement {
         this.isModalOpen = true;
     }
 
-    confirm_edit() {
-        if(this.event_img_name!=undefined){
-            this.img_name.push(this.event_img_name);
-        }
-        this.finalPicklistValues.push(this.picklistValues);
-        let rec_id = this.rec_id_to_update[this.rec_id_to_update.length - 1];
-        let index_of_record = this.data.findIndex(item => item.Id === rec_id);
-        this.data[index_of_record].Tags__c = this.picklistValues;
-        if(this.event_img_name!=undefined){
-            this.data[index_of_record].Name = this.event_img_name;
-        }
-        this.picklistValues=[];
-        this.disabled_save = false;
-        this.disabled_cancel = false;
-        this.isedit = false;
-    }
+   
 
 
     //to save the sorting order
@@ -544,32 +608,7 @@ export default class UploadImage extends LightningElement {
     download_row_image(event) {
         this.handleDownload(event.currentTarget.dataset.url, event.currentTarget.dataset.name);
     }
-    edit_image_name_to_store(event) {
-        this.isedit = true;
-        this.rec_id_to_update.push(event.currentTarget.dataset.key);
-        this.current_img_name = event.currentTarget.dataset.name;
-        this.img_old_name.push(event.currentTarget.dataset.name);
-        this.floorplan_checked=false;
-        this.virtual_tour_checked=false;
-        this.tour_checked=false;
-        let list_check =event.currentTarget.dataset.tags.split(",");
-        if(list_check.length>0){
-        for(let tags_name=0 ; tags_name<list_check.length ; tags_name++){
-            if(list_check[tags_name] ==='Floorplan'){
-                this.floorplan_checked=true;
-                this.picklistValues.push(list_check[tags_name]);
-            }
-            if(list_check[tags_name] ==='Virtual Tour'){
-                this.virtual_tour_checked=true;
-                this.picklistValues.push(list_check[tags_name]);
-            }
-            if(list_check[tags_name] ==='360tour'){
-                this.tour_checked=true;
-                this.picklistValues.push(list_check[tags_name]);
-            }
-        }
-        }
-    }
+
 
 
     // To download image
@@ -666,7 +705,7 @@ export default class UploadImage extends LightningElement {
 
             this.isAwsSdkInitialized = true;
         } catch (error) {
-        }
+            console.log("error initializeAwsSdk ", error); }
     }
 
     //get the file name from user's selection
@@ -680,17 +719,39 @@ export default class UploadImage extends LightningElement {
                     this.fileName.push(event.target.files[file].name);
                     this.fileSize.push(Math.floor((event.target.files[file].size)/1024));
                   }
+                  console.log('selectedfile names',this.fileName);
+                  console.log('selectedfiles',this.selectedFilesToUpload);
+                  console.log('selectedfile sizes',this.fileSize);
+
             }
             
         } catch (error) {
-        }
+            console.log('error file upload ',error);        }
     }
     handleRemove(event) {
-        this.selectedFilesToUpload.splice(event.target.key, 1);
+        console.log('key for file remove',event.target.name);
+        let index_of_fileName = this.fileName.indexOf(event.target.name);
+        this.fileName.splice(index_of_fileName,1); 
+
+        let index_of_selectedFile = this.selectedFilesToUpload.indexOf(event.target.key);
+        this.selectedFilesToUpload.splice(index_of_fileName,1);  
+
+        // this.selectedFilesToUpload.splice(event.target.key, 1);
         this.isnull = false;
-        this.fileName.splice(event.target.key, 1);
-        this.fileSize.splice(event.target.key, 1);
-        this.items.splice(event.target.key, 1);
+
+         
+
+        // this.fileName.splice(event.target.key, 1);
+
+        let index_of_fileSize = this.fileSize.indexOf(event.target.key);
+        this.fileSize.splice(index_of_fileName,1); 
+
+        // this.fileSize.splice(event.target.key, 1);
+
+        // let index_of_item = this.items.indexOf(event.target.key);
+        // this.items.splice(index_of_item,1); 
+
+        // this.items.splice(event.target.key, 1);
 
         if (this.fileName.length === 0) {
             this.isnull = true;
@@ -707,7 +768,7 @@ export default class UploadImage extends LightningElement {
                     contents.push(createmedia({
                         recordId: this.recordId,
                         externalUrl: this.fileURL[file],
-                        Name: this.fileName[file]=this.isWatermark?this.fileName[file]+'Watermark':this.fileName[file],
+                        Name: this.fileName[file]=this.isWatermark?this.fileName[file]+'watermark':this.fileName[file],
                         Size: this.fileSize[file],
                     }));
                 }
@@ -775,7 +836,7 @@ export default class UploadImage extends LightningElement {
                     if (buff) {
                         let objKey =this.fileName[f]
                             .replace(/\s+/g, "_")
-                            .toLowerCase()+'Watermark';
+                            .toLowerCase()+'watermark';
                         let params = {
                             Key: objKey,
                             ContentType:'image/jpeg', 
@@ -1090,6 +1151,7 @@ export default class UploadImage extends LightningElement {
         this.isWatermark = event.target.checked;
     }
     tags_checked(event){
+        this.save_edit_btn_disabled = false;
         if(event.target.name==='Floorplan'){
             this.floorplan_checked = event.target.checked;
 

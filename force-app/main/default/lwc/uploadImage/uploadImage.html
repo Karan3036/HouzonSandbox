@@ -32,7 +32,7 @@
         <br/>
         <template if:false={isfileuploading}>
           <template for:each={fileName} for:item="file">
-            <lightning-pill key={file} label={file} onremove={handleRemove}></lightning-pill>
+            <lightning-pill key={file} name={file} label={file} onremove={handleRemove}></lightning-pill>
           </template>
         </template>
 		<template if:true={isfileuploading}>
@@ -191,7 +191,7 @@
               </div>
             </td>
             <td data-label="Title">
-              <div class="slds-truncate" title="Title" style="size:20px;">{item.Name}</div>
+              <div class="slds-truncate" title="Title" style="width: 150px;">{item.Name}</div>
             </td>
             <td data-label="Size">
               <div class="slds-truncate" title="Size">{item.Size__c}</div>
@@ -204,7 +204,7 @@
               </template>
             </td>
             <td data-label="checkboxes">
-              <div class="slds-truncate" title="isExposed">
+              <div class="slds-truncate" title="Status">
                 <!-- <lightning-input type="checkbox" label="Is On Expose" name="expose" value={item.IsOnExpose__c} data-key={item.Id} onchange={storeCheckedValue} checked={item.IsOnExpose__c} ></lightning-input> -->
                 <!-- <input type="checkbox" name="expose"  value={item.IsOnExpose__c} data-key={item.Id} onchange={storeCheckedValue} checked={item.IsOnExpose__c} ><input> -->
                 <!-- <label class="slds-checkbox__label" >
@@ -306,7 +306,7 @@
                   </div>
               </div>
               <footer class="slds-modal__footer">
-                <button class="slds-button slds-button_brand buttons" onclick={confirm_edit}>Save</button>
+                <button class="slds-button slds-button_brand buttons" onclick={confirm_edit} disabled={save_edit_btn_disabled}>Save</button>
                   <button class="slds-button slds-button_brand buttons" onclick={closepopup_edit}>Close</button>
               </footer>
           </div>

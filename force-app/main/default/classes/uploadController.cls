@@ -83,13 +83,16 @@ public with sharing class uploadController {
         result[0].Name = fileName;
         System.debug('size of image after==>'+Size);
 
-        if (Size != null) {
+        if (result[0].Size__c != null) {
             result[0].FilenameUrlEncoded__c = url;
         }
 
         if(picklistValues.size() >= 0){
             result[0].Tags__c = String.join(picklistValues, ';');
         }
+        // if(picklistValues==null) {
+
+        // }
         update result; 
         System.debug('result of the update media name==>'+result);
         return true;
