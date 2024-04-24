@@ -47,6 +47,7 @@ public with sharing class ListingTriggerHandlerTest {
         activeListing.Completion_Status__c='Completed';
         activeListing.City_Dubizzle__c='Test';
         activeListing.Property_Status__c='Vacant on Transfer';
+        activeListing.Propertyfinder_Region__c='Dubai - Dubai Hills Estate - Palm Hills';
         activeListing.Available_from__c=date.today()+1;
         activeListing.CompletionDate_hz__c=date.today()+1;
         activeListing.property_category__c='Commercial';
@@ -79,6 +80,7 @@ public with sharing class ListingTriggerHandlerTest {
         inactiveListing.Price_Unit__c='Price Yearly';
         inactiveListing.Completion_Status__c='Completed';
         inactiveListing.City_Dubizzle__c='Test';
+        inactiveListing.Propertyfinder_Region__c='Dubai - Dubai Hills Estate - Palm Hills';
         inactiveListing.Property_Status__c='Vacant on Transfer';
         inactiveListing.Available_from__c=date.today()+1;
         inactiveListing.CompletionDate_hz__c=date.today()+1;

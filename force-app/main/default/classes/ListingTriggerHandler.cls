@@ -94,5 +94,47 @@ public with sharing class ListingTriggerHandler {
             System.debug('Exception: ' + e);
         }
     }
+
+    public void updateRentFrequency(List<Listing_hz__c> newListings, Map<Id, Listing_hz__c> oldMap) {
+        try {
+            for (Listing_hz__c listing : newListings) {
+                Listing_hz__c oldListing = oldMap.get(listing.Id);
+                
+                if (listing.Price_Unit__c != oldListing.Price_Unit__c) {
+                    if (listing.Price_Unit__c == 'Price Yearly') {
+                        listing.Rent_Frequency__c = 'Yearly';
+                    } else if (listing.Price_Unit__c == 'Price Monthly') {
+                        listing.Rent_Frequency__c = 'Monthly';
+                    } else if (listing.Price_Unit__c == 'Price Weekly') {
+                        listing.Rent_Frequency__c = 'Weekly';
+                    } else if (listing.Price_Unit__c == 'Price Daily') {
+                        listing.Rent_Frequency__c = 'Daily';
+                    } else if (listing.Price_Unit__c == 'Price Monthly Per Room') {
+                        listing.Rent_Frequency__c = 'Monthly';
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.debug('Error--->' + ex.getMessage());
+        }
+    }
+
+    public void updateOffPlan(List<Listing_hz__c> newListings, Map<Id, Listing_hz__c> oldMap) {
+        try {
+            for (Listing_hz__c listing : newListings) {
+                Listing_hz__c oldListing = oldMap.get(listing.Id);
+                
+                if (listing.Completion_Status__c != oldListing.Completion_Status__c) {
+                    if (listing.Completion_Status__c == 'Completed') {
+                        listing.Off_plan__c = 'Yes';
+                    } else {
+                        listing.Off_plan__c = 'No';
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.debug('Error--->' + ex.getMessage());
+        }
+    }
     
 }

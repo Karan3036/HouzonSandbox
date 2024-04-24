@@ -47,6 +47,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.City_Propertyfinder__c='test';
         listingRecord1.Price_Unit__c='Price Yearly';
         listingRecord1.Completion_Status__c='Completed';
+        listingRecord1.Propertyfinder_Region__c='Dubai - Dubai Hills Estate - Palm Hills';
         listingRecord1.City_Dubizzle__c='Test';
         listingRecord1.Property_Status__c='Vacant on Transfer';
         listingRecord1.Available_from__c=date.today()+1;
@@ -135,6 +136,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.LocationText_Dubizzle__c='Test';
         listingRecord1.City_Propertyfinder__c='test';
         listingRecord1.Price_Unit__c='Price Yearly';
+        listingRecord1.Propertyfinder_Region__c='Dubai - Dubai Hills Estate - Palm Hills';
         listingRecord1.Completion_Status__c='Completed';
         listingRecord1.City_Dubizzle__c='Test';
         listingRecord1.Property_Status__c='Vacant on Transfer';
@@ -212,6 +214,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.Property_Propertyfinder__c='Test';
         listingRecord1.LocationText_Dubizzle__c='Test';
         listingRecord1.City_Propertyfinder__c='test';
+        listingRecord1.Propertyfinder_Region__c='Dubai - Dubai Hills Estate - Palm Hills';
         listingRecord1.Price_Unit__c='Price Yearly';
         listingRecord1.Completion_Status__c='Completed';
         listingRecord1.City_Dubizzle__c='Test';
@@ -225,9 +228,25 @@ public with sharing class TestXMLFeedGeneratorForPF {
 
         // Call the trigger
         Test.startTest();
-        ListingTriggerHandler handler= new ListingTriggerHandler();
-        handler.onBeforeUpdate(new List<Listing_hz__c>{listingRecord1});
+
+        // Prepare necessary data for testing
+        List<Listing_hz__c> newList = new List<Listing_hz__c>{listingRecord1};
+        List<Listing_hz__c> oldList = new List<Listing_hz__c>{};
+        Map<Id, Listing_hz__c> newMap = new Map<Id, Listing_hz__c>{listingRecord1.Id => listingRecord1};
+        Map<Id, Listing_hz__c> oldMap = new Map<Id, Listing_hz__c>{};
+        Boolean isInsert = false; // Set appropriate values for these flags
+        Boolean isUpdate = true;
+        Boolean isDelete = false;
+        Boolean isUndelete = false;
+
+        // Instantiate ListingTriggerHandler with required parameters
+        ListingTriggerHandler handler = new ListingTriggerHandler(newList, oldList, newMap, oldMap, isInsert, isUpdate, isDelete, isUndelete);
+
+        // Call the method you want to test
+        handler.onBeforeUpdate(newList);
+
         Test.stopTest();
+
         
         // Assertions
         listingRecord1 = [SELECT Id, SystemAllowedForPortals__c FROM Listing_hz__c WHERE Id = :listingRecord1.Id];
@@ -269,6 +288,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.LocationText_Dubizzle__c='Test';
         listingRecord1.City_Propertyfinder__c='test';
         listingRecord1.Price_Unit__c='Price Yearly';
+        listingRecord1.Propertyfinder_Region__c='Dubai - Dubai Hills Estate - Palm Hills';
         listingRecord1.Completion_Status__c='Completed';
         listingRecord1.City_Dubizzle__c='Test';
         listingRecord1.Property_Status__c='Vacant on Transfer';
@@ -303,9 +323,25 @@ public with sharing class TestXMLFeedGeneratorForPF {
         
         // Call the trigger
         Test.startTest();
-        ListingTriggerHandler handler= new ListingTriggerHandler();
-        handler.onBeforeUpdate(new List<Listing_hz__c>{listingRecord1});
+
+        // Prepare necessary data for testing
+        List<Listing_hz__c> newList = new List<Listing_hz__c>{listingRecord1};
+        List<Listing_hz__c> oldList = new List<Listing_hz__c>{};
+        Map<Id, Listing_hz__c> newMap = new Map<Id, Listing_hz__c>{listingRecord1.Id => listingRecord1};
+        Map<Id, Listing_hz__c> oldMap = new Map<Id, Listing_hz__c>{};
+        Boolean isInsert = false; // Set appropriate values for these flags
+        Boolean isUpdate = true;
+        Boolean isDelete = false;
+        Boolean isUndelete = false;
+
+        // Instantiate ListingTriggerHandler with required parameters
+        ListingTriggerHandler handler = new ListingTriggerHandler(newList, oldList, newMap, oldMap, isInsert, isUpdate, isDelete, isUndelete);
+
+        // Call the method you want to test
+        handler.onBeforeUpdate(newList);
+
         Test.stopTest();
+
         
         // Assertions
         listingRecord1 = [SELECT Id, SystemAllowedForPortals__c FROM Listing_hz__c WHERE Id = :listingRecord1.Id];
