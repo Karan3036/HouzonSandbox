@@ -40,7 +40,7 @@ public class XMLFeedGeneratorForPF {
 
         // Map to store PropertyMedia__c records related to each Property_hz__c
         Map<Id, List<PropertyMedia__c>> propertyMediaUrlsMap = new Map<Id, List<PropertyMedia__c>>();
-        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate, Tags__c FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds AND IsOnPortalFeed__c = true Order BY SortOnPortalFeed__c ASC NULLS LAST]) {
+        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate, Tags__c FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds AND IsOnPortalFeed__c = true Order BY SortOnPortalFeed__c ASC NULLS LAST, Name ASC]) {
             if (!propertyMediaUrlsMap.containsKey(media.Property_hz__c)) {
                 propertyMediaUrlsMap.put(media.Property_hz__c, new List<PropertyMedia__c>());
             }

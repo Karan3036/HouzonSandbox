@@ -29,6 +29,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.Status__c = 'Active';
         listingRecord1.ListingType__c = 'Rental';
         listingRecord1.PropertyType__c = 'Apartment';
+        listingRecord1.Broker_s_Listing_ID_2__c = 'KARANSINGH';
         listingRecord1.Bedrooms_hz__c = 2;
         listingRecord1.FullBathrooms_hz__c = 2;
         listingRecord1.ListingPrice_hz__c = 1000;
@@ -118,6 +119,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.Name = 'Test1';
         listingRecord1.Status__c = 'Active';
         listingRecord1.ListingType__c = 'Rental';
+        listingRecord1.Broker_s_Listing_ID_2__c = 'KARANSINGH';
         listingRecord1.PropertyType__c = 'Apartment';
         listingRecord1.Bedrooms_hz__c = 2;
         listingRecord1.FullBathrooms_hz__c = 2;
@@ -175,9 +177,11 @@ public with sharing class TestXMLFeedGeneratorForPF {
         PageReference pageRef = Page.XMLFeedForPF; 
         Test.setCurrentPage(pageRef);
         XMLFeedGenerator xmlGenerator = new XMLFeedGenerator();
+        XMLFeedGeneratorForDubizzle xmlGenerator1 = new XMLFeedGeneratorForDubizzle();
         Test.stopTest();
 
         System.assertNotEquals(null, xmlGenerator.xmlstring);
+        System.assertNotEquals(null, xmlGenerator1.xmlstring);
     }
 
     @isTest
@@ -198,6 +202,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.Status__c = 'Active';
         listingRecord1.ListingType__c = 'Rental';
         listingRecord1.PropertyType__c = 'Apartment';
+        listingRecord1.Broker_s_Listing_ID_2__c = 'KARANSINGH';
         listingRecord1.Bedrooms_hz__c = 2;
         listingRecord1.FullBathrooms_hz__c = 2;
         listingRecord1.ListingPrice_hz__c = 1000;
@@ -270,6 +275,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.Name = 'Test1';
         listingRecord1.Status__c = 'Pending';
         listingRecord1.ListingType__c = 'Rental';
+        listingRecord1.Broker_s_Listing_ID_2__c = 'KARANSINGH';
         listingRecord1.PropertyType__c = 'Apartment';
         listingRecord1.Bedrooms_hz__c = 2;
         listingRecord1.FullBathrooms_hz__c = 2;

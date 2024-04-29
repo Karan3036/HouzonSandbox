@@ -1,8 +1,8 @@
-public class XMLFeedGenerator {
+public class XMLFeedGeneratorForDubizzle {
     public String recordID;
     public String xmlstring { get; set; }
 
-    public XMLFeedGenerator() {
+    public XMLFeedGeneratorForDubizzle() {
         
         if(!Test.isRunningTest()){
         	recordID = ApexPages.currentPage().getParameters().get('Id').escapeHtml4();
@@ -121,7 +121,7 @@ public class XMLFeedGenerator {
             
             dom.XmlNode Portal = propertyNode.addChildElement('Portals', null, null);
             dom.XmlNode PortalValue1 = Portal.addChildElement('Portal', null, null);
-            PortalValue1.addTextNode('Bayut');
+            PortalValue1.addTextNode('dubizzle');
             
         }
 

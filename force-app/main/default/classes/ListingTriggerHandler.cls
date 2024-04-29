@@ -126,9 +126,9 @@ public with sharing class ListingTriggerHandler {
                 
                 if (listing.Completion_Status__c != oldListing.Completion_Status__c) {
                     if (listing.Completion_Status__c == 'Completed') {
-                        listing.Off_plan__c = 'Yes';
-                    } else {
                         listing.Off_plan__c = 'No';
+                    } else if (listing.Completion_Status__c == 'Off Plan'){
+                        listing.Off_plan__c = 'Yes';
                     }
                 }
             }
