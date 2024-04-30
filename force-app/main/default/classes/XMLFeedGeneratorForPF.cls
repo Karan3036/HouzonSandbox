@@ -88,7 +88,7 @@ public class XMLFeedGeneratorForPF {
                         if (fieldValue != null) {
                             if (listingType == 'Rent' && rentFrequency != null) {
                                 dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
-                                dom.XmlNode rentFre = fieldNode.addChildElement(rentFrequency, null, null);
+                                dom.XmlNode rentFre = fieldNode.addChildElement(rentFrequency.toLowerCase(), null, null);
                                 rentFre.addTextNode(String.valueOf(fieldValue));
                             } else {
                                 dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);

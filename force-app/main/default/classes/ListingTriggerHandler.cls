@@ -102,15 +102,15 @@ public with sharing class ListingTriggerHandler {
                 
                 if (listing.Price_Unit__c != oldListing.Price_Unit__c) {
                     if (listing.Price_Unit__c == 'Price Yearly') {
-                        listing.Rent_Frequency__c = 'Yearly';
+                        listing.Rent_Frequency__c = 'yearly';
                     } else if (listing.Price_Unit__c == 'Price Monthly') {
-                        listing.Rent_Frequency__c = 'Monthly';
+                        listing.Rent_Frequency__c = 'monthly';
                     } else if (listing.Price_Unit__c == 'Price Weekly') {
-                        listing.Rent_Frequency__c = 'Weekly';
+                        listing.Rent_Frequency__c = 'weekly';
                     } else if (listing.Price_Unit__c == 'Price Daily') {
-                        listing.Rent_Frequency__c = 'Daily';
+                        listing.Rent_Frequency__c = 'daily';
                     } else if (listing.Price_Unit__c == 'Price Monthly Per Room') {
-                        listing.Rent_Frequency__c = 'Monthly';
+                        listing.Rent_Frequency__c = 'monthly';
                     }
                 }
             }

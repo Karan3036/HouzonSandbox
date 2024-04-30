@@ -165,3 +165,73 @@ hr{
 .statusbox{
     line-height: 1.5;
 }
+
+@media only screen and (max-width: 768px){
+    .popup-m{
+        width: 90%;
+        position: fixed;
+        top: 0%;
+        /* background-color: #016DC3; */
+    }
+    .popup-btn{
+        text-align: start;
+        display: flex;
+        justify-content: space-between;
+    }
+    .fading{
+        /* height: 200vh; */
+        overscroll-behavior-y: none;
+        background-color: green;
+
+    }
+    /* .modal-backdrop{
+        width:75%;
+        background-color: #016DC3;
+    } */
+    .attachment_main_div{
+        margin-top: 2vh;
+    }
+    .attachment{
+        margin-inline: 2vh;
+        width: 90%;
+    }
+    .image{
+        width: 90%;
+        margin-inline: 2vh;
+    }
+    .container{
+        flex-direction: column;
+        padding: 10px;
+        gap: 2vh;
+    }
+    .pill{
+        margin-left: 2vh;
+    }
+/* added div for it */
+    .table{
+        overflow-x: scroll;
+        margin-inline: 2vh;
+    }
+    th,td{
+        min-width:200px;
+    }
+/* added div in both below class */
+    .stylebtn{
+        flex-direction: column;
+    }
+    .groupbtn{
+        margin-left: 2vh;
+        margin-top: 2vh;
+    }
+    .btns{
+        display: flex;
+        margin-left: 1vh;
+        margin-top: 1vh;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation : landscape){
+    .table{
+        overflow-x: scroll;
+        margin-inline: 2vh;
+    }
+}
