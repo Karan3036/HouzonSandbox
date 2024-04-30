@@ -29,7 +29,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.Status__c = 'Active';
         listingRecord1.ListingType__c = 'Rental';
         listingRecord1.PropertyType__c = 'Apartment';
-        listingRecord1.Broker_s_Listing_ID_2__c = 'KARANSINGH';
+        listingRecord1.Broker_s_Listing_ID_2__c = 'Test';
         listingRecord1.Bedrooms_hz__c = 2;
         listingRecord1.FullBathrooms_hz__c = 2;
         listingRecord1.ListingPrice_hz__c = 1000;
@@ -38,6 +38,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.Broker_s_Listing_ID__c='Test';
         listingRecord1.Description_hz__c='Testing Area';
         listingRecord1.PropertySubType_hz__c='Industrial';
+        listingRecord1.Houzon_Broker_s_Listing_ID__c='Test';
         listingRecord1.Property_Sub_Type__c='Residential - Apartment';
         listingRecord1.RERA_Permit_Number__c='100';
         listingRecord1.TotalArea_hz__c=1000;
@@ -126,6 +127,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.ListingPrice_hz__c = 1000;
         listingRecord1.City_hz__c = 'Test';
         listingRecord1.State_hz__c = 'Test';
+        listingRecord1.Houzon_Broker_s_Listing_ID__c='Test';
         listingRecord1.Broker_s_Listing_ID__c='Test';
         listingRecord1.Description_hz__c='Testing Area';
         listingRecord1.PropertySubType_hz__c='Industrial';
@@ -214,6 +216,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.Property_Sub_Type__c='Residential - Apartment';
         listingRecord1.RERA_Permit_Number__c='100';
         listingRecord1.TotalArea_hz__c=1000;
+        listingRecord1.Houzon_Broker_s_Listing_ID__c='Test';
         listingRecord1.Sub_Community_Propertyfinder__c='Test';
         listingRecord1.Community_Propertyfinder__c='Test';
         listingRecord1.Property_Propertyfinder__c='Test';
@@ -288,6 +291,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.Property_Sub_Type__c='Residential - Apartment';
         listingRecord1.RERA_Permit_Number__c='100';
         listingRecord1.TotalArea_hz__c=1000;
+        listingRecord1.Houzon_Broker_s_Listing_ID__c='Test';
         listingRecord1.Sub_Community_Propertyfinder__c='Test';
         listingRecord1.Community_Propertyfinder__c='Test';
         listingRecord1.Property_Propertyfinder__c='Test';
