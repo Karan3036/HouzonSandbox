@@ -84,7 +84,6 @@ public class XMLFeedGeneratorForPF {
                     }   else if (fieldName == 'ListingPrice_hz__c') {
                         Object fieldValue = record.get(fieldName);
             
-                        // Check for null before adding text node
                         if (fieldValue != null) {
                             if (listingType == 'Rent' && rentFrequency != null) {
                                 dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
@@ -95,10 +94,21 @@ public class XMLFeedGeneratorForPF {
                                 fieldNode.addTextNode(String.valueOf(fieldValue));
                             }
                         }
-                    }   else {
+                    }   else if (fieldName == 'Completion_Status__c') {
+                        Object fieldValue = record.get(fieldName);
+            
+                        if (fieldValue != null) {
+                            if (fieldValue == 'Completed') {
+                                dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
+                                fieldNode.addTextNode(String.valueOf('completed'));
+                            } else if(fieldValue == 'Off Plan'){
+                                dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
+                                fieldNode.addTextNode(String.valueOf('off_plan'));
+                            }
+                        }
+                    }else {
                         Object fieldValue = record.get(fieldName);
     
-                        // Check for null before adding text node
                         if (fieldValue != null) {
                             dom.XmlNode fieldNode = propertyNode.addChildElement(fieldName, null, null);
                             fieldNode.addTextNode(String.valueOf(fieldValue));

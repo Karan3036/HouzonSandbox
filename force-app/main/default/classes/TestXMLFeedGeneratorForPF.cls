@@ -54,6 +54,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.Property_Status__c='Vacant on Transfer';
         listingRecord1.Available_from__c=date.today()+1;
         listingRecord1.CompletionDate_hz__c=date.today()+1;
+        listingRecord1.Completion_Status__c='Completed';
         listingRecord1.property_category__c='Commercial';
         listingRecord1.PropertyOwnerContact__c=testContact1.Id;
         insert listingRecord1;
