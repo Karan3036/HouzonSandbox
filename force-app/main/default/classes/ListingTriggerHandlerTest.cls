@@ -19,7 +19,7 @@ public with sharing class ListingTriggerHandlerTest {
         Account testAccount1 = new Account(Name='Test Account 1');
         insert testAccount1;
 
-        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
+        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', MobilePhone = '+919326582649', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
         insert testContact1;  
 
         Listing_hz__c activeListing = new Listing_hz__c();
@@ -38,18 +38,25 @@ public with sharing class ListingTriggerHandlerTest {
         activeListing.Property_Sub_Type__c='Residential - Apartment';
         activeListing.RERA_Permit_Number__c='100';
         activeListing.TotalArea_hz__c=1000;
+        activeListing.Area_hz__c='Test';
+        activeListing.Broker_s_Listing_ID_2__c='Test';
+        activeListing.Apartment_Number_and_Name__c='Test';
         activeListing.Sub_Community_Propertyfinder__c='Test';
         activeListing.Community_Propertyfinder__c='Test';
         activeListing.Property_Propertyfinder__c='Test';
         activeListing.LocationText_Dubizzle__c='Test';
         activeListing.City_Propertyfinder__c='test';
+        activeListing.Country_hz__c='Test';
+        activeListing.CountryCode_hz__c='Test';
         activeListing.Price_Unit__c='Price Yearly';
         activeListing.Completion_Status__c='Completed';
         activeListing.City_Dubizzle__c='Test';
+        activeListing.HalfBathrooms_hz__c=2;
         activeListing.Property_Status__c='Vacant on Transfer';
         activeListing.Propertyfinder_Region__c='Dubai - Dubai Hills Estate - Palm Hills';
         activeListing.Available_from__c=date.today()+1;
         activeListing.CompletionDate_hz__c=date.today()+1;
+        activeListing.Street_hz__c='Test';
         activeListing.property_category__c='Commercial';
         activeListing.PropertyOwnerContact__c=testContact1.Id;
         activeListing.Houzon_Broker_s_Listing_ID__c='Test';
@@ -63,9 +70,16 @@ public with sharing class ListingTriggerHandlerTest {
         inactiveListing.PropertyType__c = 'Apartment';
         inactiveListing.Bedrooms_hz__c = 2;
         inactiveListing.FullBathrooms_hz__c = 2;
+        inactiveListing.Apartment_Number_and_Name__c='Test';
         inactiveListing.ListingPrice_hz__c = 1000;
+        inactiveListing.Country_hz__c='Test';
+        inactiveListing.CountryCode_hz__c='Test';
         inactiveListing.City_hz__c = 'Test';
+        inactiveListing.HalfBathrooms_hz__c=2;
         inactiveListing.State_hz__c = 'Test';
+        inactiveListing.Area_hz__c='Test';
+        inactiveListing.Street_hz__c='test';
+        inactiveListing.Broker_s_Listing_ID_2__c='Test';
         inactiveListing.Broker_s_Listing_ID__c='Test';
         inactiveListing.Description_hz__c='Testing Area';
         inactiveListing.PropertySubType_hz__c='Industrial';

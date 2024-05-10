@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TimeOnSendDay__c</fullName>
+    <defaultValue>0</defaultValue>
+    <description>The time (in minutes) at which the email should be sent.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Minutes after midnight. 0 corresponds to midnight, 90 to 1:30 and 810 to 13:30.</inlineHelpText>
+    <label>Time to send</label>
+    <precision>4</precision>
+    <required>true</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

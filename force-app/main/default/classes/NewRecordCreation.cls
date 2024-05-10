@@ -12,6 +12,7 @@ public with sharing class NewRecordCreation {
                if(con.LastName != null && con.LastName != '') query += ' LastName LIKE \'%' + con.LastName + '%\' AND ';
                if(con.MobilePhone != null && con.MobilePhone != '') query += ' MobilePhone LIKE \'%' + con.MobilePhone + '%\' AND ';
                if(con.Phone != null && con.Phone != '') query += ' Phone LIKE \'%' + con.Phone + '%\' AND ';
+               query += 'IsDeleted = false AND ';
                query = query.removeEnd(' AND ');
                conlst = Database.query(query);
            }
@@ -45,7 +46,7 @@ public with sharing class NewRecordCreation {
      @AuraEnabled(cacheable=true)
    public static List<Contact> getContacts(Id conId){
        
-       List<Contact> conlst = [SELECT Id,FirstName,LastName,Salutation,Email,CompanyName__c,MobilePhone,LeadSource,Phone FROM Contact WHERE Id =: conId];
+       List<Contact> conlst = [SELECT Id,FirstName,LastName,Salutation,Email,CompanyName__c,MobilePhone,LeadSource,Phone FROM Contact WHERE Id =: conId AND IsDeleted = false];
        return conlst;
    }
 
@@ -81,12 +82,13 @@ public with sharing class NewRecordCreation {
                 if(String.isNotBlank(listin.Name))query += ' Name LIKE \'%'+listin.Name+'%\' AND ';
                 if(String.isNotBlank(listin.Address_hz__c))query += ' Address_hz__c LIKE \'%'+listin.Address_hz__c+'%\' AND ';
                 if(String.isNotBlank(listin.City_hz__c))query += ' City_hz__c LIKE \'%'+listin.City_hz__c+'%\' AND ';
+                query += 'IsDeleted = false AND ';
                 query = query.removeEnd(' AND ');
-                System.debug('query>>>'+query);
+                // System.debug('query>>>'+query);
                 
             }
                 List<Property_hz__c> listinglst = Database.query(query);
-                System.debug('listinglst>>>'+listinglst);
+                // System.debug('listinglst>>>'+listinglst);
                 Map<String,List<Listing_hz__c>> lstMap = new Map<String,List<Listing_hz__c>>();
                 List<Listing_hz__c> lstIds = new List<Listing_hz__c>();
                 String addrField;
@@ -109,7 +111,7 @@ public with sharing class NewRecordCreation {
                                 addrField += '';
                             }
 
-                            System.debug('addrField>>>'+addrField);
+                            // System.debug('addrField>>>'+addrField);
                             if(!lstMap.containsKey(c.Id+'::'+c.Name+'::'+addrField)){
                                 
                                 lstMap.put(c.Id+'::'+c.Name+'::'+addrField,new List<Listing_hz__c>());
@@ -118,7 +120,7 @@ public with sharing class NewRecordCreation {
                         }
                     }
                     else{
-                        System.debug('else');
+                        // System.debug('else');
 
                         if(c.City_hz__c!=null && c.City_hz__c!='' && String.isNotBlank(c.City_hz__c)){
                             addrField += c.City_hz__c + ', '; 
@@ -134,10 +136,10 @@ public with sharing class NewRecordCreation {
                             addrField += '';
                         }
                         lstMap.put(c.Id+'::'+c.Name+'::'+addrField,new List<Listing_hz__c>());
-                        System.debug('lstMap====>'+lstMap);
+                        // System.debug('lstMap====>'+lstMap);
                     }
                 }
-                System.debug('lstMap>>>'+lstMap);
+                // System.debug('lstMap>>>'+lstMap);
                 return lstMap;
             
         } catch (Exception e) {
@@ -151,7 +153,7 @@ public with sharing class NewRecordCreation {
     @AuraEnabled(cacheable=true)
     public static List<Property_hz__c> getListings(Id lisId){
         
-        List<Property_hz__c> proplst = [SELECT Id,Name,City_hz__c,Address_hz__c,Bedrooms_hz__c,PropertyType__c FROM Property_hz__c WHERE Id =: lisId];
+        List<Property_hz__c> proplst = [SELECT Id, Name, City_hz__c, Address_hz__c, Bedrooms_hz__c, PropertyType__c FROM Property_hz__c WHERE Id = :lisId AND IsDeleted = false];
         return proplst;
     }
 
@@ -162,9 +164,9 @@ public with sharing class NewRecordCreation {
                                            String bedrooms, String proptype, String address) {
         try {
             // Create a new Listing record
-            System.debug('recordType ==>' + recordType);
+            // System.debug('recordType ==>' + recordType);
             Id listingrecordTypeId = SObjectType.Listing_hz__c.getRecordTypeInfosByDeveloperName().get(recordType).getRecordTypeId();
-            System.debug('listingrecordTypeId ==>' + listingrecordTypeId);
+            // System.debug('listingrecordTypeId ==>' + listingrecordTypeId);
 
             List<Listing_hz__c> listingrec = new List<Listing_hz__c>();
             Listing_hz__c newListing = new Listing_hz__c();
@@ -213,14 +215,14 @@ public with sharing class NewRecordCreation {
     public static Contact createContact(Map<String, Object> contactObj) {
         try {
             // Extract contact details from the passed map
-            String firstName = (String) contactObj.get('FirstName');
-            String lastName = (String) contactObj.get('LastName');
-            String email = (String) contactObj.get('Email');
-            String salutation = (String) contactObj.get('Salutation');
-            String company = (String) contactObj.get('Company');
-            String mobilePhone = (String) contactObj.get('MobilePhone');
-            String phone = (String) contactObj.get('Phone');
-            String leadSource = (String) contactObj.get('LeadSource');
+            String firstName = String.valueOf(contactObj.get('FirstName'));
+            String lastName = String.valueOf(contactObj.get('LastName'));
+            String email = String.valueOf(contactObj.get('Email'));
+            String salutation = String.valueOf(contactObj.get('Salutation'));
+            String company = String.valueOf(contactObj.get('Company'));
+            String mobilePhone = String.valueOf(contactObj.get('MobilePhone'));
+            String phone = String.valueOf(contactObj.get('Phone'));
+            String leadSource = String.valueOf(contactObj.get('LeadSource'));
             
             // Create new contact
             Contact newContact = new Contact(

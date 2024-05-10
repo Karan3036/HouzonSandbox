@@ -11,7 +11,7 @@ public with sharing class NewRecordCreationTest {
         Contact testContact = new Contact(
             FirstName = 'John',
             LastName = 'Doe',
-            MobilePhone = '1234567890',
+            MobilePhone = '+911234567890',
             CompanyName__c = testAccount1.Id,
             Phone = '+971564479823',
             Email = 'john.doe@example.com'
@@ -57,7 +57,7 @@ public with sharing class NewRecordCreationTest {
         Contact testContact = new Contact(
             FirstName = 'John',
             LastName = 'Doe',
-            MobilePhone = '1234567890',
+            MobilePhone = '+911234567890',
             CompanyName__c = testAccount1.Id,
             Phone = '+971564479823',
             Email = 'john.doe@example.com'
@@ -74,7 +74,7 @@ public with sharing class NewRecordCreationTest {
 
         Listing_hz__c listingRecord1 = new Listing_hz__c();
         listingRecord1.Name = 'Test1';
-        listingRecord1.Status__c = 'Active';
+        listingRecord1.Status__c = 'Withdrawn';
         listingRecord1.ListingType__c = 'Rental';
         listingRecord1.PropertyType__c = 'Apartment';
         listingRecord1.Bedrooms_hz__c = 2;
@@ -103,6 +103,8 @@ public with sharing class NewRecordCreationTest {
         listingRecord1.PropertyOwnerContact__c=testContact.Id;
         listingRecord1.Property_hz__c=pro.Id;
         listingRecord1.property_category__c='Commercial';
+        listingRecord1.PropertyOwnerContact_hz__c=testContact.Id;
+
         insert listingRecord1;
 
         Test.startTest();
@@ -131,7 +133,7 @@ public with sharing class NewRecordCreationTest {
             'Email' => 'test@example.com',
             'Salutation' => 'Mr.',
             'Company' => testAccount1.Id,
-            'MobilePhone' => '1234567890',
+            'MobilePhone' => '+911234567890',
             'Phone' => '+971564400823',
             'LeadSource' => 'Web'
         };
@@ -187,7 +189,7 @@ public with sharing class NewRecordCreationTest {
         Contact testContact = new Contact(
             FirstName = 'John',
             LastName = 'Doe',
-            MobilePhone = '1234567890',
+            MobilePhone = '+911234567890',
             CompanyName__c = testAccount1.Id,
             Phone = '+971564479823',
             Email = 'john.doe@example.com'
@@ -208,7 +210,7 @@ public with sharing class NewRecordCreationTest {
 
         Listing_hz__c listingRecord1 = new Listing_hz__c();
         listingRecord1.Name = 'Test1';
-        listingRecord1.Status__c = 'Active';
+        listingRecord1.Status__c = 'Withdrawn';
         listingRecord1.ListingType__c = 'Rental';
         listingRecord1.PropertyType__c = 'Apartment';
         listingRecord1.Bedrooms_hz__c = 2;
@@ -237,6 +239,7 @@ public with sharing class NewRecordCreationTest {
         listingRecord1.PropertyOwnerContact__c=testContact.Id;
         listingRecord1.Property_hz__c=pro.Id;
         listingRecord1.property_category__c='Commercial';
+        listingRecord1.PropertyOwnerContact_hz__c=testContact.Id;
         insert listingRecord1;
 
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AgentCommissionShouldBeLessThanTotalComm</fullName>
+    <active>true</active>
+    <description>The Agent Commission value should never exceed the Total Commission Amount.</description>
+    <errorConditionFormula>Agent_Commission__c  &gt;  TotalCommissionAmount__c</errorConditionFormula>
+    <errorMessage>Agent Commission amount cannot be more than Total Commission Amount</errorMessage>
+</ValidationRule>

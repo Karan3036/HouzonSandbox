@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Closings_Maverick</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>Renter__c</columns>
+    <columns>Landlord_c__c</columns>
+    <columns>Listing_hz__c</columns>
+    <columns>ClosingDate__c</columns>
+    <columns>Closing_Status__c</columns>
+    <columns>Rental_Agreement_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Closings Maverick</label>
+    <sharedTo></sharedTo>
+</ListView>

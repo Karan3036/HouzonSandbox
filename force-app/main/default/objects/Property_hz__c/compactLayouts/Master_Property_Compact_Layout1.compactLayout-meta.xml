@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Master_Property_Compact_Layout1</fullName>
+    <fields>PropertyType__c</fields>
+    <fields>PropertyOwnerContact__c</fields>
+    <fields>Address2__c</fields>
+    <fields>City_hz__c</fields>
+    <fields>TotalArea_hz__c</fields>
+    <fields>LotSize_hz__c</fields>
+    <fields>Year_Build_text__c</fields>
+    <fields>OwnerId</fields>
+    <label>Master Property Compact Layout</label>
+</CompactLayout>

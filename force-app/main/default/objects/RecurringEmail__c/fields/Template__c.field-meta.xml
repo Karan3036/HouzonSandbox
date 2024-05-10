@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Template__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Please select a template for this email.</inlineHelpText>
+    <label>Template</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>This template is not suited for recurring emails. Please select a different one.</errorMessage>
+        <filterItems>
+            <field>Template__c.Type__c</field>
+            <operation>equals</operation>
+            <value>email_template</value>
+        </filterItems>
+        <filterItems>
+            <field>Template__c.Quicksend__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <infoMessage>Please select an email template that is enabled for Quicksend.</infoMessage>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Template__c</referenceTo>
+    <relationshipLabel>Recurring Emails</relationshipLabel>
+    <relationshipName>RecurringEmails</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

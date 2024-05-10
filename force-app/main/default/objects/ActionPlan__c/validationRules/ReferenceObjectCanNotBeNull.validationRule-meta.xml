@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReferenceObjectCanNotBeNull</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+OR( Listing_hz__c == null, Listing_hz__c == &apos;&apos; ),
+OR( Account__c == null, Account__c == &apos;&apos; ),
+OR( Action__c == null, Action__c == &apos;&apos; ),
+OR( Contact__c == null, Contact__c == &apos;&apos; ),
+OR( LinkedListing_hz__c == null, LinkedListing_hz__c == &apos;&apos; ),
+OR( Closing_hz__c == null, Closing_hz__c == &apos;&apos; ),
+OR( Offer_hz__c	 == null, Offer_hz__c	 == &apos;&apos; ),
+OR( Property_hz__c == null, Property_hz__c == &apos;&apos; ),
+OR( PropertyMedia__c == null, PropertyMedia__c == &apos;&apos; ),
+OR( Inquiry_hz__c == null, Inquiry_hz__c == &apos;&apos; )
+)</errorConditionFormula>
+    <errorMessage>You must relate the Action Plan to an object.  Select the type and the object, then save again.</errorMessage>
+</ValidationRule>

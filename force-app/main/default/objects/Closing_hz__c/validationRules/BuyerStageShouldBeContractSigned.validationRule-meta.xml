@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BuyerStageShouldBeContractSigned</fullName>
+    <active>true</active>
+    <description>If a buyer is selected in a closing, it should not allow users to close the closing until the stage of Buyer has been changed to contract signed.</description>
+    <errorConditionFormula>AND(
+    RecordType.DeveloperName = &apos;Sale&apos;,
+    NOT(ISBLANK( Buyer_Tenant__c )),
+    ISCHANGED( Closing_Status__c ),
+    ISPICKVAL(Closing_Status__c , &apos;Closed&apos;),
+    NOT(ISPICKVAL( Buyer_Tenant__r.Stage__c , &apos;Contract Signed&apos;))
+)</errorConditionFormula>
+    <errorMessage>Please change the stage of Buyer to Contract Signed to mark this Closing as closed.</errorMessage>
+</ValidationRule>

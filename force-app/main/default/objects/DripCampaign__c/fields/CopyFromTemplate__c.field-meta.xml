@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CopyFromTemplate__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If checked, copies any data and Drip Email Templates from a Drip Campaign Template into a new Drip Campaign, if the &apos;Drip Campaign Template&apos; field is set.</description>
+    <externalId>false</externalId>
+    <label>Copy From Template</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Renter__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Renter</label>
+    <lookupFilter>
+        <active>false</active>
+        <errorMessage>Please select a contact of Tenant type</errorMessage>
+        <filterItems>
+            <field>Contact.Contact_Type_Multiselect_to_Text__c</field>
+            <operation>contains</operation>
+            <value>Tenant</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Closings (Renter)</relationshipLabel>
+    <relationshipName>Closings1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

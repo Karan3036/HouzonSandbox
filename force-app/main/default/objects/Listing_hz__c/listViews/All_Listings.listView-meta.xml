@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Listings</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>Bedrooms_hz__c</columns>
+    <columns>ListingPrice_hz__c</columns>
+    <columns>ListingType__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>Status__c</columns>
+    <columns>Listing_Agent_Lastname__c</columns>
+    <columns>Listing_Agent_Email__c</columns>
+    <columns>Listing_Agent_Phone__c</columns>
+    <columns>Bayut_Boost__c</columns>
+    <columns>Propertyfinder_Boost__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OWNER.ALIAS</field>
+        <operation>equals</operation>
+        <value>Juan</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Under Contract,Withdrawn,Sold,Rented,Expired</value>
+    </filters>
+    <label>All Listings</label>
+    <sharedTo></sharedTo>
+</ListView>

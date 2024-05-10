@@ -19,5 +19,9 @@ trigger ListingTrigger on Listing_hz__c (after insert, after update, after delet
         else if(trigger.isUpdate){
             handler.beforeUpdateEvent();
         }
+    } else if (trigger.isAfter) {
+        if (trigger.isInsert) {
+            handler.afterInsertEvent();
+        }   
     }
 }

@@ -1,0 +1,1288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Generic</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Request_Compact_Layout</compactLayoutAssignment>
+    <label>Inquiry</label>
+    <picklistValues>
+        <picklist>Area__c</picklist>
+        <values>
+            <fullName>Al Azra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Badaa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Barashi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Barsha</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Darari</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Falaj</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Fayha</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Fisht</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Ghubaiba</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Goaz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Hoshi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Jafiliya</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Jazzat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Khan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Majaz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Mamzar- Sharjah</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Mina</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Nahda- Sharjah</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Nekhailat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Nouf 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Nouf 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Nouf 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Nouf 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Qarayen 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Qarayen 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Qarayen 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Qarayen 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Rahmaniya 5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Ramaqiya</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Rifa%27ah</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Safa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Satwa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Taawun</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al Yash</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Al_Karama</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Bay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>City Walk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corniche Al Buhaira</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DIFC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Downtown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dubai Hills Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dubai Marina</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dubai Production City %28IMPZ%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dubai Silicon Oasis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jumeirah Beach Residence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jumeirah Park</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jumeriah 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jumeriah 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jumeriah 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Muwafjah</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Old Town</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Palm Jumeriah</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Samnan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sharqan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sheikh Zayed Road</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sports City</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The Springs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Umm Suqeim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Umm Suqueim 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Umm Suqueim 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>World Trade Centre Residence</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>BuyingTimeFrame_hz__c</picklist>
+        <values>
+            <fullName>1-3_months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3-6_months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6-12_months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>asap</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>not_sure</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>City_Dubizzle__c</picklist>
+        <values>
+            <fullName>Abu Dhabi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ajman</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alexandria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Algiers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amman</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Beirut</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cairo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Casablanca</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Damascus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dammam and Khobar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doha</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dubai</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fujeirah</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jeddah</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kuwait City</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manama</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Muscat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ras al Khaimeh</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Riyadh</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sharjah</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tripoli</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tunis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Umm al Quwain</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>City__c</picklist>
+        <values>
+            <fullName>Dubai</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sharjah</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Commercial_Amenities__c</picklist>
+        <values>
+            <fullName>Availabe Networked</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Available Furnished</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conference Room</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Covered Parking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dining in Building</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail in Building</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shared Gym</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shared Spa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>View of Landmark</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>View of Water</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Current_Position__c</picklist>
+        <values>
+            <fullName>Cash Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>First Time Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Living with Parents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nothing to Sell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property to Sell - Not On Market</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property to Sell - On The Market</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property to Sell - On The Market US</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property to Sell - Under Offer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property to Sell - Under Offer US</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renting</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EmailFrequency__c</picklist>
+        <values>
+            <fullName>daily</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>immediate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>monthly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>never</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>weekly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Enquiry_Source_hz__c</picklist>
+        <values>
+            <fullName>Inspection</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Finance__c</picklist>
+        <values>
+            <fullName>Cash</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mortgage</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Inquiry_Type__c</picklist>
+        <values>
+            <fullName>Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landlord</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seller</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tenant</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Invester__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lead_Source__c</picklist>
+        <values>
+            <fullName>Board</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Current Client</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facebook</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Friend%2FFamily</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HLTC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Homesearch Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Homes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OneDome</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Past Client</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Power Preview Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prime Location</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recommendation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential People</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rightmove</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The Guild Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UK Land %26 Farms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Uploaded List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website Inquiry Form</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zoopla</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ListingType__c</picklist>
+        <values>
+            <fullName>Rent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sale</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Measurement_hz__c</picklist>
+        <values>
+            <fullName>Metric</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Metric</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Number_of_Cheques__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Power_Negs__c</picklist>
+        <values>
+            <fullName>Prospect</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Signed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VIP</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Private_Amenities__c</picklist>
+        <values>
+            <fullName>Balcony</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Built in Kitchen Appliances</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Built in Wardrobes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Central A%2FC %26 Heating</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Concierge Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Covered Parking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maid Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maids Room</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pets Allowed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Garden</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Gym</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Jacuzzi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Pool</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shared Gym</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shared Pool</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shared Spa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Study</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>View of Landmark</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>View of Water</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Walk in Closet</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PropertyStatus_hz__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Off-Market</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Under Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Withdrawn</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PropertyType__c</picklist>
+        <values>
+            <fullName>Apartment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Penthouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Studio</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Property_Sub_Type__c</picklist>
+        <values>
+            <fullName>Commercial - Bulk Units</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Full floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Half floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Labor Camp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Office Space</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Plot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Shop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Show Room</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Staff Accommodation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Villa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Warehouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Whole Building</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Apartment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Bulk Units</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Bungalow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Compound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Duplex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Full floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Half floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Labor Camp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Land</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Penthouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Townhouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Villa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Whole Building</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Property_Sub_Type_multi__c</picklist>
+        <values>
+            <fullName>Commercial - Bulk Units</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Business Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Co-working Space</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Factory</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Farm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Full floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Half floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Hotel Apartment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Labour Camp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Office Space</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Plot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Restaurant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Shop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Show Room</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Staff Accommodation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Villa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Warehouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial - Whole Building</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Apartment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Bulk Units</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Bungalow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Compound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Duplex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Full floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Half floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Hotel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Hotel Apartment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Land</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Penthouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Townhouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Villa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential - Whole Building</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Prospect_Situation__c</picklist>
+        <values>
+            <fullName>Not On Market</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Market</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Prospect_Type__c</picklist>
+        <values>
+            <fullName>Landlord</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Power Negs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seller</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rent_Period__c</picklist>
+        <values>
+            <fullName>Monthly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yearly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SellingTimeFrame_hz__c</picklist>
+        <values>
+            <fullName>1-3_months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3-6_months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6-12_months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>just_curious</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>refinancing</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SystemControl__c</picklist>
+        <values>
+            <fullName>-</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IN_PREPARATION</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_hz__c</picklist>
+        <values>
+            <fullName>Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seller</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>View__c</picklist>
+        <values>
+            <fullName>City</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Courtyard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Golf Course</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Harbor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landscape</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marina</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mountain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ocean</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Park</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pool</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>View_hz__c</picklist>
+        <values>
+            <fullName>City</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Courtyard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Golf Course</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Harbor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landscape</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marina</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mountain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ocean</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Park</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pool</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>WebsiteSearchType_hz__c</picklist>
+        <values>
+            <fullName>Draw Search</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mapped Search</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Radius Search</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

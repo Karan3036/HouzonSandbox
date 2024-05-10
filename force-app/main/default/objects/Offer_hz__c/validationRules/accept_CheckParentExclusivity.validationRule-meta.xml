@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>accept_CheckParentExclusivity</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND ( ISCHANGED(SystemIsAccepted__c), SystemIsAccepted__c, AND(Listing_hz__r.SystemHasExclusiveOffer__c, NOT(SystemIsExclusive__c)) )</errorConditionFormula>
+    <errorMessage>Listing is reserved.</errorMessage>
+</ValidationRule>

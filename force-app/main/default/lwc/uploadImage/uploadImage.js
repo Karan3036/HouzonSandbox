@@ -694,6 +694,18 @@ export default class UploadImage extends LightningElement {
     }
 
     //get the file name from user's selection
+ 
+    handleRemove(event) {
+        let index_of_fileName = this.fileName.indexOf(event.target.name);
+        this.fileName.splice(index_of_fileName,1); 
+        this.selectedFilesToUpload.splice(index_of_fileName,1);  
+        this.isnull = false;
+        this.fileSize.splice(index_of_fileName,1); 
+
+        if (this.fileName.length === 0) {
+            this.isnull = true;
+        }
+    }
     async handleSelectedFiles(event) {
         try {
             if (event.target.files.length > 0) {
@@ -724,34 +736,91 @@ export default class UploadImage extends LightningElement {
         } catch (error) {
             console.log('error file upload ',error);        }
     }
-    handleRemove(event) {
-        let index_of_fileName = this.fileName.indexOf(event.target.name);
-        this.fileName.splice(index_of_fileName,1); 
-        this.selectedFilesToUpload.splice(index_of_fileName,1);  
-        this.isnull = false;
-        this.fileSize.splice(index_of_fileName,1); 
 
-        if (this.fileName.length === 0) {
-            this.isnull = true;
-        }
-    }
+    // handleclick(event) {
+    //     var startTime = new Date().getTime();
+    //     console.log('startTimeofHandleClickmethod:',startTime);
+        // if(this.property_id){
+        // this.isnull = true;
+        // this.uploadToAWS()
+        //     .then(() => {
+        //         var contents = [];
+        //         for (let file = 0; file < this.selectedFilesToUpload.length; file++) {
+        //             contents.push(createmedia({
+        //                 recordId: this.recordId,
+        //                 externalUrl: this.fileURL[file],
+        //                 Name: this.fileName[file]=this.isWatermark?this.fileName[file]+'watermark':this.fileName[file],
+        //                 Size: this.fileSize[file],
+        //             }));
+        //         })
+    //             return contents;
+    //         }).then(result => {
+    //             console.log(new Date().getTime()-startTime);
+    //             if (result) {
+    //                 this.fetchingdata();
+    //                 this.selectedFilesToUpload = [];
+    //                 this.fileName = [];
+    //                 this.fileSize = [];
+    //                 this.fileURL = [];
+    //                 this.isnull = true;
+    //                 this.isdata = true;
+    //                 this.disabled_checkbox=true;
+    //                 this.isWatermark = true;
 
-    handleclick(event) {
+    //             }
+    //             else {
+    //                 this.dispatchEvent(
+    //                     new ShowToastEvent({
+    //                         title: 'Error creating record',
+    //                         message: 'Property not added.',
+    //                         variant: 'error',
+    //                     }),
+    //                 )
+
+    //             }
+    //             refreshApex(this.data);
+    //         })
+    //         .catch(error => {
+    //             alert(error.message);
+    //             this.dispatchEvent(
+    //                 new ShowToastEvent({
+    //                     title: 'Error creating record',
+    //                     message: 'Property not added.',
+    //                     variant: 'error',
+    //                 }),
+    //             );
+
+    //             console.error('Error:', error);
+    //         });
+    //     }else{
+    //         this.dispatchEvent(
+    //             new ShowToastEvent({
+    //                 title: 'Error creating record',
+    //                 message: 'Property not added.',
+    //                 variant: 'error',
+    //             }),
+    //         );
+    //     }
+
+    // }
+    async handleclick(event) {
+        var startTime = new Date().getTime();
+        console.log('startTimeofHandleClickmethod:',startTime);
         if(this.property_id){
-        this.isnull = true;
-        this.uploadToAWS()
-            .then(() => {
-                var contents = [];
+            try {
+                this.isnull = true;
+                await this.uploadToAWS(this.selectedFilesToUpload);
+                console.log(new Date().getTime()-startTime);
+                let contents = [];
                 for (let file = 0; file < this.selectedFilesToUpload.length; file++) {
-                    contents.push(createmedia({
+                    contents.push({
                         recordId: this.recordId,
                         externalUrl: this.fileURL[file],
                         Name: this.fileName[file]=this.isWatermark?this.fileName[file]+'watermark':this.fileName[file],
-                        Size: this.fileSize[file],
-                    }));
+                        Size: this.fileSize[file]
+                    });
                 }
-                return contents;
-            }).then(result => {
+                const result = await createmedia({recordId:this.recordId,mediaList:contents });
                 if (result) {
                     this.fetchingdata();
                     this.selectedFilesToUpload = [];
@@ -761,21 +830,17 @@ export default class UploadImage extends LightningElement {
                     this.isnull = true;
                     this.isdata = true;
                     this.disabled_checkbox=true;
-                    this.isWatermark = true;
-                }
-                else {
+                } else {
                     this.dispatchEvent(
                         new ShowToastEvent({
                             title: 'Error creating record',
                             message: 'Property not added.',
                             variant: 'error',
                         }),
-                    )
-
+                    );
                 }
                 refreshApex(this.data);
-            })
-            .catch(error => {
+            } catch (error) {
                 alert(error.message);
                 this.dispatchEvent(
                     new ShowToastEvent({
@@ -784,10 +849,10 @@ export default class UploadImage extends LightningElement {
                         variant: 'error',
                     }),
                 );
-
+    
                 console.error('Error:', error);
-            });
-        }else{
+            }
+        } else {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error creating record',
@@ -798,81 +863,194 @@ export default class UploadImage extends LightningElement {
         }
     }
 
+    // async uploadToAWS() {
+    //     try {
+    //         for (let f = 0; f < this.selectedFilesToUpload.length; f++) {
+    //             this.initializeAwsSdk(this.confData);
+    //             if(this.isWatermark === true){
+
+    //                 let outImage = await this.imageWithWatermark(this.selectedFilesToUpload[f]);
+    //                 const format = outImage.substring(outImage.indexOf('data:')+5, outImage.indexOf(';base64'));
+    //                 const base64String = outImage.replace(/^data:image\/\w+;base64,/, '');
+    //                 const Buffer = buffer.Buffer;
+    //                 const buff = new Buffer(base64String,'base64');
+
+    //                 if (buff) {
+
+    //                     let objKey = this.fileName[f]
+    //                     .replace(/\s+/g, "_")
+    //                     .toLowerCase() + '_' + this.currentDateTimeWithSeconds + '_watermark';                    
+    //                     let params = {
+    //                         Key: objKey,
+    //                         ContentType:'image/jpeg', 
+    //                         Body: buff,
+    //                         ContentEncoding:'base64',
+    //                         ACL: "public-read"
+    //                     };
+
+    //                     let upload = this.s3.upload(params);
+    //                     this.isfileuploading = true;
+    //                     upload.on('httpUploadProgress', (progress) => {
+    //                         this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
+    //                     });
+
+
+    //                     await upload.promise();
+
+
+    //                     let bucketName = this.confData.S3_Bucket_Name__c;
+    //                     this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
+    //                     this.isfileuploading = false;
+    //                     this.uploadProgress = 0;
+    //                     this.listS3Objects();
+    //                 }
+    //         }else{
+    //             if (this.selectedFilesToUpload[f]) {
+    //                 let objKey = this.fileName[f]
+    //                 .replace(/\s+/g, "_")
+    //                 .toLowerCase() + this.currentDateTimeWithSeconds;
+                
+    //                 let params = {
+    //                     Key: objKey,
+    //                     ContentType: this.selectedFilesToUpload[f].type,
+    //                     Body: this.selectedFilesToUpload[f],
+    //                     ACL: "public-read"
+    //                 };
+
+    //                 // Use S3 upload method for progress tracking (no need for ManagedUpload constructor)
+    //                 let upload = this.s3.upload(params);
+    //                 this.isfileuploading = true;
+    //                 upload.on('httpUploadProgress', (progress) => {
+    //                     this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
+    //                 });
+                    // await upload.promise();
+                    // let bucketName = this.confData.S3_Bucket_Name__c;
+                    // this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
+                    // this.isfileuploading = false;
+                    // this.uploadProgress = 0;
+                    // this.listS3Objects();
+    //             }
+    //         }
+            
+    //     }
+
+    //  }catch (error) {
+    //         console.error("Error in uploadToAWS: ", error);
+    //     }
+    // }
 
     async uploadToAWS() {
         try {
-            for (let f = 0; f < this.selectedFilesToUpload.length; f++) {
-                this.initializeAwsSdk(this.confData);
-                if(this.isWatermark === true){
-
-                    let outImage = await this.imageWithWatermark(this.selectedFilesToUpload[f]);
-                    const format = outImage.substring(outImage.indexOf('data:')+5, outImage.indexOf(';base64'));
+            this.initializeAwsSdk(this.confData);
+            
+            const uploadPromises = this.selectedFilesToUpload.map(async (file, index) => {
+                if (this.isWatermark === true) {
+                    let outImage = await this.imageWithWatermark(file);
+                    const format = outImage.substring(outImage.indexOf('data:') + 5, outImage.indexOf(';base64'));
                     const base64String = outImage.replace(/^data:image\/\w+;base64,/, '');
                     const Buffer = buffer.Buffer;
-                    const buff = new Buffer(base64String,'base64');
+                    const buff = new Buffer(base64String, 'base64');
+                    console.log('Size of buffer before compression:',(buff.length / 1024).toFixed(2), 'KB');
+
+                    const compressedImageBuffer = await this.compressJPEG(buff, 80); // Adjust quality as needed
+
+                    console.log('Size of buffer after compression:', (compressedImageBuffer.length / 1024).toFixed(2), 'KB');
+
 
                     if (buff) {
-
-                        let objKey = this.fileName[f]
-                        .replace(/\s+/g, "_")
-                        .toLowerCase() + '_' + this.currentDateTimeWithSeconds + '_watermark';                    
+                        var startTime = new Date().getTime();
+                        let objKey = this.fileName[index].replace(/\s+/g, "_").toLowerCase() + '_' + this.currentDateTimeWithSeconds + '_watermark';
                         let params = {
                             Key: objKey,
-                            ContentType:'image/jpeg', 
-                            Body: buff,
-                            ContentEncoding:'base64',
+                            ContentType: 'image/jpeg',
+                            Body: compressedImageBuffer,
+                            ContentEncoding: 'base64',
                             ACL: "public-read"
                         };
-
+    
                         let upload = this.s3.upload(params);
                         this.isfileuploading = true;
                         upload.on('httpUploadProgress', (progress) => {
                             this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
                         });
-
-
-                        await upload.promise();
-
-
-                        let bucketName = this.confData.S3_Bucket_Name__c;
-                        this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
+                        
+                        const result = await upload.promise();
+    
+                        if (result) {
+                            let bucketName = this.confData.S3_Bucket_Name__c;
+                            let objKey = result.Key;
+                            let fileURL = `https://${bucketName}.s3.amazonaws.com/${objKey}`;
+                            this.fileURL.push(fileURL);
+                            console.log('fileurlafterupload: ' + fileURL);
+                        }
+    
                         this.isfileuploading = false;
                         this.uploadProgress = 0;
-                        this.listS3Objects();
+                        console.log(new Date().getTime()-startTime);
                     }
-            }else{
-                if (this.selectedFilesToUpload[f]) {
-                    let objKey = this.fileName[f]
-                    .replace(/\s+/g, "_")
-                    .toLowerCase() + this.currentDateTimeWithSeconds;
-                
-                    let params = {
-                        Key: objKey,
-                        ContentType: this.selectedFilesToUpload[f].type,
-                        Body: this.selectedFilesToUpload[f],
-                        ACL: "public-read"
-                    };
-
-                    // Use S3 upload method for progress tracking (no need for ManagedUpload constructor)
-                    let upload = this.s3.upload(params);
-                    this.isfileuploading = true;
-                    upload.on('httpUploadProgress', (progress) => {
-                        this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
-                    });
-                    await upload.promise();
-                    let bucketName = this.confData.S3_Bucket_Name__c;
-                    this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
-                    this.isfileuploading = false;
-                    this.uploadProgress = 0;
-                    this.listS3Objects();
+                } else {
+                    if (file) {
+                        var startTime = new Date().getTime();
+                        let objKey = this.fileName[index].replace(/\s+/g, "_").toLowerCase() + this.currentDateTimeWithSeconds;
+                        let params = {
+                            Key: objKey,
+                            ContentType: file.type,
+                            Body: file,
+                            ACL: "public-read"
+                        };
+    
+                        let upload = this.s3.upload(params);
+                        this.isfileuploading = true;
+                        upload.on('httpUploadProgress', (progress) => {
+                            this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
+                        });
+                        const result = await upload.promise();
+    
+                        if (result) {
+                            let bucketName = this.confData.S3_Bucket_Name__c;
+                            let objKey = result.Key;
+                            let fileURL = `https://${bucketName}.s3.amazonaws.com/${objKey}`;
+                            this.fileURL.push(fileURL);
+                            console.log('fileurlafterupload: ' + fileURL);
+                        }
+                        this.isfileuploading = false;
+                        this.uploadProgress = 0;
+                        console.log(new Date().getTime()-startTime);
+                    }
                 }
-            }
+            });
+    
+            // Wait for all uploads to complete
+            const results = await Promise.all(uploadPromises);
             
-        }
-
-     }catch (error) {
+            console.log('promiseResult:', results);
+            this.listS3Objects();
+        } catch (error) {
             console.error("Error in uploadToAWS: ", error);
         }
+    }
+    async compressJPEG(imageBuffer, quality) {
+        return new Promise((resolve, reject) => {
+            const dataURL = 'data:image/jpeg;base64,' + imageBuffer.toString('base64');
+    
+            const img = new Image();
+    
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                const compressedDataURL = canvas.toDataURL('image/jpeg', quality / 100);
+                const Buffer = buffer.Buffer;
+                const compressedImageBuffer = new Buffer(compressedDataURL.split(',')[1], 'base64');
+                resolve(compressedImageBuffer);
+            };
+            img.src = dataURL;
+            img.onerror = (error) => {
+                reject(error);
+            };
+        });
     }
 
     //listing all stored documents from S3 bucket
@@ -1173,4 +1351,5 @@ export default class UploadImage extends LightningElement {
             throw error;
         }
     }
+
 }

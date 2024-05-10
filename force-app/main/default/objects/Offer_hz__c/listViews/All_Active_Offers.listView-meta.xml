@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Active_Offers</fullName>
+    <columns>NAME</columns>
+    <columns>Listing_hz__c</columns>
+    <columns>Contact__c</columns>
+    <columns>OfferedAmount_hz__c</columns>
+    <columns>Price__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <label>My Active Offers</label>
+</ListView>

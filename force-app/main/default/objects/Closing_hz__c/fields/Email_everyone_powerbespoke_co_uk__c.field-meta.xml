@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_everyone_powerbespoke_co_uk__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Let everyone know we have exchanged and wen completion is</description>
+    <externalId>false</externalId>
+    <label>Email everyone@powerbespoke.co.uk</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -19,7 +19,8 @@ public with sharing class uploadController {
     @AuraEnabled
     public static list<PropertyMedia__c> fetchdataforlisting(String recordId){
         Listing_hz__c listing = [SELECT Id, Property_hz__c FROM Listing_hz__c WHERE Id= :recordId LIMIT 1];
-        List<PropertyMedia__c> result = [SELECT Id, FilenameUrlEncoded__c,Tags__c, Name,ExternalLink__c, Size__c, Property_hz__c,IsOnPortalFeed__c,	IsOnWebsite__c,IsOnExpose__c, SortOnExpose__c, SortOnPortalFeed__c, SortOnWebsite__c FROM PropertyMedia__c WHERE Property_hz__c = :listing.Property_hz__c];
+        List<PropertyMedia__c> result = [SELECT Id, FilenameUrlEncoded__c, Tags__c, Name, ExternalLink__c, Size__c, Property_hz__c, IsOnPortalFeed__c, IsOnWebsite__c, IsOnExpose__c, SortOnExpose__c, SortOnPortalFeed__c, SortOnWebsite__c FROM PropertyMedia__c WHERE Property_hz__c = :listing.Property_hz__c ORDER BY Name];
+        result.sort();
         return result;
     }
 
@@ -36,15 +37,43 @@ public with sharing class uploadController {
     }
 
     @AuraEnabled
-    public static Boolean createmediaforlisting(String Name, Decimal Size, String recordId, String externalUrl){
-        Listing_hz__c listing = [SELECT Id, Property_hz__c FROM Listing_hz__c WHERE Id= :recordId LIMIT 1];
-        PropertyMedia__c Media = new PropertyMedia__c();
-        Media.FilenameUrlEncoded__c = externalUrl;
-        Media.Name = Name;
-        Media.Size__c = Size;
-        Media.Property_hz__c = listing.Property_hz__c;
-        insert Media;
+    public static Boolean createmediaforlisting(Id recordId, List<MediaData> mediaList){
+        List<PropertyMedia__c> mediaToInsert = new List<PropertyMedia__c>();
+        Listing_hz__c listing = [SELECT Id, Property_hz__c FROM Listing_hz__c WHERE Id = :recordId LIMIT 1];
+        for (MediaData media : mediaList) {
+            
+            PropertyMedia__c mediaRecord = new PropertyMedia__c();
+            mediaRecord.FilenameUrlEncoded__c = media.externalUrl;
+            mediaRecord.Name = media.Name;
+            mediaRecord.Size__c = media.Size;
+            mediaRecord.Property_hz__c = listing.Property_hz__c;
+            
+            mediaToInsert.add(mediaRecord);
+        }
+        
+        insert mediaToInsert;
+        
         return true;
+        // Listing_hz__c listing = [SELECT Id, Property_hz__c FROM Listing_hz__c WHERE Id= :recordId LIMIT 1];
+        // // System.debug('externalUrl ==> ' + externalUrl);
+        // PropertyMedia__c Media = new PropertyMedia__c();
+        // Media.FilenameUrlEncoded__c = externalUrl;
+        // Media.Name = Name;
+        // Media.Size__c = Size;
+        // Media.Property_hz__c = listing.Property_hz__c;
+        // insert Media;
+    
+        // return true;
+        
+    }
+    public class MediaData {
+        @AuraEnabled
+        public String Name { get; set; }
+        @AuraEnabled
+        public Decimal Size { get; set; }
+        @AuraEnabled
+        public String externalUrl { get; set; }
+
     }
 
     @AuraEnabled
@@ -75,27 +104,61 @@ public with sharing class uploadController {
     }
 
     @AuraEnabled
-    public static Boolean update_media_name(String id,String fileName, String url,List<String> picklistValues, String externalUrl, Decimal Size){
-        List<PropertyMedia__c> result = [SELECT Id, Name,FilenameUrlEncoded__c,Tags__c, Size__c FROM PropertyMedia__c WHERE Id = :id LIMIT 1];
-        System.debug('external url==>'+externalUrl);
-        System.debug('aws url==>'+url);
-        System.debug('size of the image before==>'+Size);
-        result[0].Name = fileName;
-        System.debug('size of image after==>'+Size);
+    public static Boolean update_media_name(String dataMapJSON) {
+        try {
+            List<MediaInfo> mediaInfoList = (List<MediaInfo>) JSON.deserialize(dataMapJSON, List<MediaInfo>.class);
 
-        if (result[0].Size__c != null) {
-            result[0].FilenameUrlEncoded__c = url;
+            List<PropertyMedia__c> recordsToUpdate = new List<PropertyMedia__c>();
+            
+            // Collect recordIds to query outside the loop
+            Set<String> recordIds = new Set<String>();
+            for (MediaInfo info : mediaInfoList) {
+                recordIds.add(info.recordId);
+            }
+            
+            // Query records outside the loop
+            Map<String, PropertyMedia__c> recordsMap = new Map<String, PropertyMedia__c>([SELECT Id, Name, Tags__c FROM PropertyMedia__c WHERE Id IN :recordIds]);
+
+            for (MediaInfo info : mediaInfoList) {
+                String recordId = info.recordId;
+                String fileName = info.fileName;
+                Set<String> picklistValues = info.picklistValues;
+                
+                PropertyMedia__c record = recordsMap.get(recordId);
+                
+                if (record != null) {
+                    record.Name = fileName;
+                    record.Tags__c = picklistValues != null && !picklistValues.isEmpty() ? String.join(picklistValues, ';') : '';
+                    recordsToUpdate.add(record);
+                }
+            }
+
+            // Update records
+            if (!recordsToUpdate.isEmpty()) {
+                update recordsToUpdate;
+            }
+
+            return true;
+
+        } catch (Exception e) {
+            // System.debug('Exception ==> ' + e);
+            return false;
         }
+    }
 
-        if(picklistValues.size() >= 0){
-            result[0].Tags__c = String.join(picklistValues, ';');
-        }
-        // if(picklistValues==null) {
 
-        // }
-        update result; 
-        System.debug('result of the update media name==>'+result);
-        return true;
+    public class MediaInfo {
+
+        public String recordId;
+        public String fileName;
+        public Set<String> picklistValues;
+    }
+
+    @AuraEnabled
+    public static String getCurrentDateTimeWithSeconds() {
+        DateTime currentDateTime = DateTime.now();
+        String currentDateTimeWithSeconds = currentDateTime.format('yyyy-MM-dd HH:mm:ss');
+        return currentDateTimeWithSeconds;
     }
 
     @AuraEnabled
@@ -177,48 +240,6 @@ public with sharing class uploadController {
                     portal_mediaList_to_update_false.add(prop_p_f);
                 }
                 update portal_mediaList_to_update_false;    
-            }
-        }
-        return true;
-    }
-
-    @AuraEnabled
-    public static Boolean updateOrderState_toFalse(List<Id> expose_ids, List<Id> website_ids, List<Id> portal_ids){
-   
-
-        if(expose_ids !=null){
-            List<propertyMedia__c> exposed_mediaList = [SELECT Id,Name,IsOnPortalFeed__c,IsOnWebsite__c,IsOnExpose__c FROM PropertyMedia__c WHERE Id IN : expose_ids];
-            List<propertyMedia__c> exposed_mediaList_to_update = new List<propertyMedia__c>();
-            if(exposed_mediaList.size()>0){
-                for(propertyMedia__c prop_e :exposed_mediaList ){
-                    prop_e.IsOnExpose__c = false;
-                    exposed_mediaList_to_update.add(prop_e);
-                }
-                update exposed_mediaList_to_update;    
-            }
-        }
-
-        if(website_ids !=null){
-            List<propertyMedia__c> website_mediaList = [SELECT Id,Name,IsOnPortalFeed__c,IsOnWebsite__c,IsOnExpose__c FROM PropertyMedia__c WHERE Id IN : website_ids];
-            List<propertyMedia__c> website_mediaList_to_update = new List<propertyMedia__c>();
-            if(website_mediaList.size()>0){
-                for(propertyMedia__c prop_w :website_mediaList ){
-                    prop_w.IsOnWebsite__c = false;
-                    website_mediaList_to_update.add(prop_w);
-                }
-                update website_mediaList_to_update;    
-            }
-        }
-
-        if(portal_ids !=null){
-            List<propertyMedia__c> portal_mediaList = [SELECT Id,Name,IsOnPortalFeed__c,IsOnWebsite__c,IsOnExpose__c FROM PropertyMedia__c WHERE Id IN : portal_ids];
-            List<propertyMedia__c> portal_mediaList_to_update = new List<propertyMedia__c>();
-            if(portal_mediaList.size()>0){
-                for(propertyMedia__c prop_p :portal_mediaList ){
-                    prop_p.IsOnPortalFeed__c = false;
-                    portal_mediaList_to_update.add(prop_p);
-                }
-                update portal_mediaList_to_update;    
             }
         }
         return true;

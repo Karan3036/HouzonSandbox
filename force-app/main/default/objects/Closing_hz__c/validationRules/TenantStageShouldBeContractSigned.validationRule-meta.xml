@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TenantStageShouldBeContractSigned</fullName>
+    <active>true</active>
+    <description>If a tenant is selected in a closing, it should not allow users to close the closing until the stage of tenant has been changed to contract signed.</description>
+    <errorConditionFormula>AND(
+    RecordType.DeveloperName = &apos;Rent&apos;,
+    NOT(ISBLANK( Renter__c )),
+    ISCHANGED( Closing_Status__c ),
+    ISPICKVAL(Closing_Status__c , &apos;Closed&apos;),
+    NOT(ISPICKVAL( Renter__r.Stage__c , &apos;Contract Signed&apos;))
+)</errorConditionFormula>
+    <errorMessage>Please change the stage of Renter to Contract Signed to mark this Closing as closed.</errorMessage>
+</ValidationRule>

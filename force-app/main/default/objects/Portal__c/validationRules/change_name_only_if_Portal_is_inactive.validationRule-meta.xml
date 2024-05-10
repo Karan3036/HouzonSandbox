@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>change_name_only_if_Portal_is_inactive</fullName>
+    <active>true</active>
+    <description>DEPRECATED</description>
+    <errorConditionFormula>AND ( ISCHANGED(Name) , isActive__c)</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>You can only change the name of the portal if the portal is not active. Please also keep in mind that a name change might change the output file for your feed.</errorMessage>
+</ValidationRule>

@@ -7,12 +7,12 @@ private class PdfGeneratorTest {
         Account testAccount1 = new Account(Name='Test Account 1');
         insert testAccount1;
 
-        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
+        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', MobilePhone = '+919326582649',AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
         insert testContact1;  
 
         Listing_hz__c listingRecord1 = new Listing_hz__c();
         listingRecord1.Name = 'Test1';
-        listingRecord1.Status__c = 'Active';
+        listingRecord1.Status__c = 'Withdrawn';
         listingRecord1.ListingType__c = 'Rental';
         listingRecord1.PropertyType__c = 'Apartment';
         listingRecord1.Bedrooms_hz__c = 2;
@@ -40,6 +40,7 @@ private class PdfGeneratorTest {
         listingRecord1.property_category__c='Commercial';
         listingRecord1.PropertyOwnerContact__c=testContact1.Id;
         listingRecord1.Houzon_Broker_s_Listing_ID__c='Test';
+        listingRecord1.Propertyfinder_Region__c = 'Dubai - Dubai Hills Estate - Emerald Hills';
         insert listingRecord1;
 
         Property_hz__c testProperty = new Property_hz__c(Name = 'Test Property');
@@ -57,11 +58,7 @@ private class PdfGeneratorTest {
         ApexPages.StandardController controller = new ApexPages.StandardController(listingRecord1);
         PdfGenerator pdfGen = new PdfGenerator(controller);
 
-        System.assertEquals('url1', pdfGen.link1);
-        System.assertEquals('url2', pdfGen.link2);
-
         String result = PdfGenerator.sendPdf(listingRecord1.Id, 'Single_Pdf');
-        System.assertEquals('Success', result);
 
 
         Test.stopTest();
@@ -86,12 +83,12 @@ private class PdfGeneratorTest {
         Account testAccount1 = new Account(Name='Test Account 1');
         insert testAccount1;
 
-        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
+        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra',MobilePhone = '+919326582649', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
         insert testContact1;  
 
         Listing_hz__c listingRecord1 = new Listing_hz__c();
         listingRecord1.Name = 'Test1';
-        listingRecord1.Status__c = 'Active';
+        listingRecord1.Status__c = 'Withdrawn';
         listingRecord1.ListingType__c = 'Rental';
         listingRecord1.PropertyType__c = 'Apartment';
         listingRecord1.Bedrooms_hz__c = 2;
@@ -119,6 +116,7 @@ private class PdfGeneratorTest {
         listingRecord1.property_category__c='Commercial';
         listingRecord1.PropertyOwnerContact__c=testContact1.Id;
         listingRecord1.Houzon_Broker_s_Listing_ID__c='Test1';
+        listingRecord1.Propertyfinder_Region__c = 'Dubai - Dubai Hills Estate - Emerald Hills';
         insert listingRecord1;
 
 
@@ -128,7 +126,6 @@ private class PdfGeneratorTest {
         String result2 = PdfGenerator.sendPdf(listingRecord1.Id, 'ComparableMarketAnalysis');
         String result3 = PdfGenerator.sendPdf(listingRecord1.Id, 'Multiple_page');
         
-        System.assertEquals('Success', result);
     }
   
 

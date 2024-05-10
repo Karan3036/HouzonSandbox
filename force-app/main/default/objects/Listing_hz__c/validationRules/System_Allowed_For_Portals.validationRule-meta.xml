@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>System_Allowed_For_Portals</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND(SystemAllowedForPortals__c,
+OR(ISBLANK(Broker_s_Listing_ID__c),
+ISBLANK(RERA_Permit_Number__c),
+ISBLANK(ListingPrice_hz__c),
+ISBLANK(Offer_Type__c),
+ISBLANK(ShortformOfPropertyType__c),
+ISBLANK(City_Propertyfinder__c),
+ISBLANK(Community_Propertyfinder__c),
+ISBLANK(Sub_Community_Propertyfinder__c),
+ISBLANK(Property_Propertyfinder__c),
+ISBLANK(Name),
+ISBLANK(Description_hz__c),
+ISBLANK(ShortformOfPrivateAmenities__c),
+ISPICKVAL(View_hz__c, &quot;&quot;),
+ISBLANK(TotalArea_hz__c),
+ISBLANK(Bedrooms_hz__c),
+ISBLANK(FullBathrooms_hz__c),
+ISPICKVAL(CompletionStatus_hz__c, &quot;&quot;),
+ISBLANK(OwnerId),
+ISBLANK(Listing_Agent_Full_Name__c),
+ISBLANK(Listing_Agent_Email__c),
+ISBLANK(Listing_Agent_Phone__c),
+ISBLANK(Floor__c),
+ISPICKVAL(Furnished__c, &quot;&quot;)))</errorConditionFormula>
+    <errorMessage>Please ensure all required fields are filled in before proceeding.</errorMessage>
+</ValidationRule>

@@ -1,9 +1,9 @@
 <template>
 
-    <div class="maindiv">
+    <div class="maindiv maindiv-t">
 
-        <div class="slds-grid slds-wrap slds-size_12-of-12 slds-p-horizontal_medium slds-p-vertical_medium height_cls card-shadow">
-            <div class="slds-grid slds-wrap slds-size_6-of-12 slds-p-horizontal_medium slds-m-vertical_medium border_cls">
+        <div class="slds-grid slds-wrap slds-size_12-of-12 slds-p-horizontal_medium slds-p-vertical_medium height_cls card-shadow card-shadow-t">
+            <div class="slds-grid slds-wrap slds-size_6-of-12 slds-p-horizontal_medium slds-m-vertical_medium border_cls border-cls-t">
 
                 <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium salutationDiv">
                     <div class="slds-form-element">
@@ -16,7 +16,7 @@
                 <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium fnameDiv">
                     <div class="slds-form-element">
                         <lightning-input class="cls_input" label="First Name" name="fname" type="text" value={fname}
-                            autocomplete="off" onfocusout={onblurvalue} max-length = "40" required>
+                            autocomplete="off" onfocusout={onblurvalue} max-length = "40" onchange={changeFirstName}>
                         </lightning-input>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                 <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium lnameDiv">
                     <div class="slds-form-element">
                         <lightning-input class="cls_input" label="Last Name" name="lname" type="text" value={lname}
-                            autocomplete="off" onfocusout={onblurvalue} max-length = "80" required>
+                            autocomplete="off" onfocusout={onblurvalue} max-length = "80" onchange={changeLastName} required>
                         </lightning-input>
                     </div>
                 </div>
@@ -44,16 +44,15 @@
                         <lightning-input class="cls_input" label="Email" type="email"
                         pattern="([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$"
                         message-when-pattern-mismatch="Please enter a valid email" name="email" value={email}
-                        autocomplete="off" onfocusout={onblurvalue} max-length = "80" required>
+                        autocomplete="off" onfocusout={onblurvalue} onchange={changeEmail} max-length = "80">
                         </lightning-input>
                     </div>
                 </div>
                 <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium mobileDiv">
                     <div class="slds-form-element">
-                        <lightning-input class="cls_input" label="Mobile Phone" type="tel" name="mobile"
-                            autocomplete="off" pattern="^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$"
-                            message-when-pattern-mismatch="Please enter a valid number" value={mobilephn}
-                            onfocusout={onblurvalue}>
+                        <lightning-input label="Mobile Phone" name="mobile" type="tel" pattern="\+[0-9]{1,3}[0-9]{0,5}"
+                        message-when-pattern-mismatch="Mobile numbers start with a country code." placeholder="EX: +919845780920" autocomplete="off" value={mobilephn} onchange={ChangePhone}
+                        required>
                         </lightning-input>
                         <!-- pattern="^((\+)?(\d{2}[-]))?(\d{10,14}){1}?$" -->
                         <!-- onchange={onblurvalue} -->
@@ -61,9 +60,9 @@
                 </div>
                 <div class="slds-p-horizontal--small slds-col slds-size_12-of-12 slds-m-bottom--medium phoneDiv">
                     <div class="slds-form-element">
-                        <lightning-input class="cls_input" label="Business Phone" name="phone" type="tel" value={phone}
-                            autocomplete="off" pattern="^((\+)?(\d{2}[-]))?(\d{10,14}){1}?$"
-                            message-when-pattern-mismatch="Please enter a valid number" onchange={onblurvalue}>
+                        <lightning-input class="cls_input" label="Business Phone" name="phone" value={phone} type="tel"
+                        pattern="^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$"
+                        message-when-pattern-mismatch="Please enter a valid number" autocomplete="off" onchange={onblurvalue}>
                         </lightning-input>
                     </div>
                 </div>
@@ -88,22 +87,22 @@
             </div>
             <!-- Potential Duplicate -->
 
-            <div class="slds-grid slds-wrap slds-size_4-of-12 pd_cls slds-p-horizontal_medium">
+            <div class="slds-grid slds-wrap slds-size_4-of-12 pd_cls slds-p-horizontal_medium duplicateCart cart-t">
                 <div class="cls_dupli">
-                    <div class="dupl_cls">
+                    <div class="dupl_cls dupl_cls-t">
                         <!-- <h1 class="title_cls">Potential Duplicate</h1> -->
                             <lightning-card  variant="Narrow"  title="Potential Duplicate" icon-name="standard:contact">
                             </lightning-card>
                         <h3 class="count">{contactcount}</h3>
                     </div>
-
-                    <div style="height:100%; margin-top: 5%; padding-top: 17%;" tabindex="-1" id="records">
+                    <!-- padding-top: 10%; -->
+                    <div style="height:100%; margin-top: 5%;" tabindex="-1" id="records" class="dubrecorddiv">
                         <div if:true={isLoaded} class="spinner_Cls">
                             <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
                         </div>
                         <template if:true={duplicaterecord}>
                             <template for:each={duplicateConName} for:item="con">
-                                <div key={con.id} class="wrapper slds-m-vertical_xx-small">
+                                <div key={con.id} class="wrapper wrap slds-m-vertical_xx-small">
                                     <div class="slide">
                                         <div class="card-list">
                                             <div class="cards">
@@ -127,11 +126,11 @@
                             </template>
                         </template>
                         <template if:false={duplicaterecord}>
-                            <div class="empty-state"
+                            <div class="empty-state empty-state-t"
                                 style="height: 70%;display: flex;justify-content: center;align-items: center;">
                                 <div class="empty-state__content">
                                     <!-- <div class="empty-state__message">No Record Found!!!</div> -->
-                                    <div class="slds-illustration slds-illustration_medium" aria-hidden="true" style="margin-top: 40px;">
+                                    <div class="slds-illustration slds-illustration_medium customTab" aria-hidden="true" style="margin-top: 40px;">
                                         <img src="/img/chatter/OpenRoad.svg" class="slds-illustration__svg cimage" alt=""/>
                                         <div class="slds-text-color_weak">
                                             <h6 class="slds-text-heading_medium" style="margin-top:14px;font-size:15px;">Contacts Not Available</h6>

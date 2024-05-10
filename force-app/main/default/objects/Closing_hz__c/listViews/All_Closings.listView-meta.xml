@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Closings</fullName>
+    <columns>NAME</columns>
+    <columns>Listing_hz__c</columns>
+    <columns>Buyer_Tenant__c</columns>
+    <columns>Sale_Price__c</columns>
+    <columns>ClosingDate__c</columns>
+    <columns>Closing_Status__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Closing_hz__c.Sale</value>
+    </filters>
+    <label>My Sale Closings (A)</label>
+</ListView>

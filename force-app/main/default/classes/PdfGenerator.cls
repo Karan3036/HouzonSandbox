@@ -16,7 +16,6 @@ public with sharing class PdfGenerator {
 
     public String Today { get { return Date.today().format(); }}
 
-
     @AuraEnabled(cacheable = true)
     public static List<Template__c> getTemplateRecords() {
 
@@ -39,22 +38,22 @@ public with sharing class PdfGenerator {
         String listingId = ApexPages.currentPage().getParameters().get('id');
         currentListing = [SELECT Id, Name FROM Listing_hz__c WHERE Id = :listingId LIMIT 1];
 
-        List<Property_hz__c> p = [select id,Name,(select FilenameUrlEncoded__c from PropertyMedia__r) from Property_hz__c where id =: [select Property_hz__c from Listing_hz__c where id =: listingId].Property_hz__c];
+        List<Property_hz__c> p = [select id,Name,(select Name,FilenameUrlEncoded__c,Size__c from PropertyMedia__r ORDER BY Name) from Property_hz__c where id =: [select Property_hz__c from Listing_hz__c where id =: listingId].Property_hz__c];
 
-        // String defualtUrl = ' ';
         String defualtUrl = '/resource/NoImage'; 
 
         if(p.size() > 0){
 
-            System.debug(p[0].Name);
-            System.debug(p[0].PropertyMedia__r);
             List<PropertyMedia__c> Medialist = p[0].PropertyMedia__r;
-            System.debug(Medialist);
             
             for (Integer i = 0; i < Medialist.size(); i++) {
                 PropertyMedia__c media = Medialist.get(i);
-                if (media.FilenameUrlEncoded__c != null) {
+                if (media.FilenameUrlEncoded__c != null && media.Size__c != null) {
+                    // String temp = media.FilenameUrlEncoded__c.replace(' ', '%20');
+
                     urlList.add(media.FilenameUrlEncoded__c);
+                    // urlList.add(temp);
+
                 }
             } 
             
@@ -75,27 +74,37 @@ public with sharing class PdfGenerator {
 
             link1 = link2 = link3 = link4 = link5 = link6 = link7 = link8 = link9 = link10 = link11 = defualtUrl;
         }
+
+        System.debug('urlList ==> ' + urlList);
       
 
     }
 
     @AuraEnabled
-    public static String sendPdf(String listingId, String pageName) {
+    public static ID sendPdf(String listingId, String pageName) {
         Listing_hz__c listing = [SELECT id, name FROM Listing_hz__c WHERE id = :listingId];
+        System.debug('In send Pdf method');
+
+        String ListingName = '';
+
 
         PageReference pdf = new pagereference('/apex/CreatePdf?id='+listingId);
 
         if(pageName == 'Single_Pdf'){
             pdf = new pagereference('/apex/Single_Pdf?id='+listingId);
+            ListingName += 'Listing Single Pdf : ';
         }
         else if(pageName == 'CreatePdf'){
             pdf = new pagereference('/apex/CreatePdf?id='+listingId);
+            ListingName += 'Comprable Small Landscape : ';
         }
         else if(pageName == 'ComparableMarketAnalysis'){
             pdf = new pagereference('/apex/ComparableMarketAnalysis?id='+listingId);
+            ListingName += 'Comarative Market Analysis(CMA) : ';
         }
         else if(pageName == 'Multiple_page'){
             pdf = new pagereference('/apex/Multiple_page?id='+listingId);
+            ListingName += 'Listing Multiple Pdf : ';
         }
         
         pdf.getParameters().put('id', listingId);
@@ -104,8 +113,14 @@ public with sharing class PdfGenerator {
         try {
             // returns page as a PDF
             body = pdf.getContent();
+            System.debug('body ==> ' + body);
         } catch (Exception e) {
             body = Blob.valueOf('data');
+            System.debug(' Error body ==> ' + body);
+        }
+
+        if(listing != null){
+            ListingName += listing.Name;
         }
     
         // insert content version
@@ -115,8 +130,18 @@ public with sharing class PdfGenerator {
         CV.VersionData = body;
         CV.FirstPublishLocationId = listingId;
         insert CV;
+
+        Id contentDocumentId = [SELECT ContentDocumentId FROM ContentVersion WHERE Id = :cv.Id].ContentDocumentId;
+
+        if(CV != null){
+            return contentDocumentId;
+        }
+
+        else{
+            return null;
+        }
     
-        return 'Success';
+        
     }
 
     @AuraEnabled(cacheable=true)

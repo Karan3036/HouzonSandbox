@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Snippet__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Please select a Quicktext. This will be used for the email body.</inlineHelpText>
+    <label>Quicktext</label>
+    <referenceTo>Snippet__c</referenceTo>
+    <relationshipLabel>Recurring Emails</relationshipLabel>
+    <relationshipName>RecurringEmails</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

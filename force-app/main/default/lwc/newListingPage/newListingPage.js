@@ -14,10 +14,12 @@ import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
 import UserName from '@salesforce/schema/User.Name';
 import { getRecord } from 'lightning/uiRecordApi';
 import userId from '@salesforce/user/Id';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
    
    export default class NewListingPage extends NavigationMixin(LightningElement) {
-   
+
+       @track wordCount = 0;
        @track bool; //boolean variable used for accordion
        @track bool2;
        @track iconName = 'utility:chevrondown';
@@ -58,7 +60,6 @@ import userId from '@salesforce/user/Id';
        proptypeval; //Stors picklist value of propertytype
    
    
-       // Get ContactId FROM Landing Page  || RAVI || 08/02/2022
        @api
        get abRequestObj() {
            return this.abRequest;
@@ -66,11 +67,12 @@ import userId from '@salesforce/user/Id';
        set abRequestObj(value) {
            this.abRequest = value;
        }
-   
-   
+
        connectedCallback() {
            try {
    
+            // console.log('In connected Callback');
+
                if (this.abRequest.listingAssignedTo != '' && this.abRequest.listingAssignedTo != undefined) {
                    this.selectedUserIdvalue = this.abRequest.listingAssignedTo;
                    this.eventRecordId = this.abRequest.listingAssignedTo;
@@ -105,7 +107,6 @@ import userId from '@salesforce/user/Id';
                        console.log({ error });
                    })
    
-               // Get Contact Id FROM Parent   || RAVI || 08/02/2022
                
            } catch (error) {
                this.dispatchEvent(new CustomEvent('error', {
@@ -133,7 +134,7 @@ import userId from '@salesforce/user/Id';
                if (data) {
                    this.proptypeval = [{ label: '---None---', value: '', selected: true }, ...data.values];
                } else {
-                   console.log('---ERROR---', error);
+                //    console.log('---ERROR---', error);
                }
            } catch (error) {
                this.dispatchEvent(new CustomEvent('error', {
@@ -154,7 +155,7 @@ import userId from '@salesforce/user/Id';
                if (data) {
                    this.appsourceval = [{ label: '---None---', value: '', selected: true }, ...data.values];
                } else {
-                   console.log('---ERROR---', error);
+                //    console.log('---ERROR---', error);
                }
            } catch (error) {
                this.dispatchEvent(new CustomEvent('error', {
@@ -187,37 +188,7 @@ import userId from '@salesforce/user/Id';
                }));
            }
        }
-   
-       //for user in listing start
-    //    handleSearchKeyword(event) {
-    //        const isEnterKey = event.keyCode === 13;
-    //        this.searchValue = event.target.value;
-   
-    //        if (this.searchValue != '' && (isEnterKey || this.searchValue.length > 1)) {
-    //            getUserList({
-    //                    searchKey: this.searchValue
-    //                })
-    //                .then(result => {
-    //                    if (result.length > 0) {
-    //                        this.userRecord = result;
-    //                        this.usrViewBool = true;
-    //                    } else {
-    //                        this.userRecord = {};
-    //                        this.usrViewBool = false;
-    //                    }
-    //                })
-    //                .catch(error => {
-    //                    this.dispatchEvent(new CustomEvent('error', {
-    //                        detail: {
-    //                            method: 'EventPage, Method: handleSearchKeyword()',
-    //                            error: error.message
-    //                        }
-    //                    }));
-    //                });
-    //        }
-    //    }
 
-   
        hideDropdown() {
            try {
                this.load = true;
@@ -292,6 +263,15 @@ import userId from '@salesforce/user/Id';
                }));
            }
        }
+
+       wordcounter(event){
+        // console.log(event.detail.value , 'In the tile onchange event');
+        let bodyOfTitle = event.target.value;
+        let lengthOfBody = bodyOfTitle.length;
+        // console.log('lengthOfBody =>' + lengthOfBody);
+        this.wordCount = lengthOfBody;
+        this.aptnumname = event.target.value;
+       }
    
        handleChange(event) {
            try {
@@ -316,8 +296,9 @@ import userId from '@salesforce/user/Id';
    
        handleKeyup(event) {
    
-           console.log({event});
+        //    console.log({event});
            var evrel = event.relatedTarget;
+        //    console.log('evrel ==>' , evrel);
            console.log({evrel});
            var clist = undefined;
            var plist = undefined;
@@ -327,14 +308,14 @@ import userId from '@salesforce/user/Id';
                plist = evrel.classList.contains('ptype1');
                blist = evrel.classList.contains('btn-0');
            }
-           console.log({clist});
+        //    console.log({clist});
            if(evrel == undefined || clist == true || plist == true || blist == true){
            try {
               
                
                    if (event.target.name == 'aptnumname') {
                        this.aptnumname = event.target.value;
-                       console.log('this.aptnumname>>',this.aptnumname);
+                    //    console.log('this.aptnumname>>',this.aptnumname);
                    } else if (event.target.name == 'streetnumname') {
                        this.streetnumname = event.target.value;
                    } else if (event.target.name == 'street') {
@@ -349,10 +330,10 @@ import userId from '@salesforce/user/Id';
                        this.state = event.target.value;
                    } else if (event.target.name == 'zipcode') {
                        this.zipcode = event.target.value;
-                       console.log('this.zipcode>>>',this.zipcode);
+                    //    console.log('this.zipcode>>>',this.zipcode);
                    } else if (event.target.name == 'bedrooms') {
                        this.bedrooms = event.target.value;
-                       console.log('this.bedrooms>>>',this.bedrooms);
+                    //    console.log('this.bedrooms>>>',this.bedrooms);
                    }
                    this.mylist = [];
                    this.foundDupli = false;
@@ -373,21 +354,19 @@ import userId from '@salesforce/user/Id';
    
        fetchList() {
 
-        console.log('In fetch list');
+        // console.log('In fetch list');
         try {
             let listObj = { 'sobjectType': 'Property_hz__c' };
             listObj.Name = this.aptnumname;
-            // listObj.Street_Number__c = this.Title;
-            // listObj.Area_hz__c	= this.area;
             listObj.City_hz__c = this.city;
             listObj.Address_hz__c = this.address;
             listObj.Bedrooms_hz__c = this.bedrooms;
 
-            console.log('In the Search Prop');
+            // console.log('In the Search Prop');
 
             fetchListings({ listin: listObj })
                 .then(result => {
-                    console.log({result});
+                    // console.log({result});
                     this.mylist = [];
                     this.foundDupli = true;
                     if (Object.keys(result).length > 0) {
@@ -409,7 +388,7 @@ import userId from '@salesforce/user/Id';
                                 
                             }
                         }, 1000);
-                        console.log({mylist});
+                        // console.log({mylist});
                     } else {
 
                         setTimeout(() => {
@@ -484,7 +463,7 @@ import userId from '@salesforce/user/Id';
    
            try {
                this.radioId = event.target.value;
-               console.log('Teeeesss:',this.radioId);
+            //    console.log('Teeeesss:',this.radioId);
                getListings({ lisId: this.radioId })
                    .then(result => {
                        let listing = { 'sobjectType': 'Listing_hz__c' };
@@ -496,13 +475,6 @@ import userId from '@salesforce/user/Id';
                        } else {
                            listing.RecordTypeId = '';
                        }
-
-                    //    this.aptnumname = result[0].Apartment_Number_and_Name__c;
-                    //    this.streetnumname = result[0].Street_Number__c;
-                    //    this.street = result[0].Street_hz__c;
-                    //    this.area = result[0].Area_hz__c;
-                    //    this.state = result[0].State_hz__c;
-                    //    this.zipcode = result[0].PostalCode_hz__c;
 
                        this.propId = result[0].Id;
                        this.aptnumname = result[0].Name;
@@ -539,10 +511,39 @@ import userId from '@salesforce/user/Id';
            }
        }
    
-       //Pass Data and Go To Next Step || Devansh || 10/02/2022
        handleNext(event) {
    
            try {            
+
+                    if(this.aptnumname == '' || this.aptnumname == null){
+                        const event = new ShowToastEvent({
+                            title: 'Error',
+                            message: 'Title Can not be empty',
+                            variant: 'error',
+                        });
+                        this.dispatchEvent(event);
+                        return;
+                    }
+
+                    if(this.rtype == '' || this.rtype == null ){
+                        const event = new ShowToastEvent({
+                            title: 'Error',
+                            message: 'Record Type Cannot be empty',
+                            variant: 'error',
+                        });
+                        this.dispatchEvent(event);
+                        return;
+                    }
+
+                    if(this.wordCount > 80){
+                        const event = new ShowToastEvent({
+                            title: 'Error',
+                            message: 'Title cannot greater than 80 words',
+                            variant: 'error',
+                        });
+                        this.dispatchEvent(event);
+                        return;
+                    }
 
                    if (this.isInputValid()) {
                     //    this.dispatchEvent(contactData);
@@ -560,6 +561,7 @@ import userId from '@salesforce/user/Id';
            }
        }
 
+       @api
        clearAllValues() {
         
         const inputFields = this.template.querySelectorAll('lightning-input');
@@ -594,6 +596,7 @@ import userId from '@salesforce/user/Id';
         this.foundDupli = '';
         this.radioId = '';
         this.mylist = [];
+        this.wordCount = 0;
     }
 
     handleCancel(event){
@@ -601,7 +604,6 @@ import userId from '@salesforce/user/Id';
     }
 
        createListingRecord() {
-        // Call Apex method to create listing record
         
         createListingRecord({
             recordType: this.rtype,
@@ -613,21 +615,22 @@ import userId from '@salesforce/user/Id';
             proptype: this.proptype,
         })
         .then(result => {
-            console.log(result);
-
-            let paramData = { Id: result[0].Id};
-            this.dispatchEvent(new CustomEvent(
-                'callvf',
-                {
-                    detail: paramData,
-                    bubbles: true,
-                    composed: true,
+            // console.log(result);
+            this[NavigationMixin.Navigate]({
+                type: 'standard__recordPage',
+                attributes: {
+                    recordId: result[0].Id,
+                    objectApiName: 'Listing_hz__c',
+                    actionName: 'view'
                 }
-            ));
+            });
+
+            this.clearAllValues();
         })
         .catch(error => {
             // Handle error
             console.error('Error creating listing record: ', error);
+            console.log('Error ==> ' + error);
         });
     }
    
@@ -639,6 +642,20 @@ import userId from '@salesforce/user/Id';
                if (!inputField.checkValidity()) {
                    inputField.reportValidity();
                    isValid = false;
+               }
+
+               if(this.wordCount > 80){
+                    isValid = false;
+
+                    this.dispatchEvent(new CustomEvent(
+                        'calltoast',
+                        {
+                            detail: null,
+                            bubbles: true,
+                            composed: true,
+                        }
+                    ));
+
                }
                this.checkvalue[inputField.name] = inputField.value;
            });

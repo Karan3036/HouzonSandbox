@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Closed_Closings</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>Listing_hz__c</columns>
+    <columns>Rental_Price__c</columns>
+    <columns>Sale_Price__c</columns>
+    <columns>Rental_Agreement_Date__c</columns>
+    <columns>Closing_Status__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Closing_Status__c</field>
+        <operation>equals</operation>
+        <value>Closed</value>
+    </filters>
+    <label>My Closed Closings</label>
+</ListView>

@@ -85,6 +85,7 @@ export default class CustomPropertyFinder extends LightningElement {
             break;                    
            }
     }
+ 
 
    handleRemove(){
     this.searchKey = '';    
@@ -129,17 +130,7 @@ handelSelectRecordHelper(){
      pillDiv.classList.add('slds-show');     
 }
 
-handelSelectRecordHelperRemovePill(){
-    this.template.querySelector('.lookupInputContainer').classList.remove('slds-is-open');
 
-     const searchBoxWrapper = this.template.querySelector('.searchBoxWrapper');
-     searchBoxWrapper.classList.remove('slds-show');
-     searchBoxWrapper.classList.add('slds-hide');
-
-     const pillDiv = this.template.querySelector('.pillDiv');
-     pillDiv.classList.remove('slds-show');
-     pillDiv.classList.add('slds-hide');     
-}
 
 lookupUpdatehandler(value){    
     try{
@@ -167,23 +158,29 @@ updateValue(event){
         listObj.Propertyfinder_Region__c = this.selectedRecord.SearchPropertiesFormula__c;        
         listObj.SearchPropertyId__c  = this.selectedRecord.Id;          
 
-        updateListingsValue({recId:this.recordId,listin: listObj })
+        updateListingsValue({ recId: this.recordId, listin: listObj })
         .then(result => {
-            console.log({result});          
-            this.isLoading = false;  
+            console.log({ result });
+            setTimeout(() => {
+                const timeoutDuration = 2000; // Timeout duration in milliseconds (adjust as needed)
+            }, 2000); 
+            this.isLoading = false;
             this.dispatchEvent(new CustomEvent(
                 'callvf',
                 {
                     detail: null,
                     bubbles: true,
-                    composed: true,                            
+                    composed: true,
                 }
             ));
+    
+
         })
-        .catch(error =>{
-            console.log('error ==> ',error);
-            this.isLoading = false;  
-        })
+        .catch(error => {
+            console.log('error ==> ', error);
+            this.isLoading = false;
+        });
+    
     }
     catch(error){
         console.log('error>>',error);

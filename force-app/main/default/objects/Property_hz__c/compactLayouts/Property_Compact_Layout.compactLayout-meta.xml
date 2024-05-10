@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Property_Compact_Layout</fullName>
+    <fields>PropertyType__c</fields>
+    <fields>Name</fields>
+    <fields>TotalArea_hz__c</fields>
+    <fields>Floor_houzon__c</fields>
+    <fields>City_hz__c</fields>
+    <fields>OwnerId</fields>
+    <label>[deprecated] Property Compact Layout</label>
+</CompactLayout>

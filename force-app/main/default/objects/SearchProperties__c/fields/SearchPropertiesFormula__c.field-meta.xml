@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SearchPropertiesFormula__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    ISBLANK(CityName__c) &amp;&amp; ISBLANK(CommunityName__c) &amp;&amp; ISBLANK(SubcommunityName__c) &amp;&amp; ISBLANK(PropertyName__c),
+    NULL,
+    IF(
+        ISBLANK(CityName__c),
+        &quot;&quot;,
+        CityName__c &amp; IF(ISBLANK(CommunityName__c), &quot;&quot;, &quot; - &quot;)
+    ) &amp;
+    IF(
+        ISBLANK(CommunityName__c),
+        &quot;&quot;,
+        CommunityName__c &amp; IF(ISBLANK(SubcommunityName__c), &quot;&quot;, &quot; - &quot;)
+    ) &amp;
+    IF(
+        ISBLANK(SubcommunityName__c),
+        &quot;&quot;,
+        SubcommunityName__c &amp; IF(ISBLANK(PropertyName__c), &quot;&quot;, &quot; - &quot;)
+    ) &amp;
+    IF(
+        ISBLANK(PropertyName__c),
+        &quot;&quot;,
+        PropertyName__c
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>SearchPropertiesFormula</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

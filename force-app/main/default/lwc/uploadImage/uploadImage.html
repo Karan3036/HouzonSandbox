@@ -2,7 +2,9 @@
   <template if:true={showSpinner}>
     <lightning-spinner size="medium"> </lightning-spinner>
   </template>
-  <lightning-card
+  
+  <div class="maindiv">
+    <lightning-card
     variant="Narrow"
     title="AWS S3 File Uploader"
     style="width: 30rem"
@@ -42,7 +44,7 @@
             <lightning-pill class="pill" key={file} name={file} label={file} onremove={handleRemove}></lightning-pill>
           </template>
         </template>
-		<template if:true={isfileuploading}>
+        <template if:true={isfileuploading}>
         	<div class="slds-p-around_medium lgc-bg progress slds-box">
 				<div class="content">
 					<div class="left-content">{fileName}</div>
@@ -51,7 +53,7 @@
         	  <progress value={uploadProgress} max="100"></progress>
         	    	<b><lightning-icon icon-name="utility:upload" size="x-small"></lightning-icon> Uploading</b>
         	</div>
-		</template>
+		  </template>
       </div>
     </div>
 
@@ -299,7 +301,7 @@
                     </label> -->
                   </div>
               </div>
-              <footer class="slds-modal__footer">
+              <footer class="slds-modal__footer footer_btn">
                 <button class="slds-button slds-button_brand buttons" onclick={confirm_edit} disabled={save_edit_btn_disabled}>Save</button>
                   <button class="slds-button slds-button_brand buttons" onclick={closepopup_edit}>Close</button>
               </footer>
@@ -308,61 +310,60 @@
   </template>
 
     <template if:true={ispopup}>
-      <div class="modal-backdrop slds-modal-backdrop slds-fade-in-open slds-backdrop_open"></div>
-      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="modal-backdrop slds-modal-backdrop slds-fade-in-open slds-backdrop_open modal backGrop" data-mdb-backdrop="true"></div>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
           <div class="slds-modal__container popup_modal popup-m">
-              <header class="slds-modal__header title">
-              <h2 id="modal-heading-03" class="slds-modal__title slds-hyphenate title_text"><b>Add Link</b></h2>
-              <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closepopup}>
-                  <lightning-icon icon-name="utility:close" alternative-text="Close" variant="inverse" size="small"></lightning-icon>
-              </button>
-              </header>
-              <div class="slds-modal__content slds-p-around_medium">
-                  <label for="title" class="slds-m-bottom_small label"><b>Title:</b></label>
-                  <lightning-input onchange={store_url} label="Title" variant="label-hidden" required></lightning-input>
-                  <br/>
-                  <label for="link" class="slds-m-bottom_small label"><b>External Link (URL):</b></label>
-                  <lightning-input variant="label-hidden" label="External Link (URL)" onchange={store_url} required></lightning-input>
-                  <br/>
-                  <label for="type" class="slds-m-bottom_small label" style="margin-bottom: 4px;"><b>Type:</b></label>
-                  <lightning-combobox
-                    name="Type"
-                    variant="label-hidden" 
-                    value={selected_url_type}
-                    options={options}
-                    onchange={handleLinkType} 
-                    required
-                    ></lightning-combobox>
-                  <!-- <lightning-select
-                    name="Type"
-                    label="Type:"
-                    value={value}
-                    variant="label-hidden"
-                    options={options}
-                    onchange={handleLinkType}
-                    required
-                    ></lightning-select> -->
-                  <!-- <label for="link-type">Type:</label>
-                  <select style="margin-top:3px;" name="propertyType" class="slds-input slds-select"
-                      onchange={handleLinkType}>
-                      <option class="slds-input" value={Image}>Image</option>
-                      <option class="slds-input" value={Video}>Video</option>
-                      <option class="slds-input" value={Document}>Document</option>
-                  </select>  -->
-              </div>
-          
-              <footer class="slds-modal__footer">
-                <div class="popup-btn">
-                  <button class="slds-button slds-button_brand"  onclick={upload_image} disabled={disabled_upload}>Upload</button>
-                  <button class="slds-button slds-button_brand buttons_close" onclick={closepopup}>Close</button>
+            <header class="slds-modal__header title">
+                <h2 id="modal-heading-03" class="slds-modal__title slds-hyphenate title_text"><b>Add Link</b></h2>
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closepopup}>
+                    <lightning-icon icon-name="utility:close" alternative-text="Close" variant="inverse" size="small"></lightning-icon>
+                </button>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium modalbody">
+                    <label for="title" class="slds-m-bottom_small label"><b>Title:</b></label>
+                    <lightning-input onchange={store_url} label="Title" variant="label-hidden" required></lightning-input>
+                    <br/>
+                    <label for="link" class="slds-m-bottom_small label"><b>External Link (URL):</b></label>
+                    <lightning-input variant="label-hidden" label="External Link (URL)" onchange={store_url} required></lightning-input>
+                    <br/>
+                    <label for="type" class="slds-m-bottom_small label" style="margin-bottom: 4px;"><b>Type:</b></label>
+                    <lightning-combobox
+                      name="Type"
+                      variant="label-hidden" 
+                      value={selected_url_type}
+                      options={options}
+                      onchange={handleLinkType} 
+                      required
+                      ></lightning-combobox>
+                    <!-- <lightning-select
+                      name="Type"
+                      label="Type:"
+                      value={value}
+                      variant="label-hidden"
+                      options={options}
+                      onchange={handleLinkType}
+                      required
+                      ></lightning-select> -->
+                    <!-- <label for="link-type">Type:</label>
+                    <select style="margin-top:3px;" name="propertyType" class="slds-input slds-select"
+                        onchange={handleLinkType}>
+                        <option class="slds-input" value={Image}>Image</option>
+                        <option class="slds-input" value={Video}>Video</option>
+                        <option class="slds-input" value={Document}>Document</option>
+                    </select>  -->
                 </div>
-              </footer>
-          </div>
-      </section>
+            
+                <footer class="slds-modal__footer">
+                  <div class="popup-btn">
+                    <button class="slds-button slds-button_brand"  onclick={upload_image} disabled={disabled_upload}>Upload</button>
+                    <button class="slds-button slds-button_brand buttons_close" onclick={closepopup}>Close</button>
+                  </div>
+                </footer>
+            </div>
+          </section>
   </template>
   
-  <template if:true={isdelete}>
-    <div class="modal-backdrop slds-modal-backdrop slds-fade-in-open slds-backdrop_open"></div>
+  <template if:true={isdelete}> 
     <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
         <div class="slds-modal__container popup_modal popup-m">
             <header class="slds-modal__header title_delete">
@@ -375,11 +376,15 @@
                 <h2>Are you sure to delete Media?</h2>
             </div>
             <footer class="slds-modal__footer bottom_footer ">
-              <button class="slds-button slds-button_brand buttons_delete_yes" onclick={handleDelete}>Yes</button>
+              <div class="popup-btn">
+                <button class="slds-button slds-button_brand buttons_delete_yes" onclick={handleDelete}>Yes</button>
               <button class="slds-button slds-button_brand buttons_delete_no" onclick={closepopup}>No</button>
+              </div>
             </footer>
         </div>
     </section>
+    <div class="modal-backdrop slds-modal-backdrop slds-fade-in-open slds-backdrop_open"> </div>
+  
 </template> 
 
 <template if:true={isdeleteAll}>
@@ -402,4 +407,6 @@
       </div>
   </section>
 </template> 
+  </div>
+
 </template>

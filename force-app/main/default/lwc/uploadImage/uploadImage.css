@@ -166,23 +166,40 @@ hr{
     line-height: 1.5;
 }
 
+.mainContainer{
+    height: 100%;
+}
 @media only screen and (max-width: 768px){
+    .modalbody{
+        height: 47vh !important;
+        padding-top: 6% !important;
+        background-color: yellow;
+        overflow: hidden;
+    }
     .popup-m{
-        width: 90%;
-        position: fixed;
+        width: 75%;
+        position: relative;
         top: 0%;
-        /* background-color: #016DC3; */
+        bottom: 30%;
+        justify-content: center;
     }
     .popup-btn{
         text-align: start;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
+    }
+    .mainContainer{
+        background-color: #016DC3;
     }
     .fading{
         /* height: 200vh; */
         overscroll-behavior-y: none;
-        background-color: green;
+        background-color: red;
 
+    }
+    .content{
+        flex-direction: column !important;
+        overflow: scroll;
     }
     /* .modal-backdrop{
         width:75%;
@@ -205,7 +222,8 @@ hr{
         gap: 2vh;
     }
     .pill{
-        margin-left: 2vh;
+        margin-left: 0vh;
+        width: 70%;
     }
 /* added div for it */
     .table{
@@ -228,10 +246,21 @@ hr{
         margin-left: 1vh;
         margin-top: 1vh;
     }
+    .popup_modal{
+        width: 75% !important;
+    }
+    .footer_btn{
+        display: flex;
+        justify-content: flex-end;
+    }
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation : landscape){
     .table{
         overflow-x: scroll;
         margin-inline: 2vh;
+    }
+    .content{
+        flex-direction: column !important;
+        overflow: scroll;
     }
 }

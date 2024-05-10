@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Rentals</fullName>
+    <columns>NAME</columns>
+    <columns>Renter__c</columns>
+    <columns>Listing_hz__c</columns>
+    <columns>Closing_Status__c</columns>
+    <columns>Rental_Agreement_Date__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Closing_hz__c.Rent</value>
+    </filters>
+    <filters>
+        <field>Rental_Agreement_End_Date__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>My Rental Closings(A)</label>
+</ListView>

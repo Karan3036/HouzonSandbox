@@ -4,191 +4,253 @@
             <h2 class="Matching"><b>Matching</b></h2>
             <div class="container">
                 <!-- Column 1 -->
-                <div class="slds-scrollable column" style="height:30rem;width:40rem">
-                    <!-- Display selected filter criteria below -->
-                    <div class="selected-criteria-container">
-                        <template for:each={selectedCriteriaList} for:item="criteria" for:index="index">
-                            <div key={criteria.field} class="selected-criteria">
-                                <div class="filter-space">
-                                    <span><b>{criteria.filterNumber}.{criteria.field}</b>&nbsp;&nbsp;{criteria.criteria}</span>
-                                    <!-- Add input box here -->
-                                    <lightning-button-icon class="delBtn" icon-name="utility:delete" alternative-text="Delete" title="Delete" onclick={removeFilter} data-index={index}></lightning-button-icon>
-                                </div>
-                                <div class="input-container">
-                                    <lightning-record-edit-form record-id={recordId} object-api-name={objectName}>
-                                        <div class="slds-col slds-size_1-of-2" key={criteria.field}>
-                                            <lightning-input-field  value={criteria.inputValue} onchange={handleInputChange} data-index={index} field-name={criteria.field}></lightning-input-field>
-                                        </div>
-                                    </lightning-record-edit-form>
-                                </div>
-                            </div>
-                        </template>
-                        <lightning-button class="btn" label="+" onclick={openModal}></lightning-button>
-                    </div>
-                    <div>
-                        <!-- modal popup start  -->
-                        <template if:true={isModalOpen}>
-                            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-                                <div class="slds-modal__container">
-                                    <header class="slds-modal__header">
-                                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
-                                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
-                                            <span class="slds-assistive-text">Close</span>
-                                        </button>
-                                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Filter</h2>
-                                    </header>
-                                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                                        <div class="containermodal">
-                                            <div class="maincontact">
-                                                <h1><b>Contacts</b></h1>
-                                            </div>
-                                            <div class="icon">
-                                                <lightning-icon icon-name="utility:right" alternative-text="right" size="x-small" title="x-small size"></lightning-icon>
-                                            </div>
-                                            <div class="combobox-container">
-                                                <lightning-combobox
-                                                    class="combo-box"
-                                                    name="contactField"
-                                                    value={selectedField}
-                                                    options={fieldOptions}
-                                                    onchange={handleChange}>
-                                                </lightning-combobox>
-                                            </div>
-                                        </div>
-                                        <span class="popupTxt">You have selected the following field:</span>
-                                        <div class="slds-box slds-theme_default criteria">
-                                            <template if:true={selectedField}>
-                                                <div class="criteria-row">
-                                                    <div class="icon-field">
-                                                        <lightning-icon icon-name="standard:folder" alternative-text="Folder Icon" title="folder Icon" size="medium"></lightning-icon>
-                                                    </div>
-                                                    <div class="selected-field"><h1><b>{selectedField}</b></h1></div>
-                                                    <div class="criteria-combobox">
-                                                        <lightning-combobox name="criteria" value={selectedCriteria} options={criteriaOptions} onchange={handleCriteriaChange}></lightning-combobox>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </div>
+                    <div class="slds-scrollable column">
+                        <!-- Display selected filter criteria below -->
+                        <div class="selected-criteria-container">
+                            <template for:each={selectedCriteriaList} for:item="criteria" for:index="index">
+                                <div key={criteria.field} class="selected-criteria">
+                                    <div class="filter-space">
+                                        <span class="print"><b>{criteria.filterNumber}.{criteria.field}</b>&nbsp;&nbsp;{criteria.criteria}</span>
+                                        <!-- Add input box here -->
+                                        <lightning-button-icon class="delBtn" icon-name="utility:delete"
+                                            alternative-text="Delete" title="Delete" onclick={removeFilter}
+                                            data-index={index}></lightning-button-icon>
                                     </div>
-                                    <footer class="slds-modal__footer">
-                                        <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
-                                        <button class="slds-button slds-button_brand" onclick={submitDetails} title="Add">Add</button>
-                                    </footer>
+                                    <div class="input-container">
+                                        <lightning-record-edit-form record-id={recordId} object-api-name={objectName}>
+                                            <div class="slds-col slds-size_1-of-2" key={criteria.field}>
+                                                <lightning-input-field value={criteria.inputValue}
+                                                    onchange={handleInputChange} data-index={index}
+                                                    field-name={criteria.field}></lightning-input-field>
+                                            </div>
+                                        </lightning-record-edit-form>
+                                    </div>
                                 </div>
-                            </section>
-                            <div class="slds-backdrop slds-backdrop_open"></div>
-                        </template>
-                        <!-- popup over -->
-                    </div>
-                    <div class="buttonSection1">
-                        <lightning-input type="checkbox" label="Exact Matching" disabled={isFilterAdded}></lightning-input>
-                        <div class="hepltxt">
-                            <lightning-input type="checkbox" label="Advanced" onchange={handleAdvancedChange} disabled={isFilterAdded}></lightning-input>
-                            <lightning-helptext content="Use AND and Or Operators to fine-tune your results, e.g '(1 OR 2) AND 3'"></lightning-helptext>
+                            </template>
+                            <lightning-button class="btn" label="+" onclick={openModal}></lightning-button>
+                        </div>
+                        
+                        <div class="buttonSection1">
+                            <lightning-input type="checkbox" label="Exact Matching"
+                                disabled={isFilterAdded}></lightning-input>
+                            <div class="hepltxt">
+                                <lightning-input type="checkbox" label="Advanced" onchange={handleAdvancedChange}
+                                    disabled={isFilterAdded}></lightning-input>
+                                <lightning-helptext
+                                    content="Use AND and Or Operators to fine-tune your results, e.g '(1 OR 2) AND 3'"></lightning-helptext>
+                            </div>
+                        </div>
+                        <div class="advLogic">
+                            <template if:true={showInputBox}>
+                                <lightning-input label="Enter Logic"></lightning-input>
+                            </template>
+                        </div>
+                        <div class="showme">
+                            <h2><b>Show me</b></h2>
+                            <div class="radio">
+                                <lightning-input type="radio" label="All Contacts" onchange={handleRadioChange}
+                                    value="allContacts" name="contactOption" checked></lightning-input>
+                                <lightning-input class="myconBtn" type="radio" label="My Contacts" onchange={handleRadioChange}
+                                    value="myContacts" name="contactOption"></lightning-input>
+                            </div>
+                        </div>
+                        <div class="lastButtons">
+                            <lightning-button-icon icon-name="utility:refresh" onclick={handleRefresh}
+                                alternative-text="refresh" title="refresh"></lightning-button-icon>
+                            <button class="slds-button slds-button_brand search" onclick={handleSearch}>Search</button>
                         </div>
                     </div>
-                    <div class="advLogic">
-                        <template if:true={showInputBox}>
-                            <lightning-input label="Enter Logic"></lightning-input>
-                        </template>
-                    </div>
-                    <div class="showme">
-                        <h2><b>Show me</b></h2>
-                        <div class="radio">
-                            <lightning-input type="radio" label="All Contacts" onchange={handleRadioChange} value="allContacts" name="contactOption" checked></lightning-input>
-                            <lightning-input type="radio" label="My Contacts" onchange={handleRadioChange} value="myContacts" name="contactOption"></lightning-input>
-                        </div>
-                    </div>
-                    <div class="lastButtons">
-                        <lightning-button-icon icon-name="utility:refresh" onclick={handleRefresh} alternative-text="refresh" title="refresh"></lightning-button-icon>
-                        <button class="slds-button slds-button_brand search" onclick={handleSearch}>Search</button>
-                    </div>
-                </div>
                 <!-- Column 2 -->
-                <div class="slds-scrollable column column2">
-                    <div class="button5">
-                        <!-- <lightning-button-icon class="list" icon-name ="utility:picklist_type" onclick={switchToListView} alternative-text="list" title="list"></lightning-button-icon> -->
-                        <!-- <lightning-button-icon class="grid" icon-name="utility:tile_card_list" onclick={switchToGridView} alternative-text="grid" title="grid"></lightning-button-icon>
-                        <lightning-button-icon class="button_expand" icon-name="utility:expand_alt" alternative-text="expand" title="expand"></lightning-button-icon> -->
-                        <lightning-button class="btn1" label="Send Email" onclick={mailModalOpen} disabled={isSendEmailDisabled}></lightning-button>
-                        <lightning-button class="btn2" label="Create Linked Listing" onclick={createLinkedListing} disabled={isCreateLinkedListingDisabled}></lightning-button>
-                        <lightning-button class="btn3" label="Print" onclick={printData}></lightning-button>
-                    </div>
-                    <!-- email pop up start -->
-                    <template if:true={isMailModalOpen}>
-                        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="dialog-heading-id-1" aria-describedby="dialog-content-id-1" class="slds-modal slds-fade-in-open slds-docked-composer-modal">
-                            <div class="slds-modal__container">
-                                <div class="slds-modal__content" id="modal-content-id">
-                                    <section class="slds-docked-composer slds-grid slds-grid_vertical">
-                                        <header class="slds-docked-composer__header slds-grid slds-shrink-none" aria-live="assertive">
-                                            <div class="slds-media slds-media_center slds-no-space">
-                                                <div class="slds-media__figure slds-m-right_x-small">
-                                                    <!-- email icon -->
-                                                    <lightning-icon icon-name="standard:email" alternative-text="Email Icon" title="Email Icon" size="small"></lightning-icon>
-                                                </div>
-                                                <div class="slds-media__body">
-                                                    <h2 class="slds-truncate" id="dialog-heading-id-1" title="Header">New Email</h2>
-                                                </div>
-                                            </div>
-                                            <div class="slds-col_bump-left slds-shrink-none">
-                                                <lightning-button-icon icon-name="utility:minimize_window" alternative-text="mini" title="mini" size="small"></lightning-button-icon>
-                                                <lightning-button-icon icon-name="utility:expand_alt" alternative-text="expand" title="expand" size="small"></lightning-button-icon>
-                                                <lightning-button-icon icon-name="utility:close" onclick={mailModalClose} alternative-text="expand" title="expand" size="small"></lightning-button-icon>
-                                            </div>
+                    <div class="slds-scrollable column column2">
+                        <div class="button5">
+                            <!-- <lightning-button-icon class="list" icon-name ="utility:picklist_type" onclick={switchToListView} alternative-text="list" title="list"></lightning-button-icon> -->
+                            <!-- <lightning-button-icon class="grid" icon-name="utility:tile_card_list" onclick={switchToGridView} alternative-text="grid" title="grid"></lightning-button-icon>
+                            <lightning-button-icon class="button_expand" icon-name="utility:expand_alt" alternative-text="expand" title="expand"></lightning-button-icon> -->
+                            <lightning-button class="btn1" label="Send Email" onclick={mailModalOpen}
+                                disabled={isSendEmailDisabled}></lightning-button>
+                            <lightning-button class="btn2" label="Create Linked Listing" onclick={createLinkedListing}
+                                disabled={isCreateLinkedListingDisabled}></lightning-button>
+                            <lightning-button class="btn3" label="Print" onclick={printData}></lightning-button>
+                        </div>
+                        <div>
+                            <!-- modal popup start  -->
+                            <template if:true={isModalOpen}>
+                                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01"
+                                    aria-modal="true" aria-describedby="modal-content-id-1"
+                                    class="slds-modal slds-fade-in-open Modsec">
+                                    <div class="slds-modal__container popup">
+                                        <header class="slds-modal__header">
+                                            <button
+                                                class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                                title="Close" onclick={closeModal}>
+                                                <lightning-icon icon-name="utility:close" alternative-text="close"
+                                                    variant="inverse" size="small"></lightning-icon>
+                                                <span class="slds-assistive-text">Close</span>
+                                            </button>
+                                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                                Add Filter</h2>
                                         </header>
-                                        <div class="slds-docked-composer__body" id="dialog-content-id-1">
-                                            <div class="slds-align_absolute-center">
-                                                <div class="box">
-                                                    <lightning-card title="New Message">
-                                                        <div class="box1">
-                                                            <h1 class="slds-text-heading_medium text1">Please complete required configuration steps before using Quicksend.</h1><br/>
-                                                            <div class="box2">
-                                                                <lightning-card  variant="Narrow">
-                                                                    <div class="content" style="display: flex;">
-                                                                        <lightning-icon icon-name="standard:custom" alternative-text="Approved" title="Approved"></lightning-icon>
-                                                                        <p class="slds-p-horizontal_small">Your account is not connected to Propertybase Mailservices. To send email, please establish connection to Propertybase Mailservices in the Email section of the Control Center.</p>
-                                                                    </div><br/>
-                                                                    <p class="slds-p-horizontal_small text2">Instructions for connecting to Propertybase Mailservices can be found here:</p><br/>
-                                                                    <lightning-button label="Help Center" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small Emailbtn"></lightning-button>
-                                                                </lightning-card>
-                                                            </div><br/>
-                                                            <div class="box2">
-                                                                <lightning-card  variant="Narrow">
-                                                                    <div class="content" style="display: flex;">
-                                                                        <lightning-icon icon-name="standard:template" alternative-text="Approved" title="Approved"></lightning-icon>
-                                                                        <p class="slds-p-horizontal_small">In order to work correctly, Quicksend requires at least one of the following template types: (email_template, pdf_template, listing_template).</p>
-                                                                    </div><br/>
-                                                                    <p class="slds-p-horizontal_small text2">You are missing at least one required template type: (listing_template). Templates can be downloaded in the Update Center:</p><br/>
-                                                                    <lightning-button label="Update Center" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small Emailbtn"></lightning-button>
-                                                                </lightning-card>
+                                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                            <div class="containermodal">
+                                                <div class="maincontact">
+                                                    <h1><b>Contacts</b></h1>
+                                                </div>
+                                                <div class="icon">
+                                                    <lightning-icon icon-name="utility:right" alternative-text="right"
+                                                        size="x-small" title="x-small size"></lightning-icon>
+                                                </div>
+                                                <div class="combobox-container">
+                                                    <lightning-combobox class="combo-box" name="contactField"
+                                                        value={selectedField} options={fieldOptions}
+                                                        onchange={handleChange}>
+                                                    </lightning-combobox>
+                                                </div>
+                                            </div>
+                                            <span class="popupTxt">You have selected the following field:</span>
+                                            <div class="slds-box slds-theme_default criteria">
+                                                <template if:true={selectedField}>
+                                                    <div class="criteria-row">
+                                                        <div class="newFieldSelect">
+                                                            <div class="icon-field">
+                                                                <lightning-icon icon-name="standard:folder"
+                                                                    alternative-text="Folder Icon" title="folder Icon"
+                                                                    size="medium"></lightning-icon>
+                                                            </div>
+                                                            <div class="selected-field">
+                                                                <h1><b>{selectedField}</b></h1>
                                                             </div>
                                                         </div>
-                                                    </lightning-card>
-                                                </div>
+                                                        <div class="criteria-combobox">
+                                                            <lightning-combobox name="criteria" value={selectedCriteria}
+                                                                options={criteriaOptions}
+                                                                onchange={handleCriteriaChange}></lightning-combobox>
+                                                        </div>
+                                                    </div>
+                                                </template>
                                             </div>
                                         </div>
-                                    </section>
+                                        <footer class="slds-modal__footer buttonmod">
+                                            <button class="slds-button slds-button_neutral" onclick={closeModal}
+                                                title="Cancel">Cancel</button>
+                                            <button class="slds-button slds-button_brand" onclick={submitDetails}
+                                                title="Add">Add</button>
+                                        </footer>
+                                    </div>
+                                </section>
+                                <div class="slds-backdrop slds-backdrop_open"></div>
+                            </template>
+                            <!-- popup over -->
+                        </div>
+
+                        <!-- email pop up start -->
+                        <template if:true={isMailModalOpen}>
+                            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="dialog-heading-id-1"
+                                aria-describedby="dialog-content-id-1"
+                                class="slds-modal slds-fade-in-open slds-docked-composer-modal">
+                                <div class="slds-modal__container">
+                                    <div class="slds-modal__content" id="modal-content-id">
+                                        <section class="slds-docked-composer slds-grid slds-grid_vertical">
+                                            <header class="slds-docked-composer__header slds-grid slds-shrink-none"
+                                                aria-live="assertive">
+                                                <div class="slds-media slds-media_center slds-no-space">
+                                                    <div class="slds-media__figure slds-m-right_x-small">
+                                                        <!-- email icon -->
+                                                        <lightning-icon icon-name="standard:email"
+                                                            alternative-text="Email Icon" title="Email Icon"
+                                                            size="small"></lightning-icon>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h2 class="slds-truncate" id="dialog-heading-id-1" title="Header">
+                                                            New Email</h2>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-col_bump-left slds-shrink-none">
+                                                    <lightning-button-icon icon-name="utility:minimize_window"
+                                                        alternative-text="mini" title="mini"
+                                                        size="small"></lightning-button-icon>
+                                                    <lightning-button-icon icon-name="utility:expand_alt"
+                                                        alternative-text="expand" title="expand"
+                                                        size="small"></lightning-button-icon>
+                                                    <lightning-button-icon icon-name="utility:close"
+                                                        onclick={mailModalClose} alternative-text="expand" title="expand"
+                                                        size="small"></lightning-button-icon>
+                                                </div>
+                                            </header>
+                                            <div class="slds-docked-composer__body" id="dialog-content-id-1">
+                                                <div class="slds-align_absolute-center">
+                                                    <div class="box">
+                                                        <lightning-card title="New Message">
+                                                            <div class="box1">
+                                                                <h1 class="slds-text-heading_medium text1">Please complete
+                                                                    required configuration steps before using Quicksend.
+                                                                </h1><br />
+                                                                <div class="box2">
+                                                                    <lightning-card variant="Narrow">
+                                                                        <div class="content" style="display: flex;">
+                                                                            <lightning-icon icon-name="standard:custom"
+                                                                                alternative-text="Approved"
+                                                                                title="Approved"></lightning-icon>
+                                                                            <p class="slds-p-horizontal_small">Your account
+                                                                                is not connected to Propertybase
+                                                                                Mailservices. To send email, please
+                                                                                establish connection to Propertybase
+                                                                                Mailservices in the Email section of the
+                                                                                Control Center.</p>
+                                                                        </div><br />
+                                                                        <p class="slds-p-horizontal_small text2">
+                                                                            Instructions for connecting to Propertybase
+                                                                            Mailservices can be found here:</p><br />
+                                                                        <lightning-button label="Help Center"
+                                                                            title="Non-primary action" onclick={handleClick}
+                                                                            class="slds-m-left_x-small Emailbtn"></lightning-button>
+                                                                    </lightning-card>
+                                                                </div><br />
+                                                                <div class="box2">
+                                                                    <lightning-card variant="Narrow">
+                                                                        <div class="content" style="display: flex;">
+                                                                            <lightning-icon icon-name="standard:template"
+                                                                                alternative-text="Approved"
+                                                                                title="Approved"></lightning-icon>
+                                                                            <p class="slds-p-horizontal_small">In order to
+                                                                                work correctly, Quicksend requires at least
+                                                                                one of the following template types:
+                                                                                (email_template, pdf_template,
+                                                                                listing_template).</p>
+                                                                        </div><br />
+                                                                        <p class="slds-p-horizontal_small text2">You are
+                                                                            missing at least one required template type:
+                                                                            (listing_template). Templates can be downloaded
+                                                                            in the Update Center:</p><br />
+                                                                        <lightning-button label="Update Center"
+                                                                            title="Non-primary action" onclick={handleClick}
+                                                                            class="slds-m-left_x-small Emailbtn"></lightning-button>
+                                                                    </lightning-card>
+                                                                </div>
+                                                            </div>
+                                                        </lightning-card>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
-                        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
-                    </template>
-                    <!-- email pop up end -->
-                    <template if:true={data}>
-                        <lightning-datatable
-                            style="height: 60%;table-layout: fixed;"
-                            key-field="Id"
-                            data={data}
-                            columns={columns}
-                            onrowselection={handleRowSelection}>
-                        </lightning-datatable>
-                    </template>
-                    <div class="pagination">
-                        <lightning-button-icon icon-name="utility:chevronleft" onclick={previousPage}></lightning-button-icon>
-                        &nbsp;&nbsp;&nbsp;Page {pageNumber} of {totalPages}&nbsp;&nbsp;&nbsp;
-                        <lightning-button-icon icon-name="utility:chevronright" onclick={nextPage}></lightning-button-icon>
+                            </section>
+                            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+                        </template>
+                        <!-- email pop up end -->
+                        <template if:true={data}>
+                            <lightning-datatable style="height: 60%;table-layout: fixed; z-index: -1;" key-field="Id" data={data}
+                                columns={columns} onrowselection={handleRowSelection}>
+                            </lightning-datatable>
+                        </template>
+                        <div class="pagination">
+                            <lightning-button-icon icon-name="utility:chevronleft"
+                                onclick={previousPage}></lightning-button-icon>
+                            &nbsp;&nbsp;&nbsp;Page {pageNumber} of {totalPages}&nbsp;&nbsp;&nbsp;
+                            <lightning-button-icon icon-name="utility:chevronright"
+                                onclick={nextPage}></lightning-button-icon>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </lightning-card>

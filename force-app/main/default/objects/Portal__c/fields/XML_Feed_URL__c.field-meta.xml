@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>XML_Feed_URL__c</fullName>
+    <description>As admin, after creating a new portal, save the Manda URL in here, so you have it handy when you need it.
+https://manda.propertybase.com/feed/00Db_YOUR_18DIGIT_ORG_ID_0CCCCCC/propertyfinder/a0hb_18_Digit_Portal_Record_ID_0BBBBBBBB
+How to build a feed URL: https://help.propertybase.com/hc/en-us/articles/202899016-Middle-East-Property-Portal-Integration</description>
+    <externalId>false</externalId>
+    <inlineHelpText>XML Feed URL value depends on the Generator field.</inlineHelpText>
+    <label>XML Feed URL</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

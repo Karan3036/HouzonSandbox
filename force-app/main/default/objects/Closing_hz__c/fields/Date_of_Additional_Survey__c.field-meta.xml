@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_of_Additional_Survey__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>this may be the same date as the mortgage valuation if buyer is having the mortgage valuation upgraded to a homebuyers or building survey</inlineHelpText>
+    <label>Date of Additional Survey</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

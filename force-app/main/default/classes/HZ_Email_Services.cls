@@ -58,16 +58,20 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
             System.debug('name ==>' + name);
 
         }
+        User u ;
+        if(!Test.isRunningTest()){
+            u = [SELECT Id, Username,Name FROM User WHERE Name =:name LIMIT 1];
+            System.debug('UserName :::' + u.Name);
+        }
+        else{
+            u = [SELECT Id, Username,Name FROM User LIMIT 1];
+        }
+            
 
         string customerName = '';
         if(email.contains('You can respond to')){
             customerName = email.substringBetween('You can respond to *', '* calling or emailing on');
         }
-
-        // string descriptionText1 = '';
-        // if(email.contains('<https://')){
-        //     descriptionText1 = email.substringBetween('<','>');
-        // }
 
         string referenceCode = '';
         if (email.contains('*Reference*:')) {
@@ -81,7 +85,7 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
 
         if (email.contains('*+') || email.contains('<+')) {
             phoneNumber1 = email.substringBetween('*+', '*').trim();
-            phoneNumber2 = email.substringBetween('<+', '>');
+            phoneNumber2 = '+' + phoneNumber1;
         } else {
             System.debug('Phone numbers not found in the email body.');
         }
@@ -101,16 +105,25 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
         newCon.LastName = customerName;
         newCon.LeadRoutingSource__c = name;
         newCon.Description =  'Lead from Propertyfinder\n'+ ' ' + + '\nRefernce Code: ' + referenceCode + ' \n';
-        newCon.Phone = phoneNumber1;
+        newCon.MobilePhone = phoneNumber2;
         newCon.Email = emailId;
         newCon.LeadSource = 'Portal';
         newCon.LeadSourceCategory_hz__c	= 'PropertyFinder';
+        newCon.OwnerId = u.Id;
         conList.add(newCon);
 
         if(!Test.isRunningTest()){
             insert conList;
         }
-        
+        Date currentDate = System.today();
+        Task newTask = new Task(
+            Subject = 'Call the Lead',
+            WhoId = conList[0].Id,
+            ActivityDate = currentDate,
+            Priority = 'High',
+            Contact__c = conList[0].Id
+        );
+        insert newTask;
 
         if(referenceCode != '' || referenceCode != null){
             createInquiryAndLinkListing(referenceCode,conList);
@@ -123,6 +136,17 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
         if(email.contains('HI')){
             name = email.substringBetween('HI ', ',');
             System.debug('name ==>' + name);
+
+
+        }
+
+        User u ;
+        if(!Test.isRunningTest()){
+            u = [SELECT Id, Username,Name FROM User WHERE Name =:name LIMIT 1];
+            System.debug('UserName :::' + u.Name);
+        }
+        else{
+            u = [SELECT Id, Username,Name FROM User LIMIT 1];
         }
 
         string customerName = '';
@@ -150,22 +174,41 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
             descriptionText2 = email.substringBetween('PROPERTY DETAILS\n--------------------------------\n', '\n\n\nKindly');
         }
 
+        String url = '';
+        if(email.contains('URL')){
+            url = email.substringBetween('URL:', '\n\nKindly');
+            System.debug('url ==>'+ url);
+        }
+
+
 
         List<Contact> conList = new List<Contact>();
     
         Contact newCon = new Contact();
         newCon.LastName = customerName;
         newCon.Description =  'Lead from Bayut\n'+ ' \n' +descriptionText1 + '\n' + descriptionText2;
-        newCon.Phone = phoneNumber;
+        newCon.MobilePhone = phoneNumber;
         newCon.Email = emailId;
         newCon.LeadSource = 'Portal';
         newCon.LeadSourceCategory_hz__c	= 'Bayut';
         newCon.LeadRoutingSource__c = name;
+        newCon.Description = url;
+        newCon.OwnerId = u.Id;
         conList.add(newCon);
 
         if(!Test.isRunningTest()) {
         insert conList;
         }
+
+        Date currentDate = System.today();
+        Task newTask = new Task(
+            Subject = 'Call the Lead',
+            WhoId = conList[0].Id,
+            ActivityDate = currentDate,
+            Priority = 'High',
+            Contact__c = conList[0].Id
+        );
+        insert newTask;
 
         if(referenceCode != '' || referenceCode != null){
             createInquiryAndLinkListing(referenceCode,conList);
@@ -185,23 +228,43 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
         if(email.contains('Dear')){
             name = email.substringBetween('Dear ', ' ,');
             System.debug('name ==>' + name);
-        }
 
+
+        }
+        User u ;
+        if(!Test.isRunningTest()){
+            u = [SELECT Id, Username,Name FROM User WHERE Name =:name LIMIT 1];
+            System.debug('UserName :::' + u.Name);
+        }
+        else{
+            u = [SELECT Id, Username,Name FROM User LIMIT 1];
+        }
         List<Contact> conList = new List<Contact>();
     
         Contact newCon = new Contact();
         newCon.LastName = 'Unknown';
         // newCon.Description =  'Missed call';
         newCon.LeadSourceDetail_hz__c = 'Call Missed';
-        newCon.Phone = phoneNumber;
+        newCon.MobilePhone = phoneNumber;
         newCon.LeadSource = 'Portal';
         newCon.LeadSourceCategory_hz__c	= 'PropertyFinder';
         newCon.LeadRoutingSource__c = name;
+        newCon.OwnerId = u.Id;
         conList.add(newCon);
 
         if(!Test.isRunningTest()){
         insert conList;
         }
+
+        Date currentDate = System.today();
+        Task newTask = new Task(
+            Subject = 'Call the Lead',
+            WhoId = conList[0].Id,
+            ActivityDate = currentDate,
+            Priority = 'High',
+            Contact__c = conList[0].Id
+        );
+        insert newTask;
 
 
     }
@@ -212,13 +275,24 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
 
         string phoneNumber = '';
         if(email.contains('received a call from a prospective client')){
-            phoneNumber = email.substringBetween('client\n','\nCall');
+            phoneNumber = email.substringBetween('<tel:','>');
+            System.debug('phoneNumber ==>' + phoneNumber);
         }
 
         String name = '';
         if(email.contains('Dear')){
             name = email.substringBetween('Dear ', ' ,');
             System.debug('name ==>' + name);
+
+        }
+
+        User u ;
+        if(!Test.isRunningTest()){
+            u = [SELECT Id, Username,Name FROM User WHERE Name =:name LIMIT 1];
+            System.debug('UserName :::' + u.Name);
+        }
+        else{
+            u = [SELECT Id, Username,Name FROM User LIMIT 1];
         }
 
         List<Contact> conList = new List<Contact>();
@@ -227,15 +301,26 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
         newCon.LastName = 'Unknown';
         // newCon.Description =  'Call Summary';
         newCon.LeadSourceDetail_hz__c = 'Call  Summary';
-        newCon.Phone = phoneNumber;
+        newCon.MobilePhone = phoneNumber;
         newCon.LeadSource = 'Portal';
         newCon.LeadSourceCategory_hz__c	= 'PropertyFinder';
         newCon.LeadRoutingSource__c = name;
+        newCon.OwnerId = u.Id;
         conList.add(newCon);
 
         if(!Test.isRunningTest()){
         insert conList;
         }
+
+        Date currentDate = System.today();
+        Task newTask = new Task(
+            Subject = 'Call the Lead',
+            WhoId = conList[0].Id,
+            ActivityDate = currentDate,
+            Priority = 'High',
+            Contact__c = conList[0].Id
+        );
+        insert newTask;
 
     }
 
@@ -253,21 +338,41 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
 
         }
 
+        User u ;
+        if(!Test.isRunningTest()){
+            u = [SELECT Id, Username,Name FROM User WHERE Name =:name LIMIT 1];
+            System.debug('UserName :::' + u.Name);
+        }
+        else{
+            u = [SELECT Id, Username,Name FROM User LIMIT 1];
+        }
+            
         List<Contact> conList = new List<Contact>();
     
         Contact newCon = new Contact();
         newCon.LastName = 'Unknown';
         newCon.LeadSourceDetail_hz__c = 'You have missed a lead via Bayut.com';
         // newCon.Description =  'You have missed a lead via Bayut.com';
-        newCon.Phone = phoneNumber;
+        newCon.MobilePhone = phoneNumber;
         newCon.LeadSource = 'Portal';
         newCon.LeadSourceCategory_hz__c	= 'Bayut';
         newCon.LeadRoutingSource__c = name;
+        newCon.OwnerId = u.Id;
         conList.add(newCon);
 
         if(!Test.isRunningTest()) {
         insert conList;
         }
+
+        Date currentDate = System.today();
+        Task newTask = new Task(
+            Subject = 'Call the Lead',
+            WhoId = conList[0].Id,
+            ActivityDate = currentDate,
+            Priority = 'High',
+            Contact__c = conList[0].Id
+        );
+        insert newTask;
 
     }
 
@@ -307,6 +412,7 @@ global with sharing class HZ_Email_Services implements Messaging.InboundEmailHan
             Inquiry_hz__c inquiry = new Inquiry_hz__c();
             inquiry.Listing__c = listingId;
             inquiry.Contact__c = conList[0].Id;
+            inquiry.URL_from_Portal__c = conList[0].Description;
             
             if(!Test.isRunningTest()){
                 insert  inquiry;

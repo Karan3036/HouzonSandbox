@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_Costs_to_Landlord__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Put anything in this box that needs to be charged to landlord on move in</inlineHelpText>
+    <label>Other Costs to Landlord</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

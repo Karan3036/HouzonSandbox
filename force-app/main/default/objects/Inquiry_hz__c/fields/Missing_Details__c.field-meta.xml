@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Missing_Details__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISPICKVAL(Status__c,&apos;Inactive&apos;)),
+OR(
+Contact__r.FirstName == null,
+Contact__r.LastName == null,
+Contact__r.LastName == &apos;Unknown&apos;,
+Contact__r.Email = null,
+Contact__r.MobilePhone = null,
+Contact__r.MailingStreet = null,
+Contact__r.MailingCity = null,
+Contact__r.MailingState = null,
+Contact__r.MailingPostalCode = null,
+Contact__r.MailingCountry = null,
+City_hz__c = null,
+Mailing_Postcode__c = null,
+ListingPrice_hz_max__c = null,
+ISPICKVAL(Current_Position__c, &apos;&apos;)
+)
+,
+false)</formula>
+    <label>Missing Details</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

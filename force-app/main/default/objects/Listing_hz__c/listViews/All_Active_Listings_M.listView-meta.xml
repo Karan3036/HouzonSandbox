@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Active_Listings_M</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>ListingPrice_hz__c</columns>
+    <columns>Bedrooms_hz__c</columns>
+    <columns>FullBathrooms_hz__c</columns>
+    <columns>TotalArea_hz__c</columns>
+    <columns>Propertyfinder_Boost__c</columns>
+    <columns>Bayut_Boost__c</columns>
+    <columns>Listing_Agent_Phone__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>PropertyType__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <label>All Active Listings (M)</label>
+    <sharedTo></sharedTo>
+</ListView>

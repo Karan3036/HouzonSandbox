@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StartDateFieldName__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Please select a date field from the contact record. Alternatively, you can enter a custom start date. (See &quot;Start Date&quot;.)</inlineHelpText>
+    <label>Start Date Field Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Birthdate</fullName>
+                <default>false</default>
+                <label>Birthdate</label>
+            </value>
+            <value>
+                <fullName>LastActive__c</fullName>
+                <default>false</default>
+                <label>Last Active</label>
+            </value>
+            <value>
+                <fullName>CreatedDate</fullName>
+                <default>false</default>
+                <label>Created Date</label>
+            </value>
+            <value>
+                <fullName>LastViewedDate</fullName>
+                <default>false</default>
+                <label>Last Viewed Date</label>
+            </value>
+            <value>
+                <fullName>LastActivityDate</fullName>
+                <default>false</default>
+                <label>Last Activity Date</label>
+            </value>
+            <value>
+                <fullName>LastModifiedDate</fullName>
+                <default>false</default>
+                <label>Last Modified Date</label>
+            </value>
+            <value>
+                <fullName>LastReferencedDate</fullName>
+                <default>false</default>
+                <label>Last Referenced Date</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

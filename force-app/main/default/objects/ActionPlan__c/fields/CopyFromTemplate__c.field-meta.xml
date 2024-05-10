@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CopyFromTemplate__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If checked, copies any data and Action Plan Template Tasks from an Action Plan Template into a new Action Plan, if the &apos;Action Plan Template&apos; field is set.</description>
+    <externalId>false</externalId>
+    <label>Copy From Template</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_offer_if_Listing_is_blocked</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISBLANK(Id),
+ISPICKVAL(Listing_hz__r.Status__c,&apos;Blocked&apos;)
+)</errorConditionFormula>
+    <errorMessage>Listing is blocked, offer cannot be created</errorMessage>
+</ValidationRule>

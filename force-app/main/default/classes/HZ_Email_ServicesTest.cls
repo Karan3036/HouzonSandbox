@@ -27,7 +27,14 @@ private class HZ_Email_ServicesTest {
 
     @isTest
     static void testPropertyfinderContactCreation() {
-        String testEmailBody = 'Dear Vansh Mehra,\ntest has sent you a message regarding your property\n3,500,000 AED -  Apartment - 2 3  -  1,660 sqft\nModern 2BR + Maid | Burj View | Direct Buyers Only\nHOUZON is proud to present this luxurious two apartment for sale in City Walk, Dubai. Multiple units...\nReference: VM-CW-2BR-00013\nAgent: Vansh Mehra';
+
+        Profile p = [SELECT Id FROM Profile WHERE Name='Standard User'];
+        User u = new User(Alias = 'sttst2', Email='standarduser1@tesorg.com', 
+                          EmailEncodingKey='UTF-8', LastName='Testing1', LanguageLocaleKey='en_US', 
+                          LocaleSidKey='en_US', ProfileId = p.Id, MobilePhone = '+919326582649', Phone = '+919326582649',
+                          TimeZoneSidKey='America/Los_Angeles', UserName='standarduser1@tesorg.com', ManagerId = UserInfo.getUserId());
+        Insert u;
+        String testEmailBody = 'Dear Vansh Mehra,\nTest User\ntest has sent you a message regarding your property\n3,500,000 AED -  Apartment - 2 3  -  1,660 sqft\nModern 2BR + Maid | Burj View | Direct Buyers Only\nHOUZON is proud to present this luxurious two apartment for sale in City Walk, Dubai. Multiple units...\nReference: VM-CW-2BR-00013\nAgent: Vansh Mehra';
 
         
         HZ_Email_Services emailService = new HZ_Email_Services();
@@ -87,6 +94,14 @@ private class HZ_Email_ServicesTest {
 
     @isTest
     static void testCreateInquiryAndLinkListing() {
+
+        Profile p = [SELECT Id FROM Profile WHERE Name='Standard User'];
+        User u = new User(Alias = 'sttst2', Email='standarduser1@tesorg.com', 
+                          EmailEncodingKey='UTF-8', LastName='Testing1', LanguageLocaleKey='en_US', 
+                          LocaleSidKey='en_US', ProfileId = p.Id, MobilePhone = '+91 9326582649', Phone = '+919326582649',
+                          TimeZoneSidKey='America/Los_Angeles', UserName='standarduser1@tesorg.com', ManagerId = UserInfo.getUserId());
+        Insert u;
+
         // Create test data
         Listing_hz__c testListing = new Listing_hz__c(Name = 'Test Listing', Broker_s_Listing_ID__c = 'Test123',property_category__c='Residential');
         insert testListing;

@@ -8,6 +8,7 @@ import abContactPageCss from '@salesforce/resourceUrl/newContactpageCss';
 import getContacts from '@salesforce/apex/NewRecordCreation.getContacts';
 import { NavigationMixin } from 'lightning/navigation';
 import createContact from '@salesforce/apex/NewRecordCreation.createContact';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class NewContactPage extends NavigationMixin(LightningElement) {
 
@@ -17,7 +18,7 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
     @track email;
     @track salutation;
     @track company;
-    @track mobilephn;
+    @track mobilephn = '';
     @track phone;
     @track leadsource;
     @track contactId;
@@ -56,7 +57,7 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
         Promise.all([
                 loadStyle(this, abContactPageCss)
             ]).then(() => {
-                console.log('Files loaded');
+                // console.log('Files loaded');
             })
             .catch(error => {
                 console.log(error.body.message);
@@ -79,7 +80,7 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
                 this.contactId = this.abRequest.contactId;
             }
             this.a_Record_URL = window.location.origin;
-            console.log('this.a_Record_URL>>>'+this.a_Record_URL);
+            // console.log('this.a_Record_URL>>>'+this.a_Record_URL);
         } catch (error) {
             this.dispatchEvent(new CustomEvent('error', {
                 detail: {
@@ -100,7 +101,7 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
             if (data) {
                 this.salutationVal = [{ label: '---None---', value: '', selected: true }, ...data.values];
             } else {
-                console.log('---ERROR---', error);
+                // console.log('---ERROR---', error);
             }
         } catch (error) {
         
@@ -123,7 +124,7 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
             if (data) {
                 this.leadsourceVal = [{ label: '---None---', value: '', selected: true }, ...data.values];
             } else {
-                console.log('---ERROR---', error);
+                // console.log('---ERROR---', error);
             }
         } catch (error) {
 
@@ -155,34 +156,53 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
         }
     }
 
+    changeEmail(event){
+        this.email = event.target.value;
+        console.log(this.email);
+    }
+
+    changeFirstName(event){
+        this.fname = event.target.value;
+    }
+
+    changeLastName(event){
+        this.lname = event.target.value;
+    }
+    ChangePhone(event){
+        console.log(event.target.value);
+        this.mobilephn = event.target.value;
+        console.log(this.mobilephn);
+    }
+    
     // Fetch value from Input-Field     || RAVI || 03/02/2022 || 
     onblurvalue(event) {
         
         var evrel = event.relatedTarget;
-        console.log({evrel});
+        // console.log({evrel});
         var clist = undefined;
         var blist = undefined;
         if(evrel != undefined){
             clist = evrel.classList.contains('cls_input');
             blist = evrel.classList.contains('btn-0');
         }
-        console.log({clist});
+        // console.log({clist});
        if(evrel == undefined || clist == true || blist == true){
             try {
 
                 if (event.target.name == 'fname') {
                     this.fname = event.target.value;
-                    console.log('this.fname>>>'+this.fname);
+                    // console.log('this.fname>>>'+this.fname);
                 } else if (event.target.name == 'lname') {
                     this.lname = event.target.value;
                     console.log('this.lname>>>'+this.lname);
                 } else if (event.target.name == 'email') {
                     this.email = event.target.value;
-                    console.log('this.email>>'+this.email);
+                    // console.log('this.email>>'+this.email);
                 } else if (event.target.name == 'company') {
                     this.company = event.target.value;
                 } else if (event.target.name == 'mobile') {
                     this.mobilephn = event.target.value;
+                    console.log(this.mobilephn);
                 } else if (event.target.name == 'phone') {
                     this.phone = event.target.value;
                 }
@@ -224,7 +244,7 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
                 this.contactcount = '';
                 if (this.email != '' && this.email != undefined) {
                     this.exisCon = result.contactCount;
-                    console.log('this.exisCon>>>',this.exisCon);
+                    // console.log('this.exisCon>>>',this.exisCon);
                 }
                 // if (result.contactList.length > 0) {
                 if (result.duplicateEmail.length > 0) {
@@ -244,7 +264,7 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
                 }
             })
             .catch(error => {
-                console.log({error});
+                // console.log({error});
                 this.dispatchEvent(new CustomEvent('error', {
                     detail: {
                         method: 'ContactPage, Method: Fetchcon',
@@ -270,8 +290,8 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
         }
     }
 
-    handleClear(event){
-        console.log('Clicked on the Clear button');
+    handleClear(){
+        // console.log('Clicked on the Clear button');
 
         const inputFields = this.template.querySelectorAll('lightning-input');
         inputFields.forEach(field => {
@@ -301,14 +321,41 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
 
     }
 
+
+    showToast(title, message, variant) {
+        const event = new ShowToastEvent({
+            title: title,
+            message: message,
+            variant: variant,
+        });
+        this.dispatchEvent(event);
+    }
+
     //Pass Data and Go To Next Step || Devansh || 10/02/2022
     handleNext(event) {
         try {
-            console.log('handle next');
-            if (this.isInputValid()) {
-                console.log('valid input');
-                this.createNewContact();
+            
+            if(this.lname == '' || this.lname == null){
+                this.showToast('Error', 'Last Name cannot be empty', 'error');
+                return; 
             }
+
+            if(this.mobilephn == '' || this.mobilephn == null){
+                this.showToast('Error', 'Mobile Phone can not be empty', 'error');
+                return;
+            }
+            if(this.mobilephn.length > 15){
+                this.showToast('Error', 'Mobile Lengh should not be grater than 15', 'error');
+                return;
+            }
+         
+
+            // console.log('handle next');
+            // if (this.isInputValid()) {
+                // console.log('valid input');
+                this.createNewContact();
+                this.handleClear();
+            // }
  
         } catch (error) {
             this.dispatchEvent(new CustomEvent('error', {
@@ -321,40 +368,40 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
     }
 
     // Input Field Validation   || RAVI || 15/02/2022 || 
-    isInputValid() {
-        try {
-            let isValid = true;
-            let inputFields = this.template.querySelectorAll('.cls_input');
-            inputFields.forEach(inputField => {
-                if (!inputField.checkValidity()) {
-                    inputField.reportValidity();
-                    isValid = false;
-                }
-                this.checkvalue[inputField.name] = inputField.value;
-            });
-            return isValid;
-        } catch (error) {
-            this.dispatchEvent(new CustomEvent('error', {
-                detail: {
-                    method: 'ContactPage, Method: isInputValid',
-                    error: error.message
-                }
-            }));
-        }
-    }
+    // isInputValid() {
+    //     try {
+    //         let isValid = true;
+    //         let inputFields = this.template.querySelectorAll('.cls_input');
+    //         inputFields.forEach(inputField => {
+    //             if (!inputField.checkValidity()) {
+    //                 inputField.reportValidity();
+    //                 isValid = false;
+    //             }
+    //             this.checkvalue[inputField.name] = inputField.value;
+    //         });
+    //         return isValid;
+    //     } catch (error) {
+    //         this.dispatchEvent(new CustomEvent('error', {
+    //             detail: {
+    //                 method: 'ContactPage, Method: isInputValid',
+    //                 error: error.message
+    //             }
+    //         }));
+    //     }
+    // }
 
     getRadio(event) {
 
         try {
             this.radioId = event.target.id;
             this.radioId = this.radioId.split('-')[0];
-            console.log('radioId>>>'+this.radioId);
+            // console.log('radioId>>>'+this.radioId);
             this.contactId = this.radioId;
-            console.log('conId>>>'+this.contactId);
+            // console.log('conId>>>'+this.contactId);
             getContacts({ conId: this.radioId })
                 .then(result => {
                     let conlst = { 'sobjectType': 'Contact' };
-                    console.log({result});
+                    // console.log({result});
                     this.salutation = result[0].Salutation;
                     this.fname = result[0].FirstName;
                     this.lname = result[0].LastName;
@@ -381,6 +428,8 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
     createNewContact() {
         try {
             // Prepare the contact object
+
+            console.log(this.mobilephn);
             let newContact = {
                 FirstName: this.fname,
                 LastName: this.lname,
@@ -391,32 +440,22 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
                 Phone: this.phone,
                 LeadSource: this.leadsource
             };
+            console.log('newContact ==>' + JSON.stringify(newContact));
 
             // Call the Apex method to create the contact
             createContact({ contactObj: newContact })
                 .then(result => {
                     // Handle success
-                    console.log('Contact created successfully:', result);
+                    // console.log('Contact created successfully:', result);
 
-                    // this[NavigationMixin.Navigate]({
-                    //     type: 'standard__recordPage',
-                    //     attributes: {
-                    //         recordId: result.Id,
-                    //         objectApiName: 'Contact',
-                    //         actionName: 'view'
-                    //     }
-                    // });
-
-                    let paramData = { Id: result.Id};
-                    this.dispatchEvent(new CustomEvent(
-                        'callvf',
-                        {
-                            detail: paramData,
-                            bubbles: true,
-                            composed: true,
+                    this[NavigationMixin.Navigate]({
+                        type: 'standard__recordPage',
+                        attributes: {
+                            recordId: result.Id,
+                            objectApiName: 'Contact',
+                            actionName: 'view'
                         }
-                    ));
-
+                    });
                 })
                 .catch(error => {
                     // Handle error
@@ -427,4 +466,5 @@ export default class NewContactPage extends NavigationMixin(LightningElement) {
             console.error('Error creating contact:', error);
         }
     }
+  
 }

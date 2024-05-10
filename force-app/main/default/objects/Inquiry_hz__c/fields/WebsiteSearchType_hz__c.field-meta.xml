@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WebsiteSearchType_hz__c</fullName>
+    <externalId>false</externalId>
+    <label>Website Search Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Mapped Search</fullName>
+                <default>false</default>
+                <label>Mapped Search</label>
+            </value>
+            <value>
+                <fullName>Draw Search</fullName>
+                <default>false</default>
+                <label>Draw Search</label>
+            </value>
+            <value>
+                <fullName>Radius Search</fullName>
+                <default>false</default>
+                <label>Radius Search</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

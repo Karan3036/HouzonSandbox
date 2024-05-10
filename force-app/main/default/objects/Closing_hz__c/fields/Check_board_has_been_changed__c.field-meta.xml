@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_board_has_been_changed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>On Pre sale agreed if the agent didn&apos;t ask you to change the board to &apos;SOLD&apos; then change it now.</description>
+    <externalId>false</externalId>
+    <label>Check board has been changed</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

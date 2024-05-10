@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CompletionStatus__c</fullName>
+    <description>current completion status of the item, can e.g. determine the availability for reservation or sales</description>
+    <externalId>false</externalId>
+    <label>Completion Status</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>To Be Announced</fullName>
+                <default>false</default>
+                <label>To Be Announced</label>
+            </value>
+            <value>
+                <fullName>In Development</fullName>
+                <default>false</default>
+                <label>In Development</label>
+            </value>
+            <value>
+                <fullName>Finished</fullName>
+                <default>false</default>
+                <label>Finished</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

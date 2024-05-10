@@ -16,6 +16,7 @@ export default class CustomPropertyFinderParent extends LightningElement {
 
     connectedCallback(){
         const currentUrl = window.location.href;
+
         console.log('curr url>>',currentUrl);
 
         console.log('recordId>>',this.recordId);
@@ -42,7 +43,9 @@ export default class CustomPropertyFinderParent extends LightningElement {
         this.selectedRecord = selectedRecord;
         if(this.selectedRecord != null && this.selectedRecord != undefined && this.selectedRecord != ''){
         const selectedAddress = this.selectedRecord.SearchPropertiesFormula__c; 
+        console.log('selectedAddress ==> ' , selectedAddress);
         this.addressName = selectedAddress;
+        
         }
         else{
             this.selectedRecord = {};

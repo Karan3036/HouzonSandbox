@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Buildings</fullName>
+    <columns>NAME</columns>
+    <columns>Address_hz__c</columns>
+    <columns>TotalArea_hz__c</columns>
+    <columns>Year_Build_text__c</columns>
+    <columns>PropertyOwnerContact__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Property_hz__c.Building</value>
+    </filters>
+    <label>All Master Properties (Buildings)</label>
+</ListView>

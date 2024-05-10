@@ -21,18 +21,18 @@
         <tr>
             <td>
                 <apex:outputPanel rendered="{!NOT(ISBLANK(link1))}">
-                    <img class="theImage" src="{!link1}" height="200" alt="Image 1" />
+                    <img class="theImage" src="{!link1}" height="180" alt="Image 1" />
                 </apex:outputPanel>
                 <apex:outputPanel rendered="{!ISBLANK(link1)}">
-                    <img class="theImage" src="{!$Resource.NoImage}" height="200" alt="Default Image 1" />
+                    <img class="theImage" src="{!$Resource.NoImage}" height="180" alt="Default Image 1" />
                 </apex:outputPanel>
             </td>
             <td>
                 <apex:outputPanel rendered="{!NOT(ISBLANK(link2))}">
-                    <img class="theImage" src="{!link2}" height="200" alt="Image 2" />
+                    <img class="theImage" src="{!link2}" height="180" alt="Image 2" />
                 </apex:outputPanel>
                 <apex:outputPanel rendered="{!ISBLANK(link2)}">
-                    <img class="theImage" src="{!$Resource.NoImage}" height="200" alt="Default Image 2" />
+                    <img class="theImage" src="{!$Resource.NoImage}" height="180" alt="Default Image 2" />
                 </apex:outputPanel>
             </td>
         </tr>
@@ -40,15 +40,15 @@
         <tr>
             <td>
                 <apex:outputPanel rendered="{!NOT(ISBLANK(link3))}">
-                    <img class="theImage" src="{!link3}" height="200" alt="Image 3" />
+                    <img class="theImage" src="{!link3}" height="180" alt="Image 3" />
                 </apex:outputPanel>
                 <apex:outputPanel rendered="{!ISBLANK(link3)}">
-                    <img class="theImage" src="{!$Resource.NoImage}" height="200" alt="Default Image 3" />
+                    <img class="theImage" src="{!$Resource.NoImage}" height="180" alt="Default Image 3" />
                 </apex:outputPanel>
             </td>
 
             <td>
-                <p class="text text-heading">Property Details:</p>
+                <p class="text text-heading" style="padding-top:10px;">Property Details:</p>
                 <div class="listing-content">
                     <p class="text">Apartment to &nbsp;
                         <apex:outputText value="{!IF(Listing_hz__c.ListingType__c == 'Sale', 'Sale', 'Rent')}">
@@ -85,17 +85,24 @@
         <tr>
             <td>
                 <apex:outputPanel rendered="{!NOT(ISBLANK(link4))}">
-                    <img class="theImage" src="{!link4}" height="200" alt="Image 4" />
+                    <img class="theImage" src="{!link4}" height="180" alt="Image 4" />
                 </apex:outputPanel>
                 <apex:outputPanel rendered="{!ISBLANK(link4)}">
-                    <img class="theImage" src="{!$Resource.NoImage}" height="200" alt="Default Image 4" />
+                    <img class="theImage" src="{!$Resource.NoImage}" height="180" alt="Default Image 4" />
                 </apex:outputPanel>
             </td>
             <td>
                 <div class="featueres">
-                    <div class="Feature-text heading">Main featueres:</div>
+                    <div><span class="slds-icon_container slds-icon-utility-email" >
+                        <svg aria-hidden="true" class="slds-icon slds-icon-text-default">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#email">
+                            </use>
+                        </svg><div class="Feature-text heading">Main featueres:</div>
+                        </span>
+                    </div>
                     <div class="featueres-content">
-                        <p class="text"><span class="span-text">Balcony or Terrace</span> <span>Pool view</span></p>
+                        <p class="text"><span class="span-text">Balcony or Terrace</span><span style="margin-left:1px !important;">Pool view</span></p>
                         <p class="text"><span class="span-text" style="margin-right: 69px !important;">Central Heating</span> <span>Gym or Health Club</span> </p>
                         <p class="text"><span class="span-text" style="margin-right: 69px !important;">Swimming Pool</span> <span>Centrally Air-Conditioned</span></p>
                     </div>
@@ -106,13 +113,13 @@
         <tr>
             <td colspan="2">
                 <div>
-                    <h2 class="heading">Contact  Agent for more information:</h2>
+                    <h2 class="heading">Contact Vansh Mehra:</h2>
 
                     <div>
-                        <p class="text" style="margin-top: 10px;" rendered="{!NOT(ISBLANK(Listing_hz__c.Listing_Agent_Full_Name__c))}">
+                        <!-- <p class="text" style="margin-top: 10px;" rendered="{!NOT(ISBLANK(Listing_hz__c.Listing_Agent_Full_Name__c))}">
                             <b>Name:</b> {!IF(ISBLANK(Listing_hz__c.Listing_Agent_Full_Name__c), '-', Listing_hz__c.Listing_Agent_Full_Name__c)}
-                        </p>
-                        <p class="text" rendered="{!NOT(ISBLANK(Listing_hz__c.Listing_Agent_Phone__c))}">
+                        </p> -->
+                        <p class="text" rendered="{!NOT(ISBLANK(Listing_hz__c.Listing_Agent_Phone__c))}" style="margin-top: 10px;">
                             <b>Phone No.:</b> {!IF(ISBLANK(Listing_hz__c.Listing_Agent_Phone__c), '-', Listing_hz__c.Listing_Agent_Phone__c)}
                         </p>
                         <p class="text" rendered="{!NOT(ISBLANK(Listing_hz__c.Listing_Agent_Mobil_Phone__c))}">
@@ -121,7 +128,12 @@
                         <p class="text" rendered="{!NOT(ISBLANK(Listing_hz__c.Listing_Agent_Email__c))}">
                             <b>Email:</b> {!IF(ISBLANK(Listing_hz__c.Listing_Agent_Email__c), '-', Listing_hz__c.Listing_Agent_Email__c)}
                         </p>
-                        
+                        <p class="text">
+                            <b>Houzon Real Estate Broker LLC</b>
+                        </p>
+                        <p class="text">
+                            <b>Office 1313, The Metropolis Tower, Business Bay, Dubai</b>
+                        </p>
                     </div>
                 </div>
             </td>

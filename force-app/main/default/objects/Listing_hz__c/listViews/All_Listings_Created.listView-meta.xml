@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Listings_Created</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>Bedrooms_hz__c</columns>
+    <columns>ListingPrice_hz__c</columns>
+    <columns>ListingType__c</columns>
+    <columns>Status__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>PropertyOwnerContact_hz__c</columns>
+    <columns>Address2__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Off-Market,Pending,Active</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:14</value>
+    </filters>
+    <filters>
+        <field>City_hz__c</field>
+        <operation>equals</operation>
+        <value>Dubai</value>
+    </filters>
+    <label>All Listings_Created</label>
+    <sharedTo></sharedTo>
+</ListView>

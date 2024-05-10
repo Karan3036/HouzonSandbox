@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Pending_Listings_A</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>Address2__c</columns>
+    <columns>ListingToSoldPriceRatio_hz__c</columns>
+    <columns>Bedrooms_hz__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Pending</value>
+    </filters>
+    <label>My Pending Listings (A)</label>
+    <sharedTo></sharedTo>
+</ListView>

@@ -2,19 +2,44 @@
     <header>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </header>
-    <!-- Load the LWC component using lightning out -->
-    <apex:includeLightning />
-        <div id="lwcContainer"></div>
-        <script type="text/javascript">
-            document.addEventListener("callvf", function(event){         
-                window.top.location = "/"+"{!$CurrentPage.parameters.id}";
 
+    
+    <apex:includeLightning />
+    <div id="lwcContainer"></div>
+    <script type="text/javascript">
+        function showSpinner() {
+            document.getElementById("spinner").style.display = "block";
+        }
+
+        function hideSpinner() {
+            document.getElementById("spinner").style.display = "none";
+        }
+
+        document.addEventListener("callvf", function(event) {
+            window.top.location = "/" + "{!$CurrentPage.parameters.id}";
         });
-            // Render the component after the Lightning runtime has loaded
-            $Lightning.use("c:CustomSerachPropertiesApp", function() {
-                $Lightning.createComponent("c:customPropertyFinderParent", {
-                    recordId : "{!$CurrentPage.parameters.id}"
-                },"lwcContainer");
+
+        $Lightning.use("c:CustomSerachPropertiesApp", function() {
+            showSpinner();
+
+            $Lightning.createComponent("c:customPropertyFinderParent", {
+                recordId : "{!$CurrentPage.parameters.id}"
+            },"lwcContainer", function(component) {
+                hideSpinner();
             });
-        </script>
+        });
+    </script>
+
+    <apex:slds />
+    <div class="slds-scope">
+    <apex:form id="form" style="height: 50px; margin top:10px !important;">
+        <div id="spinner" class="slds-spinner_container slds-is-absolute" style="display:none;">
+            <div role="status" class="slds-spinner slds-spinner--large slds-spinner--brand">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </apex:form>
+    </div>
+
 </apex:page>

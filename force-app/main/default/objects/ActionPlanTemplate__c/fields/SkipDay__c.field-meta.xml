@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SkipDay__c</fullName>
+    <description>In the case that &apos;Skip Weekends&apos; has been set and the due date would be either a Saturday or Sunday, set it instead to the value specified here, which would be the the following Monday, or the previous Friday.</description>
+    <externalId>false</externalId>
+    <label>Skip Day</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>SkipWeekends__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Monday</fullName>
+                <default>false</default>
+                <label>Monday</label>
+            </value>
+            <value>
+                <fullName>Friday</fullName>
+                <default>false</default>
+                <label>Friday</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>checked</controllingFieldValue>
+            <valueName>Monday</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>checked</controllingFieldValue>
+            <valueName>Friday</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

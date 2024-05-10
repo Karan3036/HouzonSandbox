@@ -10,6 +10,14 @@
             window.top.location = "/"+ listingId;
         });
 
+        document.addEventListener("calltoast", function(event){
+            sforce.one.showToast({
+                "title": "Error",
+                "message": "Length of title should not greater than 80",
+                "type": "error"
+            });
+        });
+
         $Lightning.use("c:newListingPageApp", function() {
             $Lightning.createComponent(
                 "c:NewListingPage",

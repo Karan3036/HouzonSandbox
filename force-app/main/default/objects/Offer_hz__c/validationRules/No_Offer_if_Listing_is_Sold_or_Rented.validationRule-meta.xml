@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_Offer_if_Listing_is_Sold_or_Rented</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISNEW(),
+Listing_hz__r.SystemHasAcceptedOffer__c
+)</errorConditionFormula>
+    <errorMessage>Offer cannot be created. A deal has already been closed for this Listing.</errorMessage>
+</ValidationRule>

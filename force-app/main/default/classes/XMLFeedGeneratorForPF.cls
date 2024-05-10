@@ -69,7 +69,7 @@ public class XMLFeedGeneratorForPF {
                 if(fieldName != 'Listing_Agent_Full_Name__c' && 
                    fieldName != 'Listing_Agent_Email__c' && 
                    fieldName != 'Listing_Agent_Phone__c' && 
-                   fieldName != 'OwnerId'){
+                   fieldName != 'Agents_Unique_Id__c'){
                     
                     if (fieldName == 'ShortformOfPrivateAmenities__c') {
                         Object fieldValue = record.get(fieldName);
@@ -123,7 +123,7 @@ public class XMLFeedGeneratorForPF {
                 if(fieldName == 'Listing_Agent_Full_Name__c' || 
                    fieldName == 'Listing_Agent_Email__c' || 
                    fieldName == 'Listing_Agent_Phone__c' || 
-                   fieldName == 'OwnerId'){
+                   fieldName == 'Agents_Unique_Id__c'){
                     Object fieldValue = record.get(fieldName);
     
                     // Check for null before adding text node
@@ -223,7 +223,7 @@ public class XMLFeedGeneratorForPF {
         
     private String escapeXml(String input) {
         Map<String, String> replacements = new Map<String, String>{
-            'OwnerId' => 'id',
+            'Agents_Unique_Id__c' => 'id',
             'Broker_s_Listing_ID__c' => 'reference_number',
             'RERA_Permit_Number__c' => 'permit_number',
             'ListingPrice_hz__c' => 'price',

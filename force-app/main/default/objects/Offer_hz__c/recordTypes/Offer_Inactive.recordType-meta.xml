@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Offer_Inactive</fullName>
+    <active>false</active>
+    <compactLayoutAssignment>Offer_Compact_Layout</compactLayoutAssignment>
+    <label>Inactive Offer</label>
+    <picklistValues>
+        <picklist>Cancellation_Reason__c</picklist>
+        <values>
+            <fullName>Loan Fell Through</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Child_turn_18_during_the_tenancy__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Current_Living_Arrangements__c</picklist>
+        <values>
+            <fullName>Homeowner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Living with Parents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renting</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Employment_Status__c</picklist>
+        <values>
+            <fullName>Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employed - Full Time</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employed - Part Time</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Un-Employed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>How_Long_you_Intend_on_Staying__c</picklist>
+        <values>
+            <fullName>12 Months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12 Months%2B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6 Months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Short Term</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lease_Terms__c</picklist>
+        <values>
+            <fullName>1 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>24 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9 Month</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Listing_Type__c</picklist>
+        <values>
+            <fullName>Rent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sale</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>OfferBy_hz__c</picklist>
+        <values>
+            <fullName>Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seller</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsAccepted_CheckParentAlreadyAccepted</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND ( ISCHANGED(SystemIsAccepted__c),  SystemIsAccepted__c ,  Listing_hz__r.SystemHasAcceptedOffer__c)</errorConditionFormula>
+    <errorMessage>Listing already has an accepted offer.</errorMessage>
+</ValidationRule>

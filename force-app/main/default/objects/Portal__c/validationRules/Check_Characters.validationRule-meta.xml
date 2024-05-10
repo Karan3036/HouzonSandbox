@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Characters</fullName>
+    <active>true</active>
+    <description>DEPRECATED</description>
+    <errorConditionFormula>NOT(REGEX(Name, &quot;^[a-zA-Z0-9_\\. \\-]{3,80}$&quot;))</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>Please enter at least 3 characters. Make sure to only include letters (a-z), digits, space, underscore, minus and dot. Please do not use any special characters.</errorMessage>
+</ValidationRule>

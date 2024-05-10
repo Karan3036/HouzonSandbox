@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sale</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Closing_Compact_Layout</compactLayoutAssignment>
+    <label>Sale</label>
+    <picklistValues>
+        <picklist>AML_Status__c</picklist>
+        <values>
+            <fullName>Asked</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Don%27t Chase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Done</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Buyer_Having_Additional_Survey__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Clerk__c</picklist>
+        <values>
+            <fullName>Chase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suzy</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Closing_Status__c</picklist>
+        <values>
+            <fullName>Canceled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Deposit_Held__c</picklist>
+        <values>
+            <fullName>Landlord</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TDS Custodial</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Diarise_to_check_for_review__c</picklist>
+        <values>
+            <fullName>Buyer left review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seller left review</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Inspections_Frequency__c</picklist>
+        <values>
+            <fullName>12 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9 months</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lease_Terms__c</picklist>
+        <values>
+            <fullName>12 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>24 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9 Month</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Listing_Type__c</picklist>
+        <values>
+            <fullName>Rent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sale</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Notice_Served__c</picklist>
+        <values>
+            <fullName>By Landlord</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>By Tenant</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rent_Frequency__c</picklist>
+        <values>
+            <fullName>Half Yearly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monthly</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Quarterly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yearly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Representing__c</picklist>
+        <values>
+            <fullName>Both</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seller</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

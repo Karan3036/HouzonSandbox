@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>City_Dubizzle__c</fullName>
+    <externalId>false</externalId>
+    <label>City - Dubizzle</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Dubai</fullName>
+                <default>false</default>
+                <label>Dubai</label>
+            </value>
+            <value>
+                <fullName>Abu Dhabi</fullName>
+                <default>false</default>
+                <label>Abu Dhabi</label>
+            </value>
+            <value>
+                <fullName>Cairo</fullName>
+                <default>false</default>
+                <label>Cairo</label>
+            </value>
+            <value>
+                <fullName>Alexandria</fullName>
+                <default>false</default>
+                <label>Alexandria</label>
+            </value>
+            <value>
+                <fullName>Jeddah</fullName>
+                <default>false</default>
+                <label>Jeddah</label>
+            </value>
+            <value>
+                <fullName>Riyadh</fullName>
+                <default>false</default>
+                <label>Riyadh</label>
+            </value>
+            <value>
+                <fullName>Ras al Khaimeh</fullName>
+                <default>false</default>
+                <label>Ras al Khaimeh</label>
+            </value>
+            <value>
+                <fullName>Sharjah</fullName>
+                <default>false</default>
+                <label>Sharjah</label>
+            </value>
+            <value>
+                <fullName>Fujeirah</fullName>
+                <default>false</default>
+                <label>Fujeirah</label>
+            </value>
+            <value>
+                <fullName>Ajman</fullName>
+                <default>false</default>
+                <label>Ajman</label>
+            </value>
+            <value>
+                <fullName>Umm al Quwain</fullName>
+                <default>false</default>
+                <label>Umm al Quwain</label>
+            </value>
+            <value>
+                <fullName>Dammam and Khobar</fullName>
+                <default>false</default>
+                <label>Dammam and Khobar</label>
+            </value>
+            <value>
+                <fullName>Kuwait City</fullName>
+                <default>false</default>
+                <label>Kuwait City</label>
+            </value>
+            <value>
+                <fullName>Doha</fullName>
+                <default>false</default>
+                <label>Doha</label>
+            </value>
+            <value>
+                <fullName>Manama</fullName>
+                <default>false</default>
+                <label>Manama</label>
+            </value>
+            <value>
+                <fullName>Muscat</fullName>
+                <default>false</default>
+                <label>Muscat</label>
+            </value>
+            <value>
+                <fullName>Damascus</fullName>
+                <default>false</default>
+                <label>Damascus</label>
+            </value>
+            <value>
+                <fullName>Amman</fullName>
+                <default>false</default>
+                <label>Amman</label>
+            </value>
+            <value>
+                <fullName>Beirut</fullName>
+                <default>false</default>
+                <label>Beirut</label>
+            </value>
+            <value>
+                <fullName>Algiers</fullName>
+                <default>false</default>
+                <label>Algiers</label>
+            </value>
+            <value>
+                <fullName>Tripoli</fullName>
+                <default>false</default>
+                <label>Tripoli</label>
+            </value>
+            <value>
+                <fullName>Tunis</fullName>
+                <default>false</default>
+                <label>Tunis</label>
+            </value>
+            <value>
+                <fullName>Casablanca</fullName>
+                <default>false</default>
+                <label>Casablanca</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

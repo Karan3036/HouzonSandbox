@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Area__c</fullName>
+    <externalId>false</externalId>
+    <label>Area</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>City__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Al Badaa</fullName>
+                <default>false</default>
+                <label>Al Badaa</label>
+            </value>
+            <value>
+                <fullName>Al Khan</fullName>
+                <default>false</default>
+                <label>Al Khan</label>
+            </value>
+            <value>
+                <fullName>Al Majaz</fullName>
+                <default>false</default>
+                <label>Al Majaz</label>
+            </value>
+            <value>
+                <fullName>Al Mamzar- Sharjah</fullName>
+                <default>false</default>
+                <label>Al Mamzar- Sharjah</label>
+            </value>
+            <value>
+                <fullName>Al Mina</fullName>
+                <default>false</default>
+                <label>Al Mina</label>
+            </value>
+            <value>
+                <fullName>Al Nahda- Sharjah</fullName>
+                <default>false</default>
+                <label>Al Nahda- Sharjah</label>
+            </value>
+            <value>
+                <fullName>Al Safa</fullName>
+                <default>false</default>
+                <label>Al Safa</label>
+            </value>
+            <value>
+                <fullName>Al Taawun</fullName>
+                <default>false</default>
+                <label>Al Taawun</label>
+            </value>
+            <value>
+                <fullName>Business Bay</fullName>
+                <default>false</default>
+                <label>Business Bay</label>
+            </value>
+            <value>
+                <fullName>City Walk</fullName>
+                <default>false</default>
+                <label>City Walk</label>
+            </value>
+            <value>
+                <fullName>Corniche Al Buhaira</fullName>
+                <default>false</default>
+                <label>Corniche Al Buhaira</label>
+            </value>
+            <value>
+                <fullName>Downtown</fullName>
+                <default>false</default>
+                <label>Downtown</label>
+            </value>
+            <value>
+                <fullName>Dubai Marina</fullName>
+                <default>false</default>
+                <label>Dubai Marina</label>
+            </value>
+            <value>
+                <fullName>Dubai Production City (IMPZ)</fullName>
+                <default>false</default>
+                <label>Dubai Production City (IMPZ)</label>
+            </value>
+            <value>
+                <fullName>Dubai Silicon Oasis</fullName>
+                <default>false</default>
+                <label>Dubai Silicon Oasis</label>
+            </value>
+            <value>
+                <fullName>Jumeirah Beach Residence</fullName>
+                <default>false</default>
+                <label>Jumeirah Beach Residence</label>
+            </value>
+            <value>
+                <fullName>Jumeriah 1</fullName>
+                <default>false</default>
+                <label>Jumeriah 1</label>
+            </value>
+            <value>
+                <fullName>Jumeriah 2</fullName>
+                <default>false</default>
+                <label>Jumeriah 2</label>
+            </value>
+            <value>
+                <fullName>Jumeriah 3</fullName>
+                <default>false</default>
+                <label>Jumeriah 3</label>
+            </value>
+            <value>
+                <fullName>Old Town</fullName>
+                <default>false</default>
+                <label>Old Town</label>
+            </value>
+            <value>
+                <fullName>Palm Jumeriah</fullName>
+                <default>false</default>
+                <label>Palm Jumeriah</label>
+            </value>
+            <value>
+                <fullName>Sports City</fullName>
+                <default>false</default>
+                <label>Sports City</label>
+            </value>
+            <value>
+                <fullName>Umm Suqeim</fullName>
+                <default>false</default>
+                <label>Umm Suqeim</label>
+            </value>
+            <value>
+                <fullName>Umm Suqueim 2</fullName>
+                <default>false</default>
+                <label>Umm Suqueim 2</label>
+            </value>
+            <value>
+                <fullName>Umm Suqueim 3</fullName>
+                <default>false</default>
+                <label>Umm Suqueim 3</label>
+            </value>
+            <value>
+                <fullName>Al Nouf 4</fullName>
+                <default>false</default>
+                <label>Al Nouf 4</label>
+            </value>
+            <value>
+                <fullName>Al Darari</fullName>
+                <default>false</default>
+                <label>Al Darari</label>
+            </value>
+            <value>
+                <fullName>Al Rahmaniya 5</fullName>
+                <default>false</default>
+                <label>Al Rahmaniya 5</label>
+            </value>
+            <value>
+                <fullName>Sharqan</fullName>
+                <default>false</default>
+                <label>Sharqan</label>
+            </value>
+            <value>
+                <fullName>Al Fayha</fullName>
+                <default>false</default>
+                <label>Al Fayha</label>
+            </value>
+            <value>
+                <fullName>Al Falaj</fullName>
+                <default>false</default>
+                <label>Al Falaj</label>
+            </value>
+            <value>
+                <fullName>Al Azra</fullName>
+                <default>false</default>
+                <label>Al Azra</label>
+            </value>
+            <value>
+                <fullName>Al_Karama</fullName>
+                <default>false</default>
+                <label>Al Karama</label>
+            </value>
+            <value>
+                <fullName>Al Barashi</fullName>
+                <default>false</default>
+                <label>Al Barashi</label>
+            </value>
+            <value>
+                <fullName>Al Qarayen 4</fullName>
+                <default>false</default>
+                <label>Al Qarayen 4</label>
+            </value>
+            <value>
+                <fullName>Al Qarayen 3</fullName>
+                <default>false</default>
+                <label>Al Qarayen 3</label>
+            </value>
+            <value>
+                <fullName>Al Goaz</fullName>
+                <default>false</default>
+                <label>Al Goaz</label>
+            </value>
+            <value>
+                <fullName>Al Yash</fullName>
+                <default>false</default>
+                <label>Al Yash</label>
+            </value>
+            <value>
+                <fullName>Muwafjah</fullName>
+                <default>false</default>
+                <label>Muwafjah</label>
+            </value>
+            <value>
+                <fullName>Al Ramaqiya</fullName>
+                <default>false</default>
+                <label>Al Ramaqiya</label>
+            </value>
+            <value>
+                <fullName>Al Rifa&apos;ah</fullName>
+                <default>false</default>
+                <label>Al Rifa&apos;ah</label>
+            </value>
+            <value>
+                <fullName>Samnan</fullName>
+                <default>false</default>
+                <label>Samnan</label>
+            </value>
+            <value>
+                <fullName>Al Ghubaiba</fullName>
+                <default>false</default>
+                <label>Al Ghubaiba</label>
+            </value>
+            <value>
+                <fullName>Al Nekhailat</fullName>
+                <default>false</default>
+                <label>Al Nekhailat</label>
+            </value>
+            <value>
+                <fullName>Al Fisht</fullName>
+                <default>false</default>
+                <label>Al Fisht</label>
+            </value>
+            <value>
+                <fullName>Al Jazzat</fullName>
+                <default>false</default>
+                <label>Al Jazzat</label>
+            </value>
+            <value>
+                <fullName>Al Nouf 1</fullName>
+                <default>false</default>
+                <label>Al Nouf 1</label>
+            </value>
+            <value>
+                <fullName>Al Nouf 2</fullName>
+                <default>false</default>
+                <label>Al Nouf 2</label>
+            </value>
+            <value>
+                <fullName>Al Nouf 3</fullName>
+                <default>false</default>
+                <label>Al Nouf 3</label>
+            </value>
+            <value>
+                <fullName>Al Qarayen 1</fullName>
+                <default>false</default>
+                <label>Al Qarayen 1</label>
+            </value>
+            <value>
+                <fullName>Al Qarayen 2</fullName>
+                <default>false</default>
+                <label>Al Qarayen 2</label>
+            </value>
+            <value>
+                <fullName>Al Hoshi</fullName>
+                <default>false</default>
+                <label>Al Hoshi</label>
+            </value>
+            <value>
+                <fullName>Sheikh Zayed Road</fullName>
+                <default>false</default>
+                <label>Sheikh Zayed Road</label>
+            </value>
+            <value>
+                <fullName>Al Satwa</fullName>
+                <default>false</default>
+                <label>Al Satwa</label>
+            </value>
+            <value>
+                <fullName>Al Jafiliya</fullName>
+                <default>false</default>
+                <label>Al Jafiliya</label>
+            </value>
+            <value>
+                <fullName>DIFC</fullName>
+                <default>false</default>
+                <label>DIFC</label>
+            </value>
+            <value>
+                <fullName>World Trade Centre Residence</fullName>
+                <default>false</default>
+                <label>World Trade Centre Residence</label>
+            </value>
+            <value>
+                <fullName>Dubai Hills Estate</fullName>
+                <default>false</default>
+                <label>Dubai Hills Estate</label>
+            </value>
+            <value>
+                <fullName>Jumeirah Park</fullName>
+                <default>false</default>
+                <label>Jumeirah Park</label>
+            </value>
+            <value>
+                <fullName>Al Barsha</fullName>
+                <default>false</default>
+                <label>Al Barsha</label>
+            </value>
+            <value>
+                <fullName>The Springs</fullName>
+                <default>false</default>
+                <label>The Springs</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Al Badaa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Al Mina</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Al Safa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Business Bay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>City Walk</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Downtown</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Dubai Marina</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Dubai Production City (IMPZ)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Dubai Silicon Oasis</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Jumeirah Beach Residence</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Jumeriah 1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Jumeriah 2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Jumeriah 3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Old Town</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Palm Jumeriah</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Sports City</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Umm Suqeim</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Umm Suqueim 2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Umm Suqueim 3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Al_Karama</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Sheikh Zayed Road</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Al Satwa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Al Jafiliya</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>DIFC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>World Trade Centre Residence</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Dubai Hills Estate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Jumeirah Park</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>Al Barsha</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dubai</controllingFieldValue>
+            <valueName>The Springs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Khan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Majaz</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Mamzar- Sharjah</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Nahda- Sharjah</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Taawun</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Corniche Al Buhaira</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Nouf 4</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Darari</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Rahmaniya 5</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Sharqan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Fayha</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Falaj</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Azra</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Barashi</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Qarayen 4</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Qarayen 3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Goaz</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Yash</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Muwafjah</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Ramaqiya</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Rifa&apos;ah</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Samnan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Ghubaiba</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Nekhailat</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Fisht</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Jazzat</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Nouf 1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Nouf 2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Nouf 3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Qarayen 1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Qarayen 2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sharjah</controllingFieldValue>
+            <valueName>Al Hoshi</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

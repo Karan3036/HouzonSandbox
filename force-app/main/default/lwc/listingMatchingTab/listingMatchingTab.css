@@ -12,6 +12,9 @@
 
 .column {
     flex: 1;
+    height: fit-content;
+    height:30rem;
+    width:45rem
     /* overflow-y: scroll;
     height: 20%; */
 }
@@ -23,7 +26,7 @@
 
 .column2{
     height: fit-content;
-    width: 60%;
+    width: 101%;
 }
 
 .btn1{
@@ -99,7 +102,7 @@
 }
 
 .combo-box {
-    width: 100%;
+    width: 150%;
 }
 
 .maincontact{
@@ -117,6 +120,8 @@
 .criteria-row {
     display: flex;
     align-items: center;
+    vertical-align: middle;
+    margin-left: 5px;
 }
 
 .icon-field {
@@ -124,15 +129,21 @@
 }
 
 .selected-field {
-    margin-left: 2%; 
-    margin-right: 27%;
+    margin-left: 6%;
     font-size: larger;
+    padding-top: 6px;
+    text-wrap: wrap;
 }
 
 .criteria-combobox{
     margin-bottom: 3%;
-    margin-left: 65%;
+    margin-left: 66%;
     position: absolute;
+    vertical-align: middle;
+}
+
+.newFieldSelect{
+    display: flex;
 }
 
 .popupTxt{
@@ -145,13 +156,13 @@
     margin-left: 45%;
 }
 
-.delBtn{
-    margin-left: 39%;
-    /* position: absolute; */
+.print{
+    max-width: 80%;
+    text-wrap: balance;
 }
 
-.filter-space {
-    margin-bottom: 1%; 
+.delBtn{
+    margin-left: 29%;
 }
 
 .advLogic{
@@ -163,8 +174,18 @@
 }
 
 .filter-space {
+    margin-bottom: 1%; 
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+    padding-right: 15px;
+    max-width: 100%;
+}
+
+.myconBtn{
+    margin-left: 20px;
 }
 
 .box{
@@ -202,25 +223,218 @@
 .inputField{
     display: absolute;
     width: 50%;
-    margin-top: 5%\;
+    margin-top: 5%;
 }
 
-@media print {
+@media print{
     .container {
-        display: block; /* Change display to block for proper printing */
+        display: block;
     }
 
     .column {
-        flex: none; /* Don't allow flex to control height */
-        overflow: visible; /* Ensure content is fully visible */
-        height: auto !important; /* Ensure content is not cropped */
+        flex: none;
+        overflow: hidden;
+        height: auto !important;
     }
 
     .pagination {
-        display: none; /* Hide pagination controls during printing */
+        display: none;
     }
     .slds-scrollable.column {
-        width: 140% !important; /* Set width to 100% */
+        width: 140% !important;
         height: 100% !important;
+    }
+}
+
+
+/* tablet-landscape */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .column {
+        width: 33rem;
+    }
+
+    .column2 {
+        width: 33rem;
+        margin-top: 20px;
+    }
+
+    .criteria-combobox{
+        /* width: 10%; */
+        padding-bottom: 3.5%;
+
+    }
+
+    .criteria-row{
+        align-items: center;
+    }
+
+    .selected-field{
+        font-size: small;
+    }
+}
+
+/* tablet-portrait */
+@media screen and (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .column {
+        width: 100%;
+    }
+
+    .column2 {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .criteria-combobox {
+        /* width: 100%; */
+        width: 30%;
+        padding-bottom: 3.5%;
+        margin-left: 55%;
+    }
+
+    .criteria-row {
+        align-items: center;
+    }
+
+    .filter-space {
+        margin-bottom: 1%; 
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /* padding-right: 15px; */
+        max-width: 80%;
+    }
+
+    .popup {
+        width: 90%;
+    }
+
+    .selected-field {
+        font-size: small;
+    }
+}
+
+/* mobile view */
+@media screen and (max-width: 768px) {
+    .column {
+        width: 100%;
+    }
+
+    .column2 {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .combo-box {
+        width: 100%;
+    }
+
+    .criteria-combobox {
+        width: 29%;
+        padding-bottom: 3.5%;
+        margin-left: 50%;
+    }
+
+    .Modsec{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+    }
+
+    .filter-space {
+        margin-bottom: 1%; 
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 15px;
+        max-width: 100%;
+    }
+
+    .criteria-row {
+        align-items: center;
+    }
+
+    /* .popup {
+        width: 90%;
+    } */
+
+    .selected-field {
+        font-size: small;
+        overflow-wrap: break-word;
+        overflow-wrap: anywhere;
+    }
+}
+
+/* Iphone view */
+@supports (-webkit-touch-callout: none){
+    @media only screen and (max-width: 768px) and (orientation: portrait) {
+        .column {
+            width: 100%;
+        }
+    
+        .column2 {
+            width: 100%;
+            margin-top: 20px;
+        }
+    
+        .combo-box {
+            width: 100%;
+        }
+    
+        .criteria-combobox {
+            width: 29%;
+            padding-bottom: 3.5%;
+            margin-left: 50%;
+        }
+    
+        .filter-space {
+            margin-bottom: 1%; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 15px;
+            max-width: 100%;
+        }
+    
+        .criteria-row {
+            align-items: center;
+        }
+    
+        /* .popup {
+            width: 90%;
+        } */
+    
+        .slds-backdrop_open{
+            align-items: center;
+            text-align: center;
+            z-index: 100;
+        }
+
+        .slds-fade-in-open{
+            z-index: 101;
+            align-items: center;
+        }
+
+        .Modsec{
+            position: fixed;
+        }
+
+        .buttonmod{
+            z-index: -1;
+        }
+
+        .selected-field {
+            font-size: xx-small;
+            overflow-wrap: break-word;
+            overflow-wrap: anywhere;
+        }
     }
 }
