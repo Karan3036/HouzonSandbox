@@ -9,7 +9,7 @@ trigger ListingTrigger on Listing_hz__c (after insert, after update, after delet
     else if(Trigger.isBefore && Trigger.isUpdate){
         handler.OnBeforeUpdate(Trigger.new);
         handler.updateRentFrequency(Trigger.new, Trigger.oldMap);
-        handler.updateOffPlan(Trigger.new, Trigger.oldMap);
+        // handler.updateOffPlan(Trigger.new, Trigger.oldMap);
     }
 
     if(trigger.isBefore){

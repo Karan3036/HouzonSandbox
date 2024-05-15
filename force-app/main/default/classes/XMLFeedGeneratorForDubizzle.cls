@@ -198,7 +198,7 @@ public class XMLFeedGeneratorForDubizzle {
             'Feature_5__c' => 'Feature',
             'Feature_6__c' => 'Feature',
             'RERA_Permit_Number__c' => 'Permit_Number',
-            'Off_plan__c' => 'Off_Plan',
+            'Off_Plan_New__c' => 'Off_Plan',
             'Rent_Frequency__c' => 'Rent_Frequency',
             'Furnished__c' => 'Furnished'
         };
