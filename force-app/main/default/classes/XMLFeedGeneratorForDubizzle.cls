@@ -113,9 +113,32 @@ public class XMLFeedGeneratorForDubizzle {
 
             if (propertyMediaUrlsMap.containsKey((Id)record.get('Property_hz__c'))) {
                 dom.XmlNode ImageNode = propertyNode.addChildElement('Images', null, null);
+                dom.XmlNode AllNode = null;
+                dom.XmlNode FloorNode = null;
+                dom.XmlNode VideoNode = null;
                 for (PropertyMedia__c media : propertyMediaUrlsMap.get((Id)record.get('Property_hz__c'))) {
-                    dom.XmlNode fieldNodeImage = ImageNode.addChildElement('Image', null, null);
-                    fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                    String imageUrl = String.isNotBlank(media.ExternalLink__c) ? media.ExternalLink__c : media.FilenameUrlEncoded__c;
+                    if (media.Tags__c != null) {
+                        List<String> tagsList = media.Tags__c.split(';');
+                        for (String tag : tagsList) {
+                            if (tag == 'Floorplan') {
+                                if (FloorNode == null) {
+                                    FloorNode = propertyNode.addChildElement('Floor_Plans', null, null);
+                                }
+                                dom.XmlNode fieldNodeImage = FloorNode.addChildElement('Floor_Plan', null, null);
+                                fieldNodeImage.addTextNode(imageUrl);
+                            } else if (tag == 'Virtual Tour' || tag == '360tour') {
+                                if (VideoNode == null) {
+                                    VideoNode = propertyNode.addChildElement('Videos', null, null);
+                                }
+                                dom.XmlNode fieldNodeImage = VideoNode.addChildElement('Video', null, null);
+                                fieldNodeImage.addTextNode(imageUrl);
+                            }
+                        }
+                    }   else {
+                        dom.XmlNode fieldNodeImage = ImageNode.addChildElement('Image', null, null);
+                        fieldNodeImage.addTextNode(imageUrl);
+                    }
                 }
             }
             

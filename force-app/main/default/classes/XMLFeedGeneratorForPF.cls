@@ -40,7 +40,7 @@ public class XMLFeedGeneratorForPF {
 
         // Map to store PropertyMedia__c records related to each Property_hz__c
         Map<Id, List<PropertyMedia__c>> propertyMediaUrlsMap = new Map<Id, List<PropertyMedia__c>>();
-        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate, Tags__c FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds AND IsOnPortalFeed__c = true Order BY SortOnPortalFeed__c ASC NULLS LAST, Name ASC]) {
+        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, ExternalLink__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate, Tags__c FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds AND IsOnPortalFeed__c = true Order BY SortOnPortalFeed__c ASC NULLS LAST, Name ASC]) {
             if (!propertyMediaUrlsMap.containsKey(media.Property_hz__c)) {
                 propertyMediaUrlsMap.put(media.Property_hz__c, new List<PropertyMedia__c>());
             }
@@ -141,6 +141,7 @@ public class XMLFeedGeneratorForPF {
                 dom.XmlNode FloorNode = null;
                 dom.XmlNode VideoNode = null;
                 for (PropertyMedia__c media : propertyMediaUrlsMap.get((Id)record.get('Property_hz__c'))) {
+                    String imageUrl = String.isNotBlank(media.ExternalLink__c) ? media.ExternalLink__c : media.FilenameUrlEncoded__c;
                     if (media.Tags__c != null) {
                         List<String> tagsList = media.Tags__c.split(';');
                         for (String tag : tagsList) {
@@ -149,26 +150,26 @@ public class XMLFeedGeneratorForPF {
                                     FloorNode = propertyNode.addChildElement('floor_plan', null, null);
                                 }
                                 dom.XmlNode fieldNodeImage = FloorNode.addChildElement('url', null, null);
-                                fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                                fieldNodeImage.addTextNode(imageUrl);
                             } else if (tag == 'Virtual Tour') {
                                 if (VideoNode == null) {
                                     VideoNode = propertyNode.addChildElement('video_tour_url', null, null);
                                 }
                                 dom.XmlNode fieldNodeImage = VideoNode.addChildElement('url', null, null);
-                                fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                                fieldNodeImage.addTextNode(imageUrl);
                             } else if (tag == '360tour') {
                                 if (AllNode == null) {
                                     AllNode = propertyNode.addChildElement('view360', null, null);
                                 }
                                 dom.XmlNode fieldNodeImage = AllNode.addChildElement('url', null, null);
-                                fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                                fieldNodeImage.addTextNode(imageUrl);
                             }
                         }
                     }   else {
                         dom.XmlNode fieldNodeImage = ImageNode.addChildElement('url', null, null);
                         fieldNodeImage.setAttribute('last_update', media.LastModifiedDate.format('yyyy-MM-dd HH:mm:ss'));
                         fieldNodeImage.setAttribute('watermark', 'yes');
-                        fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                        fieldNodeImage.addTextNode(imageUrl);
                     }
                 }
             }

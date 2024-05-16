@@ -16,7 +16,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         Account testAccount1 = new Account(Name='Test Account 1');
         insert testAccount1;
 
-        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
+        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com', MailingCountry='India', MailingCity='Ahmedabad', MailingStreet='test');
         insert testContact1;  
 
         // Create test data
@@ -94,7 +94,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         Account testAccount1 = new Account(Name='Test Account 1');
         insert testAccount1;
 
-        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
+        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com', MailingCountry='India', MailingCity='Ahmedabad', MailingStreet='test');
         insert testContact1;  
 
         // Create test data
@@ -111,7 +111,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         Account testAccount1 = new Account(Name='Test Account 1');
         insert testAccount1;
 
-        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
+        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com', MailingCountry='India', MailingCity='Ahmedabad', MailingStreet='test');
         insert testContact1;  
 
         // Create test data
@@ -151,6 +151,12 @@ public with sharing class TestXMLFeedGeneratorForPF {
         listingRecord1.CompletionDate_hz__c=date.today()+1;
         listingRecord1.PropertyOwnerContact__c=testContact1.Id;
         listingRecord1.property_category__c='Commercial';
+        listingRecord1.Feature_1__c='test1';
+        listingRecord1.Feature_2__c='test2';
+        listingRecord1.Feature_3__c='test3';
+        listingRecord1.Feature_4__c='test4';
+        listingRecord1.Feature_5__c='test5';
+        listingRecord1.Feature_6__c='test6';
         insert listingRecord1;
 
         
@@ -195,7 +201,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         Account testAccount1 = new Account(Name='Test Account 1');
         insert testAccount1;
 
-        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
+        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com', MailingCountry='India', MailingCity='Ahmedabad', MailingStreet='test');
         insert testContact1;  
 
         Portal__c testPortal = new Portal__c(Name = 'Test Portal');
@@ -270,7 +276,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         Account testAccount1 = new Account(Name='Test Account 1');
         insert testAccount1;
 
-        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
+        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com', MailingCountry='India', MailingCity='Ahmedabad', MailingStreet='test');
         insert testContact1;  
 
         Portal__c testPortal = new Portal__c(Name = 'Test Portal');
@@ -367,7 +373,7 @@ public with sharing class TestXMLFeedGeneratorForPF {
         Account testAccount1 = new Account(Name='Test Account 1');
         insert testAccount1;
 
-        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com');
+        Contact testContact1 = new Contact(FirstName='Vansh', LastName='Mehra', AccountId=testAccount1.Id,ContactType_hz__c='Landlord',Stage__c='Active',Stage_hz__c='Off-Market', Email='vansh@houzon.com', MailingCountry='India', MailingCity='Ahmedabad', MailingStreet='test');
         insert testContact1;  
 
         // Create test data

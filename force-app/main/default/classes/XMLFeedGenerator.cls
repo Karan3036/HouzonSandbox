@@ -40,7 +40,7 @@ public class XMLFeedGenerator {
 
         // Map to store PropertyMedia__c records related to each Property_hz__c
         Map<Id, List<PropertyMedia__c>> propertyMediaUrlsMap = new Map<Id, List<PropertyMedia__c>>();
-        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds AND IsOnPortalFeed__c = true Order BY SortOnPortalFeed__c ASC NULLS LAST, Name ASC]) {
+        for (PropertyMedia__c media : [SELECT FilenameUrlEncoded__c, ExternalLink__c, SortOnPortalFeed__c, Property_hz__c, LastModifiedDate, Tags__c FROM PropertyMedia__c WHERE Property_hz__c IN :PropertyIds AND IsOnPortalFeed__c = true Order BY SortOnPortalFeed__c ASC NULLS LAST, Name ASC]) {
             if (!propertyMediaUrlsMap.containsKey(media.Property_hz__c)) {
                 propertyMediaUrlsMap.put(media.Property_hz__c, new List<PropertyMedia__c>());
             }
@@ -111,11 +111,35 @@ public class XMLFeedGenerator {
             dom.XmlNode lastupdate = propertyNode.addChildElement('Last_Updated', null, null);
             lastupdate.addTextNode(lastModifiedDate);
 
+            // Include image URLs from map
             if (propertyMediaUrlsMap.containsKey((Id)record.get('Property_hz__c'))) {
                 dom.XmlNode ImageNode = propertyNode.addChildElement('Images', null, null);
+                dom.XmlNode AllNode = null;
+                dom.XmlNode FloorNode = null;
+                dom.XmlNode VideoNode = null;
                 for (PropertyMedia__c media : propertyMediaUrlsMap.get((Id)record.get('Property_hz__c'))) {
-                    dom.XmlNode fieldNodeImage = ImageNode.addChildElement('Image', null, null);
-                    fieldNodeImage.addTextNode(media.FilenameUrlEncoded__c);
+                    String imageUrl = String.isNotBlank(media.ExternalLink__c) ? media.ExternalLink__c : media.FilenameUrlEncoded__c;
+                    if (media.Tags__c != null) {
+                        List<String> tagsList = media.Tags__c.split(';');
+                        for (String tag : tagsList) {
+                            if (tag == 'Floorplan') {
+                                if (FloorNode == null) {
+                                    FloorNode = propertyNode.addChildElement('Floor_Plans', null, null);
+                                }
+                                dom.XmlNode fieldNodeImage = FloorNode.addChildElement('Floor_Plan', null, null);
+                                fieldNodeImage.addTextNode(imageUrl);
+                            } else if (tag == 'Virtual Tour' || tag == '360tour') {
+                                if (VideoNode == null) {
+                                    VideoNode = propertyNode.addChildElement('Videos', null, null);
+                                }
+                                dom.XmlNode fieldNodeImage = VideoNode.addChildElement('Video', null, null);
+                                fieldNodeImage.addTextNode(imageUrl);
+                            }
+                        }
+                    }   else {
+                        dom.XmlNode fieldNodeImage = ImageNode.addChildElement('Image', null, null);
+                        fieldNodeImage.addTextNode(imageUrl);
+                    }
                 }
             }
             
